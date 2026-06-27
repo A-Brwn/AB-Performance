@@ -1,0 +1,1902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AB Performance — 1RM Booster: Barbell Bench Press</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0f;--bg2:#11111a;--bg3:#171724;
+  --purple:#7c3aed;--purple-lt:#a855f7;
+  --white:#f4f4f8;--muted:#8888a0;--border:rgba(124,58,237,0.22);
+  --green:#22c55e;--amber:#f59e0b;--red:#ef4444;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh}
+a{color:inherit}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px)}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.08em;text-decoration:none;color:var(--white)}.logo span{color:var(--purple-lt)}
+.prog-label{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.info-box{background:rgba(124,58,237,.08);border:1px solid var(--border);border-radius:8px;padding:.9rem 1.2rem;font-size:.78rem;color:var(--muted);line-height:1.7;margin:1rem 0}
+.info-box strong{color:var(--white)}
+.prog-nav{background:var(--bg3);border-bottom:1px solid var(--border);padding:.8rem 1.5rem;display:flex;gap:.4rem;overflow-x:auto;position:sticky;top:65px;z-index:90}
+.nav-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:.4rem .8rem;border-radius:4px;font-size:.7rem;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;min-width:58px;transition:all .2s;white-space:nowrap;text-transform:uppercase;letter-spacing:.05em;font-family:'Inter',sans-serif}
+.nav-btn span{font-size:.58rem;color:var(--muted);margin-top:2px;text-transform:none}
+.nav-btn:hover,.nav-btn.active{background:var(--purple);border-color:var(--purple);color:#fff}
+.nav-btn.active span,.nav-btn:hover span{color:rgba(255,255,255,.7)}
+.main{padding:2rem;max-width:1500px;margin:0 auto}
+.session{display:none}.session.active{display:block}
+.session-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1rem}
+.session-header{padding:1.5rem 2rem;border-bottom:1px solid var(--border)}
+.session-tag{font-size:.68rem;text-transform:uppercase;letter-spacing:.15em;color:var(--purple-lt);font-weight:600;margin-bottom:.4rem}
+.session-card h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.05em;margin-bottom:.3rem}
+.session-sub{color:var(--muted);font-size:.82rem;line-height:1.6}
+.table-wrap{overflow-x:auto;padding:1rem}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+th{background:var(--bg3);color:var(--muted);text-align:left;padding:.55rem .8rem;font-size:.67rem;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;border-bottom:1px solid var(--border)}
+td{padding:.65rem .8rem;border-bottom:1px solid rgba(124,58,237,.08);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(124,58,237,.03)}
+.ex-name{font-weight:600;color:var(--white);min-width:180px}
+.calc-load{color:var(--green);font-weight:700;white-space:nowrap}
+.suggested-load{color:var(--amber);font-size:.75rem}
+.prev-cell{color:var(--purple-lt);font-size:.75rem;font-weight:600}
+.notes-cell{color:var(--muted);font-size:.75rem;line-height:1.6;min-width:260px;max-width:380px}
+.variation-note{font-size:.68rem;color:var(--purple-lt);margin-top:.3rem;font-style:italic}
+.actual-input,.rpe-input{width:65px;padding:.3rem .5rem;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--white);font-size:.8rem;outline:none;transition:border-color .2s;font-family:'Inter',sans-serif}
+.actual-input:focus,.rpe-input:focus{border-color:var(--purple-lt)}
+.vid-link{display:inline-block;font-size:.65rem;background:rgba(255,0,0,.12);border:1px solid rgba(255,0,0,.3);color:#ff6b6b;padding:.15rem .5rem;border-radius:3px;text-decoration:none;margin-top:.3rem;margin-left:.3rem;white-space:nowrap}
+.vid-link:hover{background:rgba(255,0,0,.25)}
+.session-notes{padding:1rem 1.5rem;border-top:1px solid var(--border)}
+.session-notes strong{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.session-notes textarea{width:100%;margin-top:.5rem;padding:.6rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:.8rem;resize:vertical;min-height:55px;outline:none}
+.load-note{padding:.8rem 1.5rem;background:rgba(124,58,237,.05);border-top:1px solid var(--border);font-size:.75rem;color:var(--muted);line-height:1.6}
+/* WARMUP */
+.wu-section{margin-bottom:1.5rem}
+.wu-section-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.15em;color:var(--purple-lt);font-weight:600;margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+.wu-item{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:1rem 1.2rem;margin-bottom:.6rem}
+.wu-name{font-weight:600;font-size:.88rem;margin-bottom:.2rem}
+.wu-detail{font-size:.72rem;color:var(--purple-lt);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:.3rem}
+.wu-desc{font-size:.78rem;color:var(--muted);line-height:1.6}
+/* TEST DAY */
+.test-day-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:2rem}
+.rules-box{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:1rem 1.2rem;font-size:.8rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
+.attempt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1rem 0}
+.attempt-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:1rem}
+.attempt-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--purple-lt);font-weight:600;margin-bottom:.6rem}
+.attempt-input{width:100%;padding:.5rem;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--white);font-size:.9rem;outline:none;margin-bottom:.4rem;font-family:'Inter',sans-serif}
+.attempt-notes{width:100%;padding:.4rem;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--white);font-size:.75rem;outline:none;font-family:'Inter',sans-serif}
+.new-1rm-box{background:rgba(124,58,237,.1);border:1px solid var(--purple);border-radius:8px;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:1.5rem}
+.new-1rm-box input{padding:.5rem .8rem;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--white);font-size:1rem;width:100px;outline:none;font-family:'Inter',sans-serif}
+#improvementText{color:var(--green);font-weight:700}
+.section-heading{font-size:.68rem;text-transform:uppercase;letter-spacing:.15em;color:var(--purple-lt);font-weight:600;margin:1.2rem 0 .6rem}
+/* INTRO */
+.intro-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:2rem;margin-bottom:1.5rem}
+.intro-card h3{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.05em;margin-bottom:1rem;color:var(--purple-lt)}
+.intro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:1rem}
+.intro-stat{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:1rem}
+.intro-stat-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.3rem}
+.intro-stat-val{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.05em;line-height:1.2}
+/* FIELD */
+.field label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600;margin-bottom:.35rem}
+.field input{width:100%;padding:.65rem .9rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s}
+.field input:focus{border-color:var(--purple-lt)}
+.field-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1rem}
+/* WARMUP PAGE */
+.wu-page{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:2rem}
+.wu-page h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.05em;margin-bottom:.5rem}
+@media(max-width:640px){header{padding:.8rem 1rem}.main{padding:1rem}.table-wrap{padding:.5rem}}
+
+.intake-summary{background:var(--bg2);border:1px solid var(--border);border-radius:8px;margin:1rem 2rem;overflow:hidden}
+.intake-summary-header{padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
+.intake-summary-header h4{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600;margin:0}
+.intake-summary-toggle{font-size:.75rem;color:var(--purple-lt);font-weight:600}
+.intake-summary-body{display:none;padding:1rem 1.2rem;border-top:1px solid var(--border)}
+.intake-summary-body.open{display:block}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem}
+.summary-item{background:var(--bg3);border-radius:6px;padding:.6rem .8rem}
+.summary-item .si-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.2rem}
+.summary-item .si-val{font-size:.85rem;font-weight:600;color:var(--white)}
+.summary-macros{display:flex;gap:.6rem;margin-top:.6rem;flex-wrap:wrap}
+.macro-chip{background:rgba(124,58,237,.12);border:1px solid var(--border);border-radius:6px;padding:.4rem .8rem;font-size:.8rem;font-weight:600;color:var(--purple-lt)}
+.intake-link{display:inline-block;margin-top:.8rem;font-size:.75rem;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border)}
+.intake-link:hover{color:var(--white)}
+.auto-val{padding:.65rem .9rem;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);border-radius:6px;font-size:.9rem;color:var(--green);font-weight:600;min-height:2.4rem}
+.field select{width:100%;padding:.65rem .9rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;outline:none}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./auth.js"></script>
+</head>
+<body>
+<header>
+  <a href="index.html" onclick="event.preventDefault();var b=window.location.href.substring(0,window.location.href.lastIndexOf('/')+1);window.location.href=b+'index.html';" class="logo nav-logo" style="text-decoration:none;cursor:pointer">AB <span>Performance</span></a>
+  <div class="prog-label">1RM Booster — Barbell Bench Press</div>
+  <a href="./LOGIN.html" id="navLoginBtn" style="font-size:.75rem;color:var(--muted);text-decoration:none;padding:.4rem .8rem;border:1px solid var(--border);border-radius:4px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Log In</a>
+  <span id="navUserLabel" style="display:none;font-size:.75rem;color:var(--purple-lt);font-weight:600;letter-spacing:.05em"></span> <a href="#" id="navLogoutBtn" onclick="handleSignOut()" style="display:none;font-size:.75rem;color:var(--muted);text-decoration:none;font-weight:600;letter-spacing:.05em;text-transform:uppercase">&nbsp;· Sign Out</a>
+</header>
+
+<div class="prog-nav" id="progNav">
+  <button class="nav-btn active" onclick="showSess('WARMUP')" id="nav-WARMUP">WARM<span>Protocol</span></button>
+  <button class="nav-btn" onclick="showSess('STATS')" id="nav-STATS">STATS<span>My Stats</span></button>
+
+  <button class="nav-btn " onclick="showSess('W1D1')" id="nav-W1D1">W1D1<span>Technique & </span></button><button class="nav-btn " onclick="showSess('W1D2')" id="nav-W1D2">W1D2<span>Variation & </span></button><button class="nav-btn " onclick="showSess('W1D3')" id="nav-W1D3">W1D3<span>Volume Focus</span></button><button class="nav-btn " onclick="showSess('W2D1')" id="nav-W2D1">W2D1<span>Intensity St</span></button><button class="nav-btn " onclick="showSess('W2D2')" id="nav-W2D2">W2D2<span>Variation & </span></button><button class="nav-btn " onclick="showSess('W2D3')" id="nav-W2D3">W2D3<span>Heavy Volume</span></button><button class="nav-btn " onclick="showSess('W3D1')" id="nav-W3D1">W3D1<span>Heavy Single</span></button><button class="nav-btn " onclick="showSess('W3D2')" id="nav-W3D2">W3D2<span>Sub-Maximal </span></button><button class="nav-btn " onclick="showSess('W3D3')" id="nav-W3D3">W3D3<span>Volume Flush</span></button><button class="nav-btn " onclick="showSess('W4D1')" id="nav-W4D1">W4D1<span>Deload — Spe</span></button><button class="nav-btn " onclick="showSess('W4D2')" id="nav-W4D2">W4D2<span>Pre-Test Act</span></button><button class="nav-btn " onclick="showSess('W4D3')" id="nav-W4D3">TEST<span>Test 🎯</span></button>
+</div>
+
+
+<div class="intake-summary" id="intakeSummary" style="display:none">
+  <div class="intake-summary-header" onclick="toggleSummary()">
+    <h4>📋 Your Stats Summary</h4>
+    <span class="intake-summary-toggle" id="summaryToggle">Show ▾</span>
+  </div>
+  <div class="intake-summary-body" id="summaryBody">
+    <div class="summary-grid" id="summaryGrid"></div>
+    <div class="summary-macros" id="summaryMacros"></div>
+    <a href="#" class="intake-link" id="intakeLink">Update your stats →</a>
+  </div>
+</div>
+<div class="main">
+
+  <!-- WARMUP TAB --><div class="session active" id="sess-WARMUP">
+    <div class="wu-page">
+      <h2>Warm-Up Protocol</h2>
+      <p style="color:var(--muted);font-size:.85rem;margin-bottom:1.5rem">Follow this warm-up before every session. Use the same warm-up on test day. Do not skip — cold muscles underperform and carry higher injury risk.</p>
+      
+<div class="info-box">
+  <strong>How to read tempo (e.g. 3–1–1):</strong>
+  First number = eccentric (lowering) in seconds &nbsp;·&nbsp;
+  Second = pause at bottom &nbsp;·&nbsp;
+  Third = concentric (lifting) in seconds &nbsp;·&nbsp;
+  <strong>X</strong> = as fast/explosive as possible.
+  <em>Not every exercise has a prescribed tempo — where none is listed, use a natural controlled pace.</em>
+</div>
+      
+    <div class="wu-section">
+      <div class="wu-section-title">General Warm-Up (5 min)</div>
+      <div class="wu-item"><div class="wu-info"><div class="wu-name">Cardio</div><div class="wu-desc">5 min easy rowing or arm bike — upper body blood flow without fatiguing the shoulders.</div></div></div>
+    </div>
+    <div class="wu-section">
+      <div class="wu-section-title">Mobility & Activation (8–10 min)</div>
+      
+        <div class="wu-item">
+          <div class="wu-info">
+            <div class="wu-name">Thoracic Extension over Foam Roller</div>
+            <div class="wu-detail">2 × 60s</div>
+            <div class="wu-desc">Place roller across mid-back, hands behind head, extend over it segment by segment. Improves arch and scapular retraction — directly improves bench setup.</div>
+            <a class="vid-link" href="https://www.youtube.com/watch?v=9Y11Kc0E0og" target="_blank">▶ Watch Tutorial</a>
+          </div>
+        </div>
+        <div class="wu-item">
+          <div class="wu-info">
+            <div class="wu-name">Band Pull-Apart</div>
+            <div class="wu-detail">2 × 20</div>
+            <div class="wu-desc">Hold a light band at chest height, arms straight, pull apart to a T. Rear delt and external rotator activation before heavy pressing.</div>
+            <a class="vid-link" href="https://www.youtube.com/watch?v=RqaxCYYkLVA" target="_blank">▶ Watch Tutorial</a>
+          </div>
+        </div>
+        <div class="wu-item">
+          <div class="wu-info">
+            <div class="wu-name">Face Pull</div>
+            <div class="wu-detail">2 × 15</div>
+            <div class="wu-desc">Cable or band at face height. Pull to forehead, rotate hands to beside ears. Non-negotiable shoulder health work.</div>
+            <a class="vid-link" href="https://www.youtube.com/watch?v=V8dZ3pyiCBo" target="_blank">▶ Watch Tutorial</a>
+          </div>
+        </div>
+        <div class="wu-item">
+          <div class="wu-info">
+            <div class="wu-name">Push-Up with 2s pause at bottom</div>
+            <div class="wu-detail">2 × 10</div>
+            <div class="wu-desc">Full push-up, pause 2 seconds with chest near the floor. Activates pec and tricep through full range before loading.</div>
+            
+          </div>
+        </div>
+        <div class="wu-item">
+          <div class="wu-info">
+            <div class="wu-name">Shoulder CARs</div>
+            <div class="wu-detail">1 × 5 each direction, each arm</div>
+            <div class="wu-desc">Slowly move the shoulder through its complete range of motion. Full mobility check before any pressing.</div>
+            <a class="vid-link" href="https://www.youtube.com/watch?v=2hyNG1U5wYs" target="_blank">▶ Watch Tutorial</a>
+          </div>
+        </div>
+    </div>
+    </div>
+  </div>
+
+  <!-- INTRO SESSION -->
+  <div class="session" id="sess-INTRO">
+    <div class="intro-card">
+      <h3>4-WEEK 1RM BOOSTER — BARBELL BENCH PRESS</h3>
+      <div class="intro-grid">
+        <div class="intro-stat"><div class="intro-stat-label">Duration</div><div class="intro-stat-val">4 Weeks</div></div>
+        <div class="intro-stat"><div class="intro-stat-label">Sessions/Week</div><div class="intro-stat-val">3</div></div>
+        <div class="intro-stat"><div class="intro-stat-label">Primary Muscles</div><div class="intro-stat-val" style="font-size:.9rem;line-height:1.4">Chest, Triceps, Front Delts</div></div>
+        <div class="intro-stat"><div class="intro-stat-label">Key Cue</div><div class="intro-stat-val" style="font-size:.85rem;line-height:1.4">Arch, brace, full leg drive, touch lower chest</div></div>
+      </div>
+      <p style="margin-top:1.5rem;color:var(--muted);font-size:.85rem;line-height:1.8">
+        This programme can be run alongside your existing training. Aim for <strong style="color:var(--white)">3 sessions per week</strong> with at least <strong style="color:var(--white)">48 hours rest</strong> between sessions working the same muscle groups.<br><br>
+        <strong style="color:var(--amber)">Structure:</strong> Week 1 Accumulation (70–75%) → Week 2 Intensification (75–82%) → Week 3 Peaking (82–90%) → Week 4 Deload & 1RM Test.<br><br>
+        Strength gains over 4 weeks are primarily <strong style="color:var(--white)">neural</strong> — your nervous system learns to recruit more motor units and fire them harder and faster. The peaking structure maximises this adaptation.
+      </p>
+      <div class="field-grid" style="margin-top:1.5rem;max-width:500px">
+        <div class="field"><label>Your 1RM (kg)</label><input type="number" id="rmInput" placeholder="Enter from your test day" oninput="applyRM()"/></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SESSION DIVS -->
+  <div class="session" id="sess-W1D1">
+<div class="session-card">
+  <div class="session-header">
+    <div class="session-tag">WEEK 1 · DAY 1 — ACCUMULATION</div>
+    <h2>Technique & Volume</h2>
+    <p class="session-sub">70–75% 1RM · Focus: movement quality, bar path, scapular control · Can be run alongside existing programming with 48hrs rest</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>% 1RM</th>
+        <th>Target (kg)</th><th>Actual (kg)</th><th>Last Session (kg)</th>
+        <th>Rest</th><th>RPE Target</th><th>Actual RPE</th><th>Coaching Notes</th>
+      </tr></thead>
+      <tbody><tr>
+          <td class="ex-name">
+            BARBELL BENCH PRESS — Technique Sets
+            
+          </td>
+          <td>5</td>
+          <td>5</td>
+          <td>3–1–1</td>
+          <td>70%</td>
+          <td class="calc-load" data-pct="0.7">—</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_BARBELL_BENCH_PRESS_—_Techniqu" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_BARBELL_BENCH_PRESS_—_Techniqu">—</td>
+          <td>3 min</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Set up with a slight natural arch, retract and depress shoulder blades, feet flat. Touch bar to lower chest — no bounce. Elbows at 45–60°. Press in a slight arc back toward the rack. Every rep should look identical.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Close-Grip Bench Press
+            
+          </td>
+          <td>3</td>
+          <td>8</td>
+          <td>3–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~60% of bench 1RM">~60% of bench 1RM</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Close-Grip_Bench_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W1D1_bench_Close-Grip_Bench_Press">—</td>
+          <td>2 min</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Grip just inside shoulder width. Elbows stay tucked — loads triceps heavily. Same arch and setup as main bench. A weak lockout is almost always a tricep problem — this is the fix.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Dumbbell Incline Press
+            
+          </td>
+          <td>3</td>
+          <td>10</td>
+          <td>2–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~30–35% of bench 1RM per hand">~30–35% of bench 1RM per hand</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Dumbbell_Incline_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W1D1_bench_Dumbbell_Incline_Press">—</td>
+          <td>90s</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">30–45° incline. DBs start at shoulder height, elbows at 45°. Press to near-lockout — don't let DBs drift too wide. Hits upper pec and front delt.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Seated Cable Row
+            
+          </td>
+          <td>3</td>
+          <td>12</td>
+          <td>2–1–2</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Moderate — full range of motion">Moderate — full range of motion</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Seated_Cable_Row" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W1D1_bench_Seated_Cable_Row">—</td>
+          <td>90s</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Drive elbows back past the torso. Strong upper back = stable shoulder girdle = more force transfer on the bench. Retract shoulder blades fully at the end.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Face Pull <a class="vid-link" href="https://www.youtube.com/watch?v=V8dZ3pyiCBo" target="_blank">▶ Watch Tutorial</a>
+            
+          </td>
+          <td>3</td>
+          <td>15</td>
+          <td>2–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Light — prioritise form">Light — prioritise form</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Face_Pull" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W1D1_bench_Face_Pull">—</td>
+          <td>60s</td>
+          <td>RPE 6</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Cable at face height. Pull to forehead, external rotate hands to beside ears. Counteracts the internal rotation dominance of heavy pressing. Non-negotiable shoulder health work.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Dead Bug <a class="vid-link" href="https://www.youtube.com/watch?v=bxn9FBrt4-A" target="_blank">▶ Watch Tutorial</a>
+            <div class="variation-note">↔ Alternatives: Plank Hold 45s — if floor space is limited · Hollow Body Hold — more demanding version</div>
+          </td>
+          <td>3</td>
+          <td>45s</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Bodyweight">Bodyweight</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Dead_Bug" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W1D1_bench_Dead_Bug">—</td>
+          <td>60s</td>
+          <td>RPE 6</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Lower back pressed into the floor throughout. Opposite arm and leg extend slowly — 3 seconds. Core stability transfers directly to a stable bench setup.</td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-notes"><strong>Session Notes</strong><textarea placeholder="Log notes, how you felt, anything to adjust next session..."></textarea></div>
+  <div class="load-note">💡 If actual RPE is consistently 2+ below target, add 2.5–5kg next session. If you hit failure before target reps, reduce by 5% and note it. Progressive overload is the goal — small increases week on week.</div>
+</div></div><div class="session" id="sess-W1D2">
+<div class="session-card">
+  <div class="session-header">
+    <div class="session-tag">WEEK 1 · DAY 2 — ACCUMULATION</div>
+    <h2>Variation & Accessory</h2>
+    <p class="session-sub">65–75% 1RM · Focus: pressing variation, upper back, shoulder health</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>% 1RM</th>
+        <th>Target (kg)</th><th>Actual (kg)</th><th>Last Session (kg)</th>
+        <th>Rest</th><th>RPE Target</th><th>Actual RPE</th><th>Coaching Notes</th>
+      </tr></thead>
+      <tbody><tr>
+          <td class="ex-name">
+            Dumbbell Floor Press
+            
+          </td>
+          <td>4</td>
+          <td>8</td>
+          <td>3–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~30% of bench 1RM per hand">~30% of bench 1RM per hand</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Dumbbell_Floor_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W1D2_bench_Dumbbell_Floor_Press">—</td>
+          <td>2 min</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Lie flat, upper arms resting on floor at 45°. Press from a dead stop each rep — eliminates stretch reflex, isolates pressing muscles. Builds starting strength off the chest.</td>
+        </tr><tr>
+          <td class="ex-name">
+            BARBELL BENCH PRESS — Technique Singles
+            
+          </td>
+          <td>3</td>
+          <td>3</td>
+          <td>2–1–1</td>
+          <td>65%</td>
+          <td class="calc-load" data-pct="0.65">—</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_BARBELL_BENCH_PRESS_—_Techniqu" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_BARBELL_BENCH_PRESS_—_Techniqu">—</td>
+          <td>2 min</td>
+          <td>RPE 6</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Focus on feel and consistency. Bar speed should be crisp. If it slows above the chest, the load is too heavy for technique work today.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Lat Pulldown
+            <div class="variation-note">↔ Alternatives: Weighted Pull-Up — if available and competent · Band-Assisted Pull-Up — if working toward unassisted</div>
+          </td>
+          <td>3</td>
+          <td>10</td>
+          <td>3–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Challenging but full ROM possible">Challenging but full ROM possible</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Lat_Pulldown" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W1D2_bench_Lat_Pulldown">—</td>
+          <td>90s</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Full stretch at the top, pull to upper chest. Lats stabilise the shoulder girdle under a heavy bench — a weak lat means a leaking base.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Dumbbell Lateral Raise
+            
+          </td>
+          <td>3</td>
+          <td>15</td>
+          <td>2–1–3</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Light — 5–10kg for most">Light — 5–10kg for most</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Dumbbell_Lateral_Raise" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W1D2_bench_Dumbbell_Lateral_Raise">—</td>
+          <td>60s</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Slow 3-second eccentric — do not swing. Lateral delt development directly correlates with pressing power. More shoulder width = more pressing capability.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Face Pull <a class="vid-link" href="https://www.youtube.com/watch?v=V8dZ3pyiCBo" target="_blank">▶ Watch Tutorial</a>
+            
+          </td>
+          <td>3</td>
+          <td>15</td>
+          <td>2–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Light — prioritise form">Light — prioritise form</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Face_Pull" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W1D2_bench_Face_Pull">—</td>
+          <td>60s</td>
+          <td>RPE 6</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Same as W1D1. Keep reps high, load moderate. Shoulder health baseline.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Pallof Press <a class="vid-link" href="https://www.youtube.com/watch?v=QVhBsy6P0xk" target="_blank">▶ Watch Tutorial</a>
+            <div class="variation-note">↔ Alternatives: Band Pallof Press — if no cable machine · Dead Bug — alternative anti-extension core</div>
+          </td>
+          <td>3</td>
+          <td>12 each side</td>
+          <td>2–1–2</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Light — anti-rotation focus">Light — anti-rotation focus</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Pallof_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W1D2_bench_Pallof_Press">—</td>
+          <td>60s</td>
+          <td>RPE 6</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Cable or band at chest height, press straight out and hold 1 second. Anti-rotation core — resists forces present during a max bench attempt.</td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-notes"><strong>Session Notes</strong><textarea placeholder="Log notes, how you felt, anything to adjust next session..."></textarea></div>
+  <div class="load-note">💡 If actual RPE is consistently 2+ below target, add 2.5–5kg next session. If you hit failure before target reps, reduce by 5% and note it. Progressive overload is the goal — small increases week on week.</div>
+</div></div><div class="session" id="sess-W1D3">
+<div class="session-card">
+  <div class="session-header">
+    <div class="session-tag">WEEK 1 · DAY 3 — ACCUMULATION</div>
+    <h2>Volume Focus</h2>
+    <p class="session-sub">72% 1RM · Focus: accumulating bench volume at moderate intensity</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>% 1RM</th>
+        <th>Target (kg)</th><th>Actual (kg)</th><th>Last Session (kg)</th>
+        <th>Rest</th><th>RPE Target</th><th>Actual RPE</th><th>Coaching Notes</th>
+      </tr></thead>
+      <tbody><tr>
+          <td class="ex-name">
+            BARBELL BENCH PRESS — Volume Block
+            
+          </td>
+          <td>5</td>
+          <td>4</td>
+          <td>3–1–1</td>
+          <td>72%</td>
+          <td class="calc-load" data-pct="0.72">—</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_BARBELL_BENCH_PRESS_—_Volume_B" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_BARBELL_BENCH_PRESS_—_Volume_B">—</td>
+          <td>3 min</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Higher volume at slightly elevated intensity vs Day 1. Rebuild setup every set — arch, scapulae, foot position. Fatigue does not change the setup.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Close-Grip Bench Press
+            
+          </td>
+          <td>3</td>
+          <td>6</td>
+          <td>3–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~65% of bench 1RM">~65% of bench 1RM</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Close-Grip_Bench_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W1D3_bench_Close-Grip_Bench_Press">—</td>
+          <td>2 min</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Heavier than W1D1. Same cues: elbows tucked, touch mid-chest, strong lockout.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Dumbbell Incline Press
+            
+          </td>
+          <td>3</td>
+          <td>8</td>
+          <td>2–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~35% of bench 1RM per hand">~35% of bench 1RM per hand</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Dumbbell_Incline_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W1D3_bench_Dumbbell_Incline_Press">—</td>
+          <td>90s</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Heavier than W1D1. Push to top of rep range before adding load. Controlled 2-second eccentric.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Overhead Press (Strict)
+            
+          </td>
+          <td>3</td>
+          <td>10</td>
+          <td>2–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~30–35% of bench 1RM">~30–35% of bench 1RM</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Overhead_Press_(Strict)" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_Overhead_Press_(Strict)">—</td>
+          <td>90s</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">No leg drive. Rib cage down throughout. Builds front delt and overhead stability which transfers to the top lockout of the bench.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Cable Fly
+            <div class="variation-note">↔ Alternatives: Dumbbell Fly — if no cable machine · Pec Deck — machine alternative</div>
+          </td>
+          <td>3</td>
+          <td>12</td>
+          <td>2–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Light — feel the pec stretch">Light — feel the pec stretch</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Cable_Fly" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W1D3_bench_Cable_Fly">—</td>
+          <td>60s</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Wide arc, feel the pec stretch at the bottom. Full squeeze at the top. Pec isolation volume to complement the compound work.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Ab Wheel Rollout <a class="vid-link" href="https://www.youtube.com/watch?v=j6lR4u193gE" target="_blank">▶ Watch Tutorial</a>
+            <div class="variation-note">↔ Alternatives: Plank Hold 60s — if no ab wheel · Hollow Body Hold — more advanced alternative</div>
+          </td>
+          <td>3</td>
+          <td>8–10</td>
+          <td>3–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Bodyweight">Bodyweight</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Ab_Wheel_Rollout" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W1D3_bench_Ab_Wheel_Rollout">—</td>
+          <td>60s</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">From knees. Keep hips in line — do not let them sag. Roll to your limit, pause, return under control. Direct core carry-over to bench bracing.</td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-notes"><strong>Session Notes</strong><textarea placeholder="Log notes, how you felt, anything to adjust next session..."></textarea></div>
+  <div class="load-note">💡 If actual RPE is consistently 2+ below target, add 2.5–5kg next session. If you hit failure before target reps, reduce by 5% and note it. Progressive overload is the goal — small increases week on week.</div>
+</div></div><div class="session" id="sess-W2D1">
+<div class="session-card">
+  <div class="session-header">
+    <div class="session-tag">WEEK 2 · DAY 1 — INTENSIFICATION</div>
+    <h2>Intensity Step-Up</h2>
+    <p class="session-sub">75–80% 1RM · Focus: heavier loads, compensatory acceleration</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>% 1RM</th>
+        <th>Target (kg)</th><th>Actual (kg)</th><th>Last Session (kg)</th>
+        <th>Rest</th><th>RPE Target</th><th>Actual RPE</th><th>Coaching Notes</th>
+      </tr></thead>
+      <tbody><tr>
+          <td class="ex-name">
+            BARBELL BENCH PRESS — Working Sets
+            
+          </td>
+          <td>5</td>
+          <td>4</td>
+          <td>3–1–1</td>
+          <td>75%</td>
+          <td class="calc-load" data-pct="0.75">—</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_BARBELL_BENCH_PRESS_—_Working_" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_BARBELL_BENCH_PRESS_—_Working_">—</td>
+          <td>3 min</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Heavier than Week 1. Intent matters — press as fast as possible on every rep. Compensatory acceleration maximises motor unit recruitment even when bar speed slows.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Close-Grip Bench Press
+            
+          </td>
+          <td>3</td>
+          <td>6</td>
+          <td>3–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~67% of bench 1RM">~67% of bench 1RM</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Close-Grip_Bench_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W2D1_bench_Close-Grip_Bench_Press">—</td>
+          <td>2 min</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Slightly heavier than W1. Elbows tucked hard, strong lockout every rep.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Dumbbell Incline Press
+            
+          </td>
+          <td>3</td>
+          <td>8</td>
+          <td>2–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~37% of bench 1RM per hand">~37% of bench 1RM per hand</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Dumbbell_Incline_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W2D1_bench_Dumbbell_Incline_Press">—</td>
+          <td>90s</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Progressive load from Week 1. Same form — don't chase weight at the expense of range.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Seated Cable Row
+            
+          </td>
+          <td>3</td>
+          <td>10</td>
+          <td>2–1–2</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Heavier than W1D1">Heavier than W1D1</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Seated_Cable_Row" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W2D1_bench_Seated_Cable_Row">—</td>
+          <td>90s</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Heavier than Week 1. Upper back pulling capacity directly limits pressing performance.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Pallof Press <a class="vid-link" href="https://www.youtube.com/watch?v=QVhBsy6P0xk" target="_blank">▶ Watch Tutorial</a>
+            <div class="variation-note">↔ Alternatives: Band Pallof Press · Dead Bug</div>
+          </td>
+          <td>3</td>
+          <td>12 each side</td>
+          <td>2–1–2</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Slightly heavier than W1">Slightly heavier than W1</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Pallof_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W2D1_bench_Pallof_Press">—</td>
+          <td>60s</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Anti-rotation core work. Heavier or more controlled than Week 1.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Tricep Pushdown
+            
+          </td>
+          <td>3</td>
+          <td>12</td>
+          <td>2–0–2</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Moderate — full extension at bottom">Moderate — full extension at bottom</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Tricep_Pushdown" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W2D1_bench_Tricep_Pushdown">—</td>
+          <td>60s</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Rope or straight bar. Full extension at the bottom — squeeze hard. Tricep lockout strength is the final limiter on a max bench.</td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-notes"><strong>Session Notes</strong><textarea placeholder="Log notes, how you felt, anything to adjust next session..."></textarea></div>
+  <div class="load-note">💡 If actual RPE is consistently 2+ below target, add 2.5–5kg next session. If you hit failure before target reps, reduce by 5% and note it. Progressive overload is the goal — small increases week on week.</div>
+</div></div><div class="session" id="sess-W2D2">
+<div class="session-card">
+  <div class="session-header">
+    <div class="session-tag">WEEK 2 · DAY 2 — INTENSIFICATION</div>
+    <h2>Variation & Heavy Accessory</h2>
+    <p class="session-sub">70–80% 1RM · Focus: singles practice, upper back strength</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>% 1RM</th>
+        <th>Target (kg)</th><th>Actual (kg)</th><th>Last Session (kg)</th>
+        <th>Rest</th><th>RPE Target</th><th>Actual RPE</th><th>Coaching Notes</th>
+      </tr></thead>
+      <tbody><tr>
+          <td class="ex-name">
+            Dumbbell Floor Press
+            
+          </td>
+          <td>4</td>
+          <td>6</td>
+          <td>3–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~32% of bench 1RM per hand">~32% of bench 1RM per hand</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Dumbbell_Floor_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W2D2_bench_Dumbbell_Floor_Press">—</td>
+          <td>2 min</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Heavier than W1D2. Dead stop each rep. Treat this as a strength movement — not hypertrophy. Rest fully between sets.</td>
+        </tr><tr>
+          <td class="ex-name">
+            BARBELL BENCH PRESS — Sub-Maximal Singles
+            
+          </td>
+          <td>3</td>
+          <td>2</td>
+          <td>2–1–1</td>
+          <td>80%</td>
+          <td class="calc-load" data-pct="0.8">—</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_BARBELL_BENCH_PRESS_—_Sub-Maxi" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_BARBELL_BENCH_PRESS_—_Sub-Maxi">—</td>
+          <td>3 min</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Near-heavy doubles. Each should move confidently. If bar speed drops significantly, that is your limit today.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Weighted Pull-Up
+            <div class="variation-note">↔ Alternatives: Lat Pulldown — if not yet doing weighted pull-ups · Band-Assisted Pull-Up — progression step</div>
+          </td>
+          <td>3</td>
+          <td>6–8</td>
+          <td>3–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Add 5–10kg via belt or vest">Add 5–10kg via belt or vest</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Weighted_Pull-Up" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W2D2_bench_Weighted_Pull-Up">—</td>
+          <td>2 min</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Full range — dead hang at the bottom, chin over bar at the top. Upper back and lat strength directly supports shoulder stability under a heavy bench.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Dumbbell Lateral Raise
+            
+          </td>
+          <td>3</td>
+          <td>12</td>
+          <td>2–1–3</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Slightly heavier than W1">Slightly heavier than W1</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Dumbbell_Lateral_Raise" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W2D2_bench_Dumbbell_Lateral_Raise">—</td>
+          <td>60s</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Heavier than W1D2. Slow eccentric. Lateral delt strength and size both contribute to pressing power.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Face Pull <a class="vid-link" href="https://www.youtube.com/watch?v=V8dZ3pyiCBo" target="_blank">▶ Watch Tutorial</a>
+            
+          </td>
+          <td>3</td>
+          <td>20</td>
+          <td>1–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Light — high rep health work">Light — high rep health work</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Face_Pull" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W2D2_bench_Face_Pull">—</td>
+          <td>60s</td>
+          <td>RPE 6</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">High rep, light load. Keep volume up on this movement throughout the programme.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Overhead Tricep Extension
+            
+          </td>
+          <td>3</td>
+          <td>12</td>
+          <td>3–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Light–moderate DB or cable">Light–moderate DB or cable</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Overhead_Tricep_Extension" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W2D2_bench_Overhead_Tricep_Extension">—</td>
+          <td>60s</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Full stretch at the top. Long head of tricep crosses the shoulder joint — training it builds lockout strength and shoulder stability together.</td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-notes"><strong>Session Notes</strong><textarea placeholder="Log notes, how you felt, anything to adjust next session..."></textarea></div>
+  <div class="load-note">💡 If actual RPE is consistently 2+ below target, add 2.5–5kg next session. If you hit failure before target reps, reduce by 5% and note it. Progressive overload is the goal — small increases week on week.</div>
+</div></div><div class="session" id="sess-W2D3">
+<div class="session-card">
+  <div class="session-header">
+    <div class="session-tag">WEEK 2 · DAY 3 — INTENSIFICATION</div>
+    <h2>Heavy Volume</h2>
+    <p class="session-sub">78% 1RM · Focus: heaviest working sets so far</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>% 1RM</th>
+        <th>Target (kg)</th><th>Actual (kg)</th><th>Last Session (kg)</th>
+        <th>Rest</th><th>RPE Target</th><th>Actual RPE</th><th>Coaching Notes</th>
+      </tr></thead>
+      <tbody><tr>
+          <td class="ex-name">
+            BARBELL BENCH PRESS — Heavy Sets
+            
+          </td>
+          <td>4</td>
+          <td>3</td>
+          <td>2–1–1</td>
+          <td>78%</td>
+          <td class="calc-load" data-pct="0.78">—</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_BARBELL_BENCH_PRESS_—_Heavy_Se" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_BARBELL_BENCH_PRESS_—_Heavy_Se">—</td>
+          <td>3–4 min</td>
+          <td>RPE 8–9</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Heaviest working sets so far. Rest fully — 3–4 min minimum. Rebuild setup every set. Do not rush because you are fatigued.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Close-Grip Bench Press
+            
+          </td>
+          <td>3</td>
+          <td>5</td>
+          <td>3–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~70% of bench 1RM">~70% of bench 1RM</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Close-Grip_Bench_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W2D3_bench_Close-Grip_Bench_Press">—</td>
+          <td>2 min</td>
+          <td>RPE 9</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Heaviest close-grip of the programme so far. Strong lockout every rep. If lockout is grinding, this is exactly the work needed.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Dumbbell Incline Press
+            
+          </td>
+          <td>3</td>
+          <td>8</td>
+          <td>2–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~40% of bench 1RM per hand">~40% of bench 1RM per hand</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Dumbbell_Incline_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W2D3_bench_Dumbbell_Incline_Press">—</td>
+          <td>90s</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Heavier than W2D1. Upper pec volume at high intensity.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Cable Fly + Seated Cable Row (Superset)
+            <div class="variation-note">↔ Alternatives: DB Fly + DB Row superset — if no cables</div>
+          </td>
+          <td>3</td>
+          <td>10 each</td>
+          <td>2–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Moderate on both — form priority">Moderate on both — form priority</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Cable_Fly_+_Seated_Cable_Row_(" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_Cable_Fly_+_Seated_Cable_Row_(">—</td>
+          <td>90s</td>
+          <td>RPE 7–8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Fly into row immediately. Rest 90s between pairs. Pec isolation into upper back pulling — balanced stimulus.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Ab Wheel Rollout <a class="vid-link" href="https://www.youtube.com/watch?v=j6lR4u193gE" target="_blank">▶ Watch Tutorial</a>
+            <div class="variation-note">↔ Alternatives: Plank Hold 60s · Hollow Body Hold</div>
+          </td>
+          <td>3</td>
+          <td>10</td>
+          <td>3–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Bodyweight">Bodyweight</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Ab_Wheel_Rollout" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W2D3_bench_Ab_Wheel_Rollout">—</td>
+          <td>60s</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">More reps than W1D3. Core endurance under load — essential for maintaining brace through a slow, grinding heavy bench.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Tricep Pushdown
+            
+          </td>
+          <td>3</td>
+          <td>10</td>
+          <td>2–0–2</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Heavier than W2D1">Heavier than W2D1</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Tricep_Pushdown" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W2D3_bench_Tricep_Pushdown">—</td>
+          <td>60s</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Heavier than W2D1. Tricep lockout strength building toward test day.</td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-notes"><strong>Session Notes</strong><textarea placeholder="Log notes, how you felt, anything to adjust next session..."></textarea></div>
+  <div class="load-note">💡 If actual RPE is consistently 2+ below target, add 2.5–5kg next session. If you hit failure before target reps, reduce by 5% and note it. Progressive overload is the goal — small increases week on week.</div>
+</div></div><div class="session" id="sess-W3D1">
+<div class="session-card">
+  <div class="session-header">
+    <div class="session-tag">WEEK 3 · DAY 1 — PEAKING</div>
+    <h2>Heavy Singles Prep</h2>
+    <p class="session-sub">82% 1RM · Focus: near-maximal loads, zero missed reps</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>% 1RM</th>
+        <th>Target (kg)</th><th>Actual (kg)</th><th>Last Session (kg)</th>
+        <th>Rest</th><th>RPE Target</th><th>Actual RPE</th><th>Coaching Notes</th>
+      </tr></thead>
+      <tbody><tr>
+          <td class="ex-name">
+            BARBELL BENCH PRESS — Heavy Sets
+            
+          </td>
+          <td>4</td>
+          <td>3</td>
+          <td>2–1–1</td>
+          <td>82%</td>
+          <td class="calc-load" data-pct="0.82">—</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_BARBELL_BENCH_PRESS_—_Heavy_Se" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_BARBELL_BENCH_PRESS_—_Heavy_Se">—</td>
+          <td>4 min</td>
+          <td>RPE 9</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Near-maximal. Rest 4 min minimum. No missed reps — if a set feels like it might go wrong, take another full minute. A missed rep here does more damage than good.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Close-Grip Bench Press
+            
+          </td>
+          <td>3</td>
+          <td>4</td>
+          <td>3–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~72% of bench 1RM">~72% of bench 1RM</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Close-Grip_Bench_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W3D1_bench_Close-Grip_Bench_Press">—</td>
+          <td>3 min</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Technique reinforcement at heavier load. Focus on the lockout — squeeze triceps hard at the top.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Dumbbell Incline Press
+            
+          </td>
+          <td>3</td>
+          <td>6</td>
+          <td>2–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~42% of bench 1RM per hand">~42% of bench 1RM per hand</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Dumbbell_Incline_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W3D1_bench_Dumbbell_Incline_Press">—</td>
+          <td>2 min</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Heavier than W2. Lower reps, higher load — strength adaptation.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Weighted Pull-Up
+            <div class="variation-note">↔ Alternatives: Lat Pulldown — heavier than previous weeks · Band-Assisted Pull-Up</div>
+          </td>
+          <td>3</td>
+          <td>5</td>
+          <td>3–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Add 7.5–12.5kg">Add 7.5–12.5kg</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Weighted_Pull-Up" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W3D1_bench_Weighted_Pull-Up">—</td>
+          <td>2 min</td>
+          <td>RPE 9</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Heavier than W2D2. Full range every rep.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Pallof Press <a class="vid-link" href="https://www.youtube.com/watch?v=QVhBsy6P0xk" target="_blank">▶ Watch Tutorial</a>
+            <div class="variation-note">↔ Alternatives: Band Pallof Press · Dead Bug</div>
+          </td>
+          <td>3</td>
+          <td>10 each side</td>
+          <td>2–1–2</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Heavier than W2">Heavier than W2</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Pallof_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W3D1_bench_Pallof_Press">—</td>
+          <td>60s</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Core anti-rotation maintenance going into peak week.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Tricep Overhead Extension
+            
+          </td>
+          <td>3</td>
+          <td>10</td>
+          <td>3–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Light–moderate">Light–moderate</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Tricep_Overhead_Extension" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W3D1_bench_Tricep_Overhead_Extension">—</td>
+          <td>60s</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Long head through full range. Lockout health going into test week.</td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-notes"><strong>Session Notes</strong><textarea placeholder="Log notes, how you felt, anything to adjust next session..."></textarea></div>
+  <div class="load-note">💡 If actual RPE is consistently 2+ below target, add 2.5–5kg next session. If you hit failure before target reps, reduce by 5% and note it. Progressive overload is the goal — small increases week on week.</div>
+</div></div><div class="session" id="sess-W3D2">
+<div class="session-card">
+  <div class="session-header">
+    <div class="session-tag">WEEK 3 · DAY 2 — PEAKING</div>
+    <h2>Sub-Maximal Singles</h2>
+    <p class="session-sub">85% 1RM · Focus: heavy singles, build confidence for test day</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>% 1RM</th>
+        <th>Target (kg)</th><th>Actual (kg)</th><th>Last Session (kg)</th>
+        <th>Rest</th><th>RPE Target</th><th>Actual RPE</th><th>Coaching Notes</th>
+      </tr></thead>
+      <tbody><tr>
+          <td class="ex-name">
+            BARBELL BENCH PRESS — Heavy Singles
+            
+          </td>
+          <td>5</td>
+          <td>1</td>
+          <td>2–1–X</td>
+          <td>85%</td>
+          <td class="calc-load" data-pct="0.85">—</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_BARBELL_BENCH_PRESS_—_Heavy_Si" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_BARBELL_BENCH_PRESS_—_Heavy_Si">—</td>
+          <td>4–5 min</td>
+          <td>RPE 9</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Dress rehearsal for test day. Full setup ritual before every rep — big breath, brace, unrack, lower controlled, press explosively. Each one is a max attempt.</td>
+        </tr><tr>
+          <td class="ex-name">
+            BARBELL BENCH PRESS — Back-Off Set
+            
+          </td>
+          <td>2</td>
+          <td>5</td>
+          <td>2–1–1</td>
+          <td>70%</td>
+          <td class="calc-load" data-pct="0.7">—</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_BARBELL_BENCH_PRESS_—_Back-Off" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_BARBELL_BENCH_PRESS_—_Back-Off">—</td>
+          <td>3 min</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Drop to 70% immediately after the heavy singles. Bar feels light — press as fast as possible. Velocity reinforces the motor pattern.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Seated Cable Row
+            
+          </td>
+          <td>3</td>
+          <td>8</td>
+          <td>2–1–2</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Heavier than W2">Heavier than W2</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Seated_Cable_Row" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W3D2_bench_Seated_Cable_Row">—</td>
+          <td>2 min</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Upper back strength maintenance going into test week.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Face Pull <a class="vid-link" href="https://www.youtube.com/watch?v=V8dZ3pyiCBo" target="_blank">▶ Watch Tutorial</a>
+            
+          </td>
+          <td>3</td>
+          <td>20</td>
+          <td>1–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Light">Light</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Face_Pull" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W3D2_bench_Face_Pull">—</td>
+          <td>60s</td>
+          <td>RPE 6</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Shoulder health. High rep, light load.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Tricep Pushdown
+            
+          </td>
+          <td>3</td>
+          <td>10</td>
+          <td>2–0–2</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Moderate">Moderate</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Tricep_Pushdown" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W3D2_bench_Tricep_Pushdown">—</td>
+          <td>60s</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Lockout maintenance going into test week.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Ab Wheel Rollout <a class="vid-link" href="https://www.youtube.com/watch?v=j6lR4u193gE" target="_blank">▶ Watch Tutorial</a>
+            <div class="variation-note">↔ Alternatives: Plank Hold 45s</div>
+          </td>
+          <td>2</td>
+          <td>8</td>
+          <td>3–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Bodyweight">Bodyweight</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Ab_Wheel_Rollout" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W3D2_bench_Ab_Wheel_Rollout">—</td>
+          <td>60s</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Reduced volume — core maintenance, not accumulation.</td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-notes"><strong>Session Notes</strong><textarea placeholder="Log notes, how you felt, anything to adjust next session..."></textarea></div>
+  <div class="load-note">💡 If actual RPE is consistently 2+ below target, add 2.5–5kg next session. If you hit failure before target reps, reduce by 5% and note it. Progressive overload is the goal — small increases week on week.</div>
+</div></div><div class="session" id="sess-W3D3">
+<div class="session-card">
+  <div class="session-header">
+    <div class="session-tag">WEEK 3 · DAY 3 — PEAKING</div>
+    <h2>Volume Flush</h2>
+    <p class="session-sub">80% 1RM · Focus: last volume session before test week</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>% 1RM</th>
+        <th>Target (kg)</th><th>Actual (kg)</th><th>Last Session (kg)</th>
+        <th>Rest</th><th>RPE Target</th><th>Actual RPE</th><th>Coaching Notes</th>
+      </tr></thead>
+      <tbody><tr>
+          <td class="ex-name">
+            BARBELL BENCH PRESS — Final Volume
+            
+          </td>
+          <td>3</td>
+          <td>3</td>
+          <td>2–1–1</td>
+          <td>80%</td>
+          <td class="calc-load" data-pct="0.8">—</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_BARBELL_BENCH_PRESS_—_Final_Vo" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_BARBELL_BENCH_PRESS_—_Final_Vo">—</td>
+          <td>3 min</td>
+          <td>RPE 8</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Last heavy session before the deload. Not a max effort — clean, controlled, confident. If anything feels off, stop — test day is 9 days away.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Dumbbell Incline Press
+            
+          </td>
+          <td>3</td>
+          <td>8</td>
+          <td>2–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~38% of bench 1RM per hand">~38% of bench 1RM per hand</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Dumbbell_Incline_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W3D3_bench_Dumbbell_Incline_Press">—</td>
+          <td>90s</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Moderate — upper pec maintenance. Last direct stimulus before recovery.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Lat Pulldown
+            <div class="variation-note">↔ Alternatives: Weighted Pull-Up — if available</div>
+          </td>
+          <td>3</td>
+          <td>10</td>
+          <td>3–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Moderate — full range">Moderate — full range</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Lat_Pulldown" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W3D3_bench_Lat_Pulldown">—</td>
+          <td>90s</td>
+          <td>RPE 7</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Upper back maintenance going into test week.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Face Pull <a class="vid-link" href="https://www.youtube.com/watch?v=V8dZ3pyiCBo" target="_blank">▶ Watch Tutorial</a>
+            
+          </td>
+          <td>3</td>
+          <td>15</td>
+          <td>2–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Light">Light</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Face_Pull" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W3D3_bench_Face_Pull">—</td>
+          <td>60s</td>
+          <td>RPE 6</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Shoulder health going into test week. Non-negotiable.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Pallof Press <a class="vid-link" href="https://www.youtube.com/watch?v=QVhBsy6P0xk" target="_blank">▶ Watch Tutorial</a>
+            <div class="variation-note">↔ Alternatives: Dead Bug 2×45s</div>
+          </td>
+          <td>2</td>
+          <td>10 each side</td>
+          <td>2–1–2</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Moderate">Moderate</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Pallof_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W3D3_bench_Pallof_Press">—</td>
+          <td>60s</td>
+          <td>RPE 6</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Core maintenance — reduced volume vs previous weeks.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Thoracic Mobility <a class="vid-link" href="https://www.youtube.com/watch?v=9Y11Kc0E0og" target="_blank">▶ Watch Tutorial</a>
+            
+          </td>
+          <td>1</td>
+          <td>10 min</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Foam roller + band">Foam roller + band</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Thoracic_Mobility" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W3D3_bench_Thoracic_Mobility">—</td>
+          <td>—</td>
+          <td>—</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Thoracic extension over foam roller, then band pull-aparts. Thoracic mobility directly affects bench setup — stiffness limits arch and scapular retraction.</td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-notes"><strong>Session Notes</strong><textarea placeholder="Log notes, how you felt, anything to adjust next session..."></textarea></div>
+  <div class="load-note">💡 If actual RPE is consistently 2+ below target, add 2.5–5kg next session. If you hit failure before target reps, reduce by 5% and note it. Progressive overload is the goal — small increases week on week.</div>
+</div></div><div class="session" id="sess-W4D1">
+<div class="session-card">
+  <div class="session-header">
+    <div class="session-tag">WEEK 4 · DAY 1 — DELOAD</div>
+    <h2>Deload — Speed & Skill</h2>
+    <p class="session-sub">55–60% 1RM · Focus: CNS priming, flush fatigue, stay sharp</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>% 1RM</th>
+        <th>Target (kg)</th><th>Actual (kg)</th><th>Last Session (kg)</th>
+        <th>Rest</th><th>RPE Target</th><th>Actual RPE</th><th>Coaching Notes</th>
+      </tr></thead>
+      <tbody><tr>
+          <td class="ex-name">
+            BARBELL BENCH PRESS — Speed Work
+            
+          </td>
+          <td>5</td>
+          <td>3</td>
+          <td>1–0–X</td>
+          <td>55%</td>
+          <td class="calc-load" data-pct="0.55">—</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_BARBELL_BENCH_PRESS_—_Speed_Wo" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_BARBELL_BENCH_PRESS_—_Speed_Wo">—</td>
+          <td>2 min</td>
+          <td>RPE 5</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">55% of 1RM, maximum pressing intent on every rep. Move the bar as fast as possible — pure CNS priming, not strength work. Full setup ritual on every rep.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Close-Grip Bench Press
+            
+          </td>
+          <td>3</td>
+          <td>8</td>
+          <td>2–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~55% of bench 1RM">~55% of bench 1RM</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Close-Grip_Bench_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W4D1_bench_Close-Grip_Bench_Press">—</td>
+          <td>90s</td>
+          <td>RPE 5</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Light load, bar speed focus. Tricep activation without fatigue.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Dumbbell Incline Press
+            
+          </td>
+          <td>3</td>
+          <td>10</td>
+          <td>2–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Light — ~25% of bench 1RM per hand">Light — ~25% of bench 1RM per hand</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Dumbbell_Incline_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W4D1_bench_Dumbbell_Incline_Press">—</td>
+          <td>90s</td>
+          <td>RPE 5</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Blood flow to the upper pec — active recovery. Not a strength stimulus.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Lat Pulldown
+            
+          </td>
+          <td>3</td>
+          <td>12</td>
+          <td>2–1–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Light — full range of motion">Light — full range of motion</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Lat_Pulldown" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W4D1_bench_Lat_Pulldown">—</td>
+          <td>60s</td>
+          <td>RPE 5</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Upper back blood flow. Full stretch at the top.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Face Pull <a class="vid-link" href="https://www.youtube.com/watch?v=V8dZ3pyiCBo" target="_blank">▶ Watch Tutorial</a>
+            
+          </td>
+          <td>2</td>
+          <td>20</td>
+          <td>1–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Very light">Very light</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Face_Pull" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W4D1_bench_Face_Pull">—</td>
+          <td>60s</td>
+          <td>RPE 4</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Shoulder health. Final deload session before test day.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Thoracic Foam Roll + Band Pull-Apart <a class="vid-link" href="https://www.youtube.com/watch?v=9Y11Kc0E0og" target="_blank">▶ Watch Tutorial</a>
+            
+          </td>
+          <td>1</td>
+          <td>10 min</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Foam roller + light band">Foam roller + light band</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Thoracic_Foam_Roll_+_Band_Pull" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_Thoracic_Foam_Roll_+_Band_Pull">—</td>
+          <td>—</td>
+          <td>—</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">5 min thoracic rolling, then 2×20 band pull-aparts. Keep the shoulder girdle mobile for test day.</td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-notes"><strong>Session Notes</strong><textarea placeholder="Log notes, how you felt, anything to adjust next session..."></textarea></div>
+  <div class="load-note">💡 If actual RPE is consistently 2+ below target, add 2.5–5kg next session. If you hit failure before target reps, reduce by 5% and note it. Progressive overload is the goal — small increases week on week.</div>
+</div></div><div class="session" id="sess-W4D2">
+<div class="session-card">
+  <div class="session-header">
+    <div class="session-tag">WEEK 4 · DAY 2 — ACTIVATION</div>
+    <h2>Pre-Test Activation</h2>
+    <p class="session-sub">60–65% 1RM · Focus: stay sharp, prime without fatigue</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th><th>% 1RM</th>
+        <th>Target (kg)</th><th>Actual (kg)</th><th>Last Session (kg)</th>
+        <th>Rest</th><th>RPE Target</th><th>Actual RPE</th><th>Coaching Notes</th>
+      </tr></thead>
+      <tbody><tr>
+          <td class="ex-name">
+            BARBELL BENCH PRESS — Activation Primers
+            
+          </td>
+          <td>4</td>
+          <td>2</td>
+          <td>1–1–1</td>
+          <td>62%</td>
+          <td class="calc-load" data-pct="0.62">—</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_BARBELL_BENCH_PRESS_—_Activati" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_BARBELL_BENCH_PRESS_—_Activati">—</td>
+          <td>2 min</td>
+          <td>RPE 5</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">62% of 1RM. Crisp, sharp reps. Full setup ritual every rep. The last thing you do before test day should feel automatic and easy.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Close-Grip Bench Press
+            
+          </td>
+          <td>2</td>
+          <td>5</td>
+          <td>2–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="~55% of bench 1RM">~55% of bench 1RM</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Close-Grip_Bench_Press" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W4D2_bench_Close-Grip_Bench_Press">—</td>
+          <td>90s</td>
+          <td>RPE 5</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Light activation. Tricep primer — keep it easy.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Band Pull-Apart + Push-Up Circuit <a class="vid-link" href="https://www.youtube.com/watch?v=RqaxCYYkLVA" target="_blank">▶ Watch Tutorial</a>
+            
+          </td>
+          <td>2</td>
+          <td>15 + 8</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Light band + bodyweight">Light band + bodyweight</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Band_Pull-Apart_+_Push-Up_Circ" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_Band_Pull-Apart_+_Push-Up_Circ">—</td>
+          <td>60s</td>
+          <td>RPE 4</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">2×15 band pull-aparts into 2×8 push-ups with a pause at the bottom. Activates rear delts, external rotators, and pec. Nothing heavy.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Face Pull <a class="vid-link" href="https://www.youtube.com/watch?v=V8dZ3pyiCBo" target="_blank">▶ Watch Tutorial</a>
+            
+          </td>
+          <td>2</td>
+          <td>15</td>
+          <td>1–0–1</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="Very light">Very light</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Face_Pull" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_W4D2_bench_Face_Pull">—</td>
+          <td>60s</td>
+          <td>RPE 4</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Final shoulder health work before test day.</td>
+        </tr><tr>
+          <td class="ex-name">
+            Wrist + Shoulder Mobility
+            
+          </td>
+          <td>1</td>
+          <td>5 min</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="suggested-load" data-suggested="—">—</td>
+          <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="bench_Wrist_+_Shoulder_Mobility" placeholder="kg"/></td>
+          <td class="prev-cell" id="prev_bench_Wrist_+_Shoulder_Mobility">—</td>
+          <td>—</td>
+          <td>—</td>
+          <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+          <td class="notes-cell">Wrist circles, shoulder CARs, thoracic rotation. Arrive at test day feeling loose, not stiff.</td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-notes"><strong>Session Notes</strong><textarea placeholder="Log notes, how you felt, anything to adjust next session..."></textarea></div>
+  <div class="load-note">💡 If actual RPE is consistently 2+ below target, add 2.5–5kg next session. If you hit failure before target reps, reduce by 5% and note it. Progressive overload is the goal — small increases week on week.</div>
+</div></div><div class="session" id="sess-W4D3">
+<div class="test-day-card">
+  <div class="session-tag">WEEK 4 · DAY 3</div>
+  <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.05em;margin-bottom:.5rem">1RM TEST DAY 🎯</h2>
+  <p style="color:var(--muted);font-size:.85rem;margin-bottom:1.5rem">Deload is complete — your nervous system is fresh. Today you go for a new max.</p>
+  <div class="rules-box">Rest 3–4 min after warm-up singles. Rest 4–5 min between attempts. Pick weights you are confident about. Stop after 3 attempts regardless. A successful lift beats a missed PR.</div>
+  <p class="section-heading" style="margin-top:1rem">WARM-UP RAMP</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Set</th><th>% 1RM</th><th>Target (kg)</th><th>Reps</th><th>Rest</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>50%</td><td class="bar-load" data-pct="0.50">—</td><td>5</td><td>2 min</td><td>Easy — feel the bar.</td></tr>
+      <tr><td>2</td><td>60%</td><td class="bar-load" data-pct="0.60">—</td><td>3</td><td>2 min</td><td>Starting to feel the weight.</td></tr>
+      <tr><td>3</td><td>70%</td><td class="bar-load" data-pct="0.70">—</td><td>2</td><td>2 min</td><td>Solid but comfortable.</td></tr>
+      <tr><td>4</td><td>80%</td><td class="bar-load" data-pct="0.80">—</td><td>1</td><td>3 min</td><td>Heavy single — should move well.</td></tr>
+      <tr><td>5</td><td>90%</td><td class="bar-load" data-pct="0.90">—</td><td>1</td><td>4 min</td><td>Near-max. Last rep before attempts.</td></tr>
+    </tbody>
+  </table></div>
+  
+  <div class="wu-section" style="margin-top:1.5rem">
+    <div class="wu-section-title">1RM Test Day — Warm-Up Ramp</div>
+    <p style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem">Enter your starting 1RM to calculate warm-up loads. Rest fully between each set.</p>
+    <div style="max-width:280px;margin-bottom:1rem">
+      <label style="display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600;margin-bottom:.35rem">Starting 1RM (kg)</label>
+      <input type="number" id="testDayRM" placeholder="e.g. 100" oninput="calcTestDayRamp()" style="width:100%;padding:.65rem .9rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;outline:none"/>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Set</th><th>% 1RM</th><th>Target (kg)</th><th>Reps</th><th>Rest</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>50%</td><td class="td-ramp" data-pct="0.50">—</td><td>5</td><td>2 min</td><td>Easy — bar speed focus, feel the movement.</td></tr>
+          <tr><td>2</td><td>60%</td><td class="td-ramp" data-pct="0.60">—</td><td>3</td><td>2 min</td><td>Starting to feel the weight.</td></tr>
+          <tr><td>3</td><td>70%</td><td class="td-ramp" data-pct="0.70">—</td><td>2</td><td>2 min</td><td>Solid but comfortable.</td></tr>
+          <tr><td>4</td><td>80%</td><td class="td-ramp" data-pct="0.80">—</td><td>1</td><td>3 min</td><td>Heavy single — should move well.</td></tr>
+          <tr><td>5</td><td>90%</td><td class="td-ramp" data-pct="0.90">—</td><td>1</td><td>4–5 min</td><td>Near-max. Last rep before PR attempts.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="section-heading" style="margin-top:1.5rem">PR ATTEMPTS</p>
+  <div class="attempt-grid">
+    <div class="attempt-box"><div class="attempt-label">Attempt 1 — Conservative PR</div><input type="number" class="attempt-input" placeholder="kg"/><input type="text" class="attempt-notes" placeholder="Result / notes"/></div>
+    <div class="attempt-box"><div class="attempt-label">Attempt 2 — Target PR</div><input type="number" class="attempt-input" placeholder="kg"/><input type="text" class="attempt-notes" placeholder="Result / notes"/></div>
+    <div class="attempt-box"><div class="attempt-label">Attempt 3 — Stretch Goal</div><input type="number" class="attempt-input" placeholder="kg — only if Attempt 2 moved fast"/><input type="text" class="attempt-notes" placeholder="Result / notes"/></div>
+  </div>
+  <div class="new-1rm-box">
+    <span>New confirmed 1RM:</span>
+    <input type="number" id="new1rm" placeholder="kg" oninput="calcImprovement()"/>
+    <span id="improvementText"></span>
+  </div>
+</div></div>
+
+</div>
+
+<script>
+const LIFT = 'bench';
+let currentRM = 0;
+
+function showSess(key) {
+  currentSession = key;
+  if (key === 'STATS') { loadStatsTab(); }
+  // Save last visited session and lift for homepage "Open Programme" button
+  localStorage.setItem('ab_last_lift', 'bench');
+  localStorage.setItem('ab_last_rm_session', key);
+  document.querySelectorAll('.session').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const el = document.getElementById('sess-'+key);
+  const btn = document.getElementById('nav-'+key);
+  if(el) el.classList.add('active');
+  if(btn) btn.classList.add('active');
+  if(key==='W4D3' && currentRM) updateTestDayLoads();
+  if(key !== 'STATS' && key !== 'WARMUP') loadPreviousWeights();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function applyRM() {
+  const rm = parseFloat(document.getElementById('rmInput').value);
+  if(!rm) return;
+  currentRM = rm;
+  document.querySelectorAll('.calc-load').forEach(cell=>{
+    const pct = parseFloat(cell.dataset.pct);
+    if(pct) cell.textContent = (Math.round(rm*pct/2.5)*2.5).toFixed(1)+' kg';
+  });
+  loadPreviousWeights();
+}
+
+function calcWarmupLoadsDisplay() {
+  const rm = parseFloat(document.getElementById('warmup_rm_display').value);
+  if(!rm) return;
+  document.querySelectorAll('#warmupRowsDisplay .bar-load').forEach(cell=>{
+    const pct = parseFloat(cell.dataset.pct);
+    if(pct) cell.textContent = (Math.round(rm*pct/2.5)*2.5).toFixed(1)+' kg';
+    else cell.textContent = 'Empty bar (20kg)';
+  });
+}
+
+function updateTestDayLoads() {
+  document.querySelectorAll('#sess-W4D3 .bar-load').forEach(cell=>{
+    const pct = parseFloat(cell.dataset.pct);
+    if(pct) cell.textContent = (Math.round(currentRM*pct/2.5)*2.5).toFixed(1)+' kg';
+  });
+}
+
+
+function calcTestDayRamp() {
+  const rm = parseFloat(document.getElementById('testDayRM').value);
+  if(!rm) return;
+  document.querySelectorAll('.td-ramp').forEach(cell=>{
+    const pct = parseFloat(cell.dataset.pct);
+    if(pct) cell.textContent = (Math.round(rm*pct/2.5)*2.5).toFixed(1)+' kg';
+  });
+}
+
+function calcImprovement() {
+  const v = parseFloat(document.getElementById('new1rm').value);
+  const t = document.getElementById('improvementText');
+  if(v && currentRM) {
+    const diff = v - currentRM;
+    t.textContent = (diff>=0?'+':'')+diff.toFixed(1)+' kg vs starting 1RM';
+  }
+}
+
+// Weight memory — localStorage per lift+exercise, keyed by exercise name + which session it was logged in
+function getSessionKeyForInput(input) {
+  // Walk up to find the parent .session div and read its id
+  let el = input.closest('.session');
+  return el ? el.id.replace('sess-','') : 'UNKNOWN';
+}
+
+function saveWeight(input) {
+  const sessKey = getSessionKeyForInput(input);
+  const exKey = LIFT+'_ex_'+input.dataset.memkey;
+  const val = input.value;
+  if(!val) return;
+  let log = JSON.parse(localStorage.getItem(exKey) || '[]');
+  log = log.filter(e => e.session !== sessKey);
+  log.push({ session: sessKey, weight: parseFloat(val), order: SESSION_ORDER.indexOf(sessKey) });
+  localStorage.setItem(exKey, JSON.stringify(log));
+  updateReferenceCell(input);
+  // Also save to Supabase cloud
+  saveWeightToCloud('bench', sessKey, input.dataset.memkey, parseFloat(val), null);
+}
+
+function updateReferenceCell(input) {
+  const sessKey = getSessionKeyForInput(input);
+  const exKey = LIFT+'_ex_'+input.dataset.memkey;
+  const log = JSON.parse(localStorage.getItem(exKey) || '[]');
+  // Find the prev-cell within the SAME table row as this input — no ID guessing needed
+  const row = input.closest('tr');
+  const prevCell = row ? row.querySelector('.prev-cell') : null;
+  if(!prevCell) return;
+  const currentOrder = SESSION_ORDER.indexOf(sessKey);
+  const priorEntries = log.filter(e => e.order > -1 && e.order < currentOrder).sort((a,b) => b.order - a.order);
+  if(priorEntries.length > 0) {
+    const last = priorEntries[0];
+    const suggestion = (last.weight + 2.5).toFixed(1);
+    const sessionLabel = last.session.replace('W','Week ').replace('D',' · Day ');
+    prevCell.innerHTML = last.weight+' kg <span style="color:var(--muted);font-size:.65rem">('+sessionLabel+')</span><br><span style="font-size:.65rem;color:var(--amber)">→ try '+suggestion+' kg</span>';
+  } else {
+    prevCell.innerHTML = '—';
+  }
+}
+
+function loadPreviousWeights() {
+  document.querySelectorAll('.actual-input').forEach(input=>{
+    const sessKey = getSessionKeyForInput(input);
+    const exKey = LIFT+'_ex_'+input.dataset.memkey;
+    const log = JSON.parse(localStorage.getItem(exKey) || '[]');
+    // Only restore a value if THIS exact session already has a saved entry
+    const thisEntry = log.find(e => e.session === sessKey);
+    if(thisEntry && !input.value) input.value = thisEntry.weight;
+    updateReferenceCell(input);
+  });
+}
+
+const SESSION_ORDER = ['WARMUP','INTRO','W1D1','W1D2','W1D3','W2D1','W2D2','W2D3','W3D1','W3D2','W3D3','W4D1','W4D2','W4D3'];
+let currentSession = 'WARMUP';
+
+
+// Read 1RM from URL parameter if passed from intake form
+
+// Supabase + localStorage hybrid weight saving
+async function saveWeightToCloud(programme, sessionKey, exerciseKey, weight, rpe) {
+  if (!supabaseClient) return;
+  const user = await getCurrentUser();
+  if (!user) return;
+  await saveLoggedWeight(programme, sessionKey, exerciseKey, weight, rpe, null);
+}
+
+async function loadWeightsFromCloud(programme) {
+  if (!supabaseClient) return;
+  const user = await getCurrentUser();
+  if (!user) return;
+  const weights = await getLoggedWeights(programme);
+  if (!weights || !weights.length) return;
+  // Populate localStorage cache from cloud data
+  weights.forEach(w => {
+    const exKey = programme + "_ex_" + w.exercise_key;
+    let log = JSON.parse(localStorage.getItem(exKey) || "[]");
+    const exists = log.find(e => e.session === w.session_key);
+    if (!exists) {
+      const order = SESSION_ORDER ? (SESSION_ORDER[w.session_key] || -1) : -1;
+      log.push({ session: w.session_key, weight: w.weight, order: order });
+      localStorage.setItem(exKey, JSON.stringify(log));
+    }
+  });
+  // Refresh displayed weights
+  loadPreviousWeights();
+}
+
+  // PT admin session check
+  async function checkPTSession() {
+    if (!supabaseClient) return;
+    const user = await getCurrentUser();
+    if (user) {
+      const loginBtn = document.getElementById('navLoginBtn');
+      const logoutBtn = document.getElementById('navLogoutBtn');
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (logoutBtn) logoutBtn.style.display = 'inline';
+    }
+    if (user && user.email === 'alexbrown399@gmail.com') {
+      const badge = document.createElement('div');
+      badge.style.cssText = 'position:fixed;bottom:1rem;right:1rem;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.4);color:#fcd34d;font-size:.7rem;font-weight:700;padding:.4rem .8rem;border-radius:20px;z-index:999;letter-spacing:.06em';
+      badge.textContent = '🔑 PT Mode';
+      document.body.appendChild(badge);
+    }
+  }
+
+  async function handleSignOut() {
+    await signOut();
+  }
+
+function toggleSummary() {
+  const body = document.getElementById('summaryBody');
+  const toggle = document.getElementById('summaryToggle');
+  body.classList.toggle('open');
+  toggle.textContent = body.classList.contains('open') ? 'Hide ▴' : 'Show ▾';
+}
+
+function loadIntakeSummary() {
+  const panel = document.getElementById('intakeSummary');
+  if (!panel) return;
+  const raw = localStorage.getItem('ab_intake_summary');
+  if (!raw) {
+    // No intake data yet — show panel with prompt to complete intake
+    panel.style.display = 'block';
+    const grid = document.getElementById('summaryGrid');
+    if (grid) grid.innerHTML = '<div style="color:var(--muted);font-size:.82rem;padding:.4rem 0">No intake data yet. Complete your intake form to see your personalised stats and macro targets here.</div>';
+    const link = document.getElementById('intakeLink');
+    if (link) { link.href = './INTAKE_BENCH.html'; link.textContent = 'Complete intake form →'; }
+    return;
+  }
+  try {
+    const s = JSON.parse(raw);
+    const grid = document.getElementById('summaryGrid');
+    const macros = document.getElementById('summaryMacros');
+    const link = document.getElementById('intakeLink');
+    if (!panel) return;
+    panel.style.display = 'block';
+    const items = [
+      { label: 'Name', val: s.name },
+      { label: 'Age', val: s.age ? s.age + ' yrs' : '' },
+      { label: 'Weight', val: s.weight ? s.weight + ' kg' : '' },
+      { label: 'Height', val: s.height ? s.height + ' cm' : '' },
+      { label: 'BMR', val: s.bmr },
+      { label: 'TDEE', val: s.tdee },
+      { label: 'Daily Target', val: s.cals },
+      s.oneRM ? { label: 'Your 1RM', val: s.oneRM + ' kg' } : null,
+      s.split ? { label: 'Split', val: s.split } : null,
+      s.muscles && s.muscles !== 'None selected' ? { label: 'Focus', val: s.muscles } : null,
+    ].filter(Boolean);
+    grid.innerHTML = items.map(i => i.val ? `<div class="summary-item"><div class="si-label">${i.label}</div><div class="si-val">${i.val}</div></div>` : '').join('');
+    if (s.protein || s.fat || s.carbs) {
+      macros.innerHTML = `
+        <div class="macro-chip">Protein: ${s.protein}</div>
+        <div class="macro-chip">Fat: ${s.fat}</div>
+        <div class="macro-chip">Carbs: ${s.carbs}</div>`;
+    }
+    // Set link to appropriate intake page
+    const intakePages = { bench:'INTAKE_BENCH.html', squat:'INTAKE_SQUAT.html', deadlift:'INTAKE_DEADLIFT.html', ohp:'INTAKE_OHP.html', hypertrophy:'INTAKE_HYPERTROPHY.html' };
+    const prog = s.programme || '';
+    const lift = s.lift || '';
+    const intakePage = prog === 'hypertrophy' ? intakePages.hypertrophy : (intakePages[lift] || 'INTAKE_BENCH.html');
+    link.href = './' + intakePage;
+    link.textContent = 'Update your stats →';
+  } catch(e) {}
+}
+window.addEventListener('load', function() {
+  initSupabase(() => { checkPTSession();
+    loadWeightsFromCloud('bench');
+  });
+  loadPreviousWeights();
+  const params = new URLSearchParams(window.location.search);
+  const rm = parseFloat(params.get('rm'));
+  if (rm && rm > 0) {
+    currentRM = rm;
+    document.getElementById('rmInput').value = rm;
+    applyRM();
+  }
+  // Jump to last visited session, or STATS if fresh arrival with no RM yet
+  const lastSess = params.get('session') || (rm ? 'W1D1' : 'STATS');
+  showSess(lastSess);
+  loadStatsTab();
+});
+
+
+// ── STATS TAB ────────────────────────────────────────────────────────────────
+let statsGoalAdj = 0;
+
+function calcStatsAll() {
+  const age = parseFloat(document.getElementById('st_age') ? document.getElementById('st_age').value : 0);
+  const h   = parseFloat(document.getElementById('st_height') ? document.getElementById('st_height').value : 0);
+  const w   = parseFloat(document.getElementById('st_weight') ? document.getElementById('st_weight').value : 0);
+  const sexEl = document.getElementById('st_sex');
+  const actEl = document.getElementById('st_activity');
+  const sex = sexEl ? sexEl.value : 'male';
+  const act = actEl ? parseFloat(actEl.value) : 1.375;
+  const bmiEl = document.getElementById('st_bmi');
+  if (h && w && bmiEl) bmiEl.textContent = (w/((h/100)**2)).toFixed(1)+' kg/m\u00b2';
+  if (age && h && w) {
+    const bmr  = Math.round(sex==='male' ? 10*w+6.25*h-5*age+5 : 10*w+6.25*h-5*age-161);
+    const tdee = Math.round(bmr*act);
+    const get = (id) => document.getElementById(id);
+    if (get('st_bmr'))  get('st_bmr').textContent  = bmr+' kcal/day';
+    if (get('st_tdee')) get('st_tdee').textContent = tdee+' kcal/day';
+    const target = tdee + statsGoalAdj;
+    if (get('st_cals')) get('st_cals').textContent = target+' kcal/day';
+    const prot  = Math.round(2*w);
+    const fat   = Math.round(1*w);
+    const carbs = Math.max(0, Math.round((target - prot*4 - fat*9)/4));
+    if (get('st_protein')) get('st_protein').textContent = prot+'g';
+    if (get('st_fat'))     get('st_fat').textContent     = fat+'g';
+    if (get('st_carbs'))   get('st_carbs').textContent   = carbs+'g';
+  }
+}
+
+function selectStatsGoal(el) {
+  document.querySelectorAll('#st_goalGrid .goal-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  statsGoalAdj = parseInt(el.dataset.adj);
+  calcStatsAll();
+}
+
+function calcEpleyStats() {
+  const w = parseFloat(document.getElementById('st_epley_w') ? document.getElementById('st_epley_w').value : 0);
+  const r = parseFloat(document.getElementById('st_epley_r') ? document.getElementById('st_epley_r').value : 0);
+  const el = document.getElementById('st_epley_result');
+  if (w && r && el) el.textContent = (Math.round(w*(1+r/30)/2.5)*2.5).toFixed(1)+' kg';
+}
+
+function applyEpleyToRM() {
+  const result = document.getElementById('st_epley_result');
+  const rmInput = document.getElementById('st_oneRM');
+  if (result && rmInput && result.textContent !== '—') {
+    rmInput.value = parseFloat(result.textContent);
+    updateOneRM();
+  }
+}
+
+function updateOneRM() {
+  const el = document.getElementById('st_oneRM');
+  if (!el) return;
+  const rm = parseFloat(el.value);
+  if (!rm) return;
+  currentRM = rm;
+  document.getElementById('rmInput') && (document.getElementById('rmInput').value = rm);
+  applyRM();
+}
+
+function saveStats() {
+  const g = (id) => { const el = document.getElementById(id); return el ? (el.value || el.textContent || '') : ''; };
+  const summary = {
+    name:    g('st_name'),
+    age:     g('st_age'),
+    weight:  g('st_weight'),
+    height:  g('st_height'),
+    sex:     g('st_sex'),
+    bmr:     g('st_bmr'),
+    tdee:    g('st_tdee'),
+    cals:    g('st_cals'),
+    protein: g('st_protein'),
+    fat:     g('st_fat'),
+    carbs:   g('st_carbs'),
+    oneRM:   g('st_oneRM'),
+    goalAdj: statsGoalAdj,
+    lift:    LIFT,
+    programme: '1rm_'+LIFT,
+  };
+  const existing = JSON.parse(localStorage.getItem('ab_intake_summary') || '{}');
+  localStorage.setItem('ab_intake_summary', JSON.stringify(Object.assign({}, existing, summary)));
+  // Apply the 1RM to the programme loads
+  if (summary.oneRM) { currentRM = parseFloat(summary.oneRM); applyRM(); }
+  const saved = document.getElementById('statsSaved');
+  if (saved) { saved.style.display='inline'; setTimeout(()=>saved.style.display='none', 2500); }
+}
+
+function loadStatsTab() {
+  const raw = localStorage.getItem('ab_intake_summary');
+  // Pre-fill 1RM from URL param
+  const params = new URLSearchParams(window.location.search);
+  const urlRM = parseFloat(params.get('rm'));
+  if (urlRM) {
+    const el = document.getElementById('st_oneRM');
+    if (el) el.value = urlRM;
+  }
+  if (!raw) return;
+  try {
+    const s = JSON.parse(raw);
+    const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+    set('st_name', s.name);
+    set('st_age', s.age);
+    set('st_weight', s.weight);
+    set('st_height', s.height);
+    set('st_sex', s.sex);
+    if (s.oneRM) set('st_oneRM', s.oneRM);
+    if (s.goalAdj !== undefined) {
+      statsGoalAdj = parseInt(s.goalAdj) || 0;
+      document.querySelectorAll('#st_goalGrid .goal-opt').forEach(el => {
+        el.classList.toggle('selected', parseInt(el.dataset.adj) === statsGoalAdj);
+      });
+    }
+    calcStatsAll();
+  } catch(e) { console.log('Stats load error:', e); }
+}
+// ── END STATS TAB ─────────────────────────────────────────────────────────────
+</script>
+</body>
+</html>

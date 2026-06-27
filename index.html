@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AB Performance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0a0f;
+      --bg2:       #11111a;
+      --bg3:       #171724;
+      --purple:    #7c3aed;
+      --purple-lt: #a855f7;
+      --purple-glow: rgba(124, 58, 237, 0.18);
+      --white:     #f4f4f8;
+      --muted:     #8888a0;
+      --border:    rgba(124, 58, 237, 0.22);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body:    'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+    .nav-logo span { color: var(--purple-lt); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 800px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--purple-lt); font-weight: 600; margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 14vw, 9rem);
+      line-height: 0.9;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 .line2 { color: var(--purple-lt); display: block; }
+    .hero-sub {
+      max-width: 520px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-sub strong { color: var(--white); }
+    .btn-primary {
+      display: inline-block;
+      background: var(--purple);
+      color: #fff;
+      padding: 0.9rem 2.4rem;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--purple-lt); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      color: var(--white);
+      padding: 0.9rem 2.4rem;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      cursor: pointer;
+    }
+    .btn-outline:hover { border-color: var(--purple-lt); color: var(--purple-lt); transform: translateY(-2px); }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+    /* CREDENTIALS BAR */
+    .creds {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 2rem;
+      display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+    }
+    .cred-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .cred-item span.dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--purple-lt); flex-shrink: 0;
+    }
+
+    /* SECTION SHARED */
+    section { padding: 6rem 2rem; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--purple-lt); font-weight: 600; margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .section-sub { color: var(--muted); max-width: 540px; font-size: 0.95rem; line-height: 1.7; }
+    .section-header { margin-bottom: 3.5rem; }
+
+    /* ABOUT */
+    .about { max-width: 900px; margin: 0 auto; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.8; }
+    .about-text p strong { color: var(--white); }
+    .about-stats { display: flex; flex-direction: column; gap: 1.2rem; }
+    .stat-box {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.2rem 1.5rem;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      color: var(--purple-lt);
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem; }
+
+    /* PROGRAMMES */
+    .programmes { background: var(--bg2); }
+    .programmes-inner { max-width: 1100px; margin: 0 auto; }
+    .programmes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.5rem;
+    }
+    .prog-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem;
+      display: flex; flex-direction: column;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .prog-card:hover {
+      border-color: var(--purple-lt);
+      box-shadow: 0 0 32px var(--purple-glow);
+      transform: translateY(-4px);
+    }
+    .prog-card.featured {
+      border-color: var(--purple);
+      box-shadow: 0 0 24px var(--purple-glow);
+    }
+    .prog-badge {
+      position: absolute; top: 1.2rem; right: 1.2rem;
+      background: var(--purple);
+      color: #fff; font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.25rem 0.6rem; border-radius: 20px;
+    }
+    .prog-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .prog-name {
+      font-family: var(--font-display);
+      font-size: 1.7rem; letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+    .prog-duration {
+      font-size: 0.75rem; color: var(--purple-lt); font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1rem;
+    }
+    .prog-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 1.5rem; flex: 1; }
+    .prog-features { list-style: none; margin-bottom: 1.8rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .prog-features li {
+      font-size: 0.82rem; color: var(--muted);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .prog-features li::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--purple-lt); flex-shrink: 0;
+    }
+    .prog-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+    .prog-price {
+      font-family: var(--font-display);
+      font-size: 2.2rem; color: var(--white); letter-spacing: 0.05em;
+    }
+    .prog-price sup { font-size: 1rem; vertical-align: super; }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      max-width: 480px; width: 100%;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: none; border: none; color: var(--muted);
+      font-size: 1.4rem; cursor: pointer; line-height: 1;
+    }
+    .modal-close:hover { color: var(--white); }
+    .modal h2 { font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.3rem; letter-spacing: 0.05em; }
+    .modal-price { color: var(--purple-lt); font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; }
+    .modal form { display: flex; flex-direction: column; gap: 1rem; }
+    .modal label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; display: block; margin-bottom: 0.3rem; }
+    .modal input {
+      width: 100%; padding: 0.75rem 1rem;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 6px; color: var(--white); font-family: var(--font-body);
+      font-size: 0.9rem; outline: none; transition: border-color 0.2s;
+    }
+    .modal input:focus { border-color: var(--purple-lt); }
+    .modal-note { font-size: 0.75rem; color: var(--muted); margin-top: 0.5rem; line-height: 1.6; }
+    .modal-note a { color: var(--purple-lt); }
+    .stripe-badge {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; color: var(--muted); margin-top: 0.8rem;
+    }
+    .stripe-badge::before { content: '🔒'; }
+
+    /* SUCCESS */
+    .success-msg { display: none; text-align: center; padding: 1rem 0; }
+    .success-msg h3 { font-family: var(--font-display); font-size: 2rem; color: var(--purple-lt); margin-bottom: 0.5rem; }
+    .success-msg p { color: var(--muted); font-size: 0.9rem; }
+
+    /* HOW IT WORKS */
+    .how { max-width: 900px; margin: 0 auto; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem; }
+    .step { text-align: center; }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 3.5rem; color: var(--purple);
+      opacity: 0.4; line-height: 1; margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .step p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* LAUNCH BANNER */
+    .launch-banner {
+      background: linear-gradient(135deg, var(--purple) 0%, #4f1d96 100%);
+      text-align: center; padding: 4rem 2rem;
+    }
+    .launch-banner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 6vw, 4rem);
+      letter-spacing: 0.05em; margin-bottom: 0.5rem;
+    }
+    .launch-banner p { color: rgba(255,255,255,0.75); margin-bottom: 1.5rem; font-size: 0.95rem; }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.78rem; color: var(--muted);
+    }
+    footer strong { color: var(--white); }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      nav { padding: 1rem; }
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .hero { padding: 7rem 1.5rem 3rem; }
+      section { padding: 4rem 1.5rem; }
+      .modal { padding: 1.8rem; }
+    }
+  </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./auth.js"></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+
+<!-- SERVER REMINDER — only shows when opened as a local file, hides when on server -->
+<div id="serverReminder" style="display:none;position:fixed;bottom:1rem;right:1rem;z-index:999;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.4);border-radius:8px;padding:.8rem 1.2rem;font-size:.75rem;color:#fcd34d;max-width:280px;line-height:1.5">
+  ⚠ <strong>Run via local server</strong> for page navigation to work.<br>
+  Double-click <code style="background:rgba(0,0,0,0.3);padding:.1rem .3rem;border-radius:3px">START_SERVER.bat</code> then open<br>
+  <code style="background:rgba(0,0,0,0.3);padding:.1rem .3rem;border-radius:3px">http://localhost:8000</code> in Chrome.
+</div>
+<script>
+  // Show reminder if opened as a local file rather than via a server
+  if (window.location.protocol === 'file:') {
+    document.getElementById('serverReminder').style.display = 'block';
+  }
+</script>
+  <a href="index.html" onclick="event.preventDefault(); var base=window.location.href.substring(0,window.location.href.lastIndexOf('/')+1); window.location.href=base+'index.html';" class="nav-logo" style="text-decoration:none;cursor:pointer">AB <span>Performance</span></a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#guide">Programme Guide</a>
+    <a href="#programmes">Programmes</a>
+    <a href="#how">How It Works</a>
+    <a href="./LOGIN.html" id="navLoginBtn" style="background:var(--purple);color:#fff;padding:.4rem 1rem;border-radius:4px;font-weight:700;letter-spacing:.05em">Log In</a>
+    <span id="navUserLabel" style="display:none;font-size:.82rem;color:var(--purple-lt);font-weight:600;letter-spacing:.05em"></span>
+    <a href="#" id="navLogoutBtn" onclick="handleSignOut()" style="display:none;color:var(--muted);font-size:.82rem;font-weight:600;letter-spacing:.05em">· Sign Out</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Science-Backed Online Programmes</p>
+  <h1>Train <span class="line2">Smarter.</span></h1>
+  <p class="hero-sub">
+    <strong>AB Performance</strong> delivers online training programmes built on real sport science — not broscience. Strength, hypertrophy and sport-specific power, engineered to get results.
+  </p>
+  <div class="hero-btns">
+    <a href="#programmes" class="btn-primary">View Programmes</a>
+    <a href="#about" class="btn-outline">About Alex</a>
+  </div>
+</section>
+
+<!-- CREDENTIALS BAR -->
+<div class="creds">
+  <div class="cred-item"><span class="dot"></span>BSc Sport & Exercise Science</div>
+  <div class="cred-item"><span class="dot"></span>Level 3 Personal Trainer</div>
+  <div class="cred-item"><span class="dot"></span>County Rugby · Regional Basketball · Boxing</div>
+  <div class="cred-item"><span class="dot"></span>Next Programmes Dropping in 2 Weeks</div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about">
+    <div class="section-header">
+      <p class="section-label">About</p>
+      <h2 class="section-title">Who's Behind It</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm Alex — a <strong>Sport & Exercise Science graduate</strong> specialising in <strong>strength & power, hypertrophy, and exercise for health</strong>, and a <strong>Level 3 qualified Personal Trainer</strong>.</p>
+        <p>My sporting background includes playing <strong>county-level rugby</strong> and <strong>regional basketball</strong>, and I now train personally in <strong>boxing and kickboxing</strong> — meaning the programmes I build aren't just theoretically sound, they're built by someone who lives the same training.</p>
+        <p>Every programme at AB Performance is grounded in the <strong>principles of sport science</strong>: progressive overload, specificity, and the physiological adaptations that actually drive results — not arbitrary workouts.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-box">
+          <div class="stat-num">BSc</div>
+          <div class="stat-label">Sport & Exercise Science</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">L3</div>
+          <div class="stat-label">Qualified Personal Trainer</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Science-backed programmes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- WHAT PROGRAMME IS BEST FOR ME -->
+<section id="guide" style="background:var(--bg2)">
+  <div style="max-width:900px;margin:0 auto;padding:0 2rem">
+    <div class="section-header">
+      <p class="section-label">Programme Guide</p>
+      <h2 class="section-title">Which Programme Is Right For You?</h2>
+      <p class="section-sub">Every programme includes personalised calorie and macro targets based on your stats and goal — whether you're trying to gain muscle, lose fat, or maintain.</p>
+    </div>
+
+    <!-- All programmes -->
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;margin-bottom:1.2rem">
+      <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:.15em;color:var(--purple-lt);font-weight:600;margin-bottom:.5rem">All Programmes Include</div>
+      <ul class="prog-features" style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem .5rem">
+        <li>Calorie & macro targets calibrated to your body</li>
+        <li>Auto-calculated training loads based on your stats</li>
+        <li>RPE tracking and progressive overload guidance</li>
+        <li>Coaching notes on every exercise</li>
+        <li>Lifetime access — one payment, no repeat charges</li>
+        <li>Syncs across all your devices via your account</li>
+      </ul>
+    </div>
+
+    <!-- 1RM -->
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;margin-bottom:1.2rem">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem">
+        <span style="font-size:1.4rem">🏋️</span>
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em">1RM Booster</div>
+          <div style="font-size:.72rem;color:var(--purple-lt);font-weight:600;text-transform:uppercase;letter-spacing:.1em">Best for: hitting a new personal best on a specific lift</div>
+        </div>
+      </div>
+      <p style="font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:.8rem">Your 1 rep max is primarily a <strong style="color:var(--white)">neural adaptation</strong> — your nervous system learning to fire more motor units simultaneously rather than the muscle growing bigger. This programme peaks your nervous system over 4 weeks using percentage-based loading that builds toward a max test day.</p>
+      <p style="font-size:.82rem;color:var(--purple-lt)">✓ Flexible — runs 3 days/week and can be added on top of your current training with 48hrs rest between sessions targeting the same muscles.</p>
+    </div>
+
+    <!-- Hypertrophy -->
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;margin-bottom:1.2rem">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem">
+        <span style="font-size:1.4rem">💪</span>
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em">Hypertrophy</div>
+          <div style="font-size:.72rem;color:var(--purple-lt);font-weight:600;text-transform:uppercase;letter-spacing:.1em">Best for: building muscle size and improving body composition</div>
+        </div>
+      </div>
+      <p style="font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:.8rem">Muscle growth is driven by two primary mechanisms — <strong style="color:var(--white)">mechanical tension</strong> (heavy loading through a full range) and <strong style="color:var(--white)">metabolic stress</strong> (accumulation of work that creates the burn). This programme combines both across 6 weeks with three split options (3, 4, or 5 days/week) to fit your schedule.</p>
+      <p style="font-size:.82rem;color:var(--purple-lt)">✓ Choose your training frequency and the programme adapts — the more days, the more volume and the faster results.</p>
+    </div>
+
+    <!-- Sport Specific -->
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;margin-bottom:1.2rem;opacity:.7">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem">
+        <span style="font-size:1.4rem">⚡</span>
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em">Sport Specific <span style="font-size:.7rem;background:var(--muted);color:#fff;padding:.15rem .5rem;border-radius:3px;margin-left:.5rem;vertical-align:middle">Coming Soon</span></div>
+          <div style="font-size:.72rem;color:var(--purple-lt);font-weight:600;text-transform:uppercase;letter-spacing:.1em">Best for: athletes wanting to improve performance in their sport</div>
+        </div>
+      </div>
+      <p style="font-size:.85rem;color:var(--muted);line-height:1.7">Targets <strong style="color:var(--white)">rate of force development</strong> — how quickly your muscles produce force — which is the key differentiator between a strong person and an explosive athlete. Combines 3 general strength sessions with 2 sport-specific power days per week.</p>
+    </div>
+
+    <!-- Weight Loss -->
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;opacity:.7">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem">
+        <span style="font-size:1.4rem">🔥</span>
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em">Weight Loss <span style="font-size:.7rem;background:var(--muted);color:#fff;padding:.15rem .5rem;border-radius:3px;margin-left:.5rem;vertical-align:middle">Coming Soon</span></div>
+          <div style="font-size:.72rem;color:var(--purple-lt);font-weight:600;text-transform:uppercase;letter-spacing:.1em">Best for: losing fat while preserving muscle mass</div>
+        </div>
+      </div>
+      <p style="font-size:.85rem;color:var(--muted);line-height:1.7">Fat loss requires a <strong style="color:var(--white)">calorie deficit</strong>, but without resistance training you risk losing muscle alongside fat. This programme combines a deficit calibrated to your stats with a structured resistance programme to preserve lean mass throughout.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROGRAMMES -->
+<section id="programmes" class="programmes">
+  <div class="programmes-inner">
+    <div class="section-header">
+      <p class="section-label">Programmes</p>
+      <h2 class="section-title">Pick Your Goal</h2>
+      <p class="section-sub">Four online programmes. Each one built around a specific physiological goal, not a generic workout plan.</p>
+    </div>
+    <div class="programmes-grid">
+
+      <!-- 1RM -->
+      <div class="prog-card">
+        <div class="prog-icon">🏋️</div>
+        <div class="prog-name">1RM Booster</div>
+        <div class="prog-duration">4 Weeks</div>
+        <ul class="prog-features">
+          <li>Neural drive & motor unit recruitment focus</li>
+          <li>Peaking protocols for your chosen lift</li>
+          <li>Auto-calculated training loads</li>
+          <li>RPE-based intensity tracking</li>
+          <li>Flexible — runs alongside existing training</li>
+        </ul>
+        <div class="prog-footer">
+          <div class="prog-price"><sup>£</sup>15</div>
+          <button class="btn-primary" id="btn-1rm" onclick="openModal('1RM Booster', '£15', '4 Weeks')">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Hypertrophy -->
+      <div class="prog-card featured">
+        <div class="prog-badge">Most Popular</div>
+        <div class="prog-icon">💪</div>
+        <div class="prog-name">Hypertrophy</div>
+        <div class="prog-duration">6 Weeks</div>
+        <ul class="prog-features">
+          <li>Metabolic stress & mechanical tension protocols</li>
+          <li>3, 4 or 5 day split options</li>
+          <li>Volume progression built in</li>
+          <li>Calorie & macro targets included</li>
+          <li>Lifetime access — repeat with adjusted weights</li>
+        </ul>
+        <div class="prog-footer">
+          <div class="prog-price"><sup>£</sup>20</div>
+          <button class="btn-primary" id="btn-hyp" onclick="openModal('Hypertrophy Programme', '£20', '6 Weeks')">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Sport Specific -->
+      <div class="prog-card" style="position:relative;opacity:.8">
+        <div class="prog-badge" style="background:var(--muted)">Coming Soon</div>
+        <div class="prog-icon">⚡</div>
+        <div class="prog-name">Sport Specific</div>
+        <div class="prog-duration">6 Weeks · Dropping in 2 Weeks</div>
+        <ul class="prog-features">
+          <li>Rate of force development training</li>
+          <li>Sport-specific movement integration</li>
+          <li>Power & strength phase periodisation</li>
+          <li>Plyometric and loaded progressions</li>
+        </ul>
+        <div class="prog-footer">
+          <div class="prog-price"><sup>£</sup>20</div>
+          <button class="btn-primary" style="opacity:.5;cursor:not-allowed" disabled>Coming Soon</button>
+        </div>
+      </div>
+
+      <!-- Weight Loss -->
+      <div class="prog-card" style="position:relative;opacity:.8">
+        <div class="prog-badge" style="background:var(--muted)">Coming Soon</div>
+        <div class="prog-icon">🔥</div>
+        <div class="prog-name">Weight Loss</div>
+        <div class="prog-duration">6 Weeks · Dropping in 2 Weeks</div>
+        <ul class="prog-features">
+          <li>Calorie deficit calibrated to your stats</li>
+          <li>Resistance training to preserve lean mass</li>
+          <li>Macro targets calculated automatically</li>
+          <li>Progressive overload maintained throughout</li>
+        </ul>
+        <div class="prog-footer">
+          <div class="prog-price"><sup>£</sup>20</div>
+          <button class="btn-primary" style="opacity:.5;cursor:not-allowed" disabled>Coming Soon</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="how">
+    <div class="section-header">
+      <p class="section-label">Process</p>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">Simple, fast, no faff.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Pick Your Programme</h3>
+        <p>Choose the goal that matches where you're at — strength, size, sport performance, or fat loss.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Create Your Account</h3>
+        <p>Set up your login before payment. Your account syncs across all your devices — phone, laptop, tablet — so you can train and log anywhere.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Programme Loads Instantly</h3>
+        <p>Complete your intake form and your fully personalised programme generates immediately — all loads auto-calculated from your stats. One payment, lifetime access. Repeat it with adjusted weights as many times as you like.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAUNCH BANNER -->
+<div class="launch-banner">
+  <h2>Sport Specific & Weight Loss Dropping in 2 Weeks</h2>
+  <p>1RM Booster and Hypertrophy are live now. Two more programmes coming shortly.</p>
+  <a href="#programmes" class="btn-primary" style="background:#fff; color: #7c3aed;">View Programmes</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <strong>AB Performance</strong> &nbsp;·&nbsp; Built on Sport Science &nbsp;·&nbsp; <a href="mailto:hello@abperformance.co.uk" style="color: var(--purple-lt); text-decoration:none;">hello@abperformance.co.uk</a>
+</footer>
+
+<!-- MODAL EXTRA STYLES -->
+<style>
+  .lift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.4rem; }
+  .lift-opt { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 0.6rem 0.8rem; cursor: pointer; font-size: 0.82rem; font-weight: 600; text-align: center; transition: all 0.2s; color: var(--muted); }
+  .lift-opt:hover { border-color: var(--purple-lt); color: var(--white); }
+  .lift-opt.selected { background: rgba(124,58,237,0.18); border-color: var(--purple-lt); color: var(--white); }
+  .bypass-row { display: flex; gap: 0.5rem; align-items: center; margin-top: 0.8rem; }
+  .bypass-row input { flex: 1; padding: 0.5rem 0.7rem; background: var(--bg3); border: 1px solid rgba(245,158,11,0.35); border-radius: 4px; color: var(--white); font-size: 0.82rem; outline: none; text-transform: uppercase; letter-spacing: 0.1em; }
+  .bypass-row button { padding: 0.5rem 1rem; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); border-radius: 4px; color: #fcd34d; font-size: 0.75rem; font-weight: 700; cursor: pointer; letter-spacing: 0.06em; white-space: nowrap; }
+  .bypass-row button:hover { background: rgba(245,158,11,0.25); }
+  #bypassNote { font-size: 0.72rem; color: #fcd34d; margin-top: 0.3rem; display: none; }
+</style>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div id="modalContent">
+      <h2 id="modalTitle">Programme</h2>
+      <div class="modal-price" id="modalPrice">£00</div>
+
+      <!-- STEP 1: DETAILS -->
+      <div id="step-details">
+        <form id="purchaseForm" onsubmit="handlePurchase(event)">
+          <div>
+            <label>Full Name</label>
+            <input type="text" id="buyerName" placeholder="Your name" />
+          </div>
+          <p style="font-size:.75rem;color:var(--muted);margin:-.3rem 0 1rem">You'll create your login in the next step.</p>
+
+          <!-- 1RM lift selector -->
+          <div id="liftSelector" style="display:none">
+            <label>Choose Your Lift</label>
+            <div class="lift-grid">
+              <div class="lift-opt" data-lift="bench" onclick="selectLift(this)">Bench Press</div>
+              <div class="lift-opt" data-lift="squat" onclick="selectLift(this)">Back Squat</div>
+              <div class="lift-opt" data-lift="deadlift" onclick="selectLift(this)">Deadlift</div>
+              <div class="lift-opt" data-lift="ohp" onclick="selectLift(this)">Overhead Press</div>
+            </div>
+          </div>
+
+          <!-- Sport specific text field -->
+          <div id="specificField" style="display:none">
+            <label id="specificLabel">Your Sport</label>
+            <input type="text" id="buyerSpecific" placeholder="e.g. Football, Boxing, Rugby"/>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%; margin-top:1rem;" id="nextStepBtn">
+            Next →
+          </button>
+
+          <div style="margin-top:1rem; padding-top:.8rem; border-top:1px solid var(--border)">
+            <div style="font-size:.68rem; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); margin-bottom:.4rem">PT Preview Access</div>
+            <div class="bypass-row">
+              <input type="text" id="bypassCode" placeholder="ENTER CODE" maxlength="10" />
+              <button type="button" onclick="tryBypass()">Skip Payment</button>
+            </div>
+            <div id="bypassNote">✓ Code accepted — redirecting to programme</div>
+          </div>
+        </form>
+      </div>
+
+      <!-- STEP 2: ACCOUNT -->
+      <div id="step-account" style="display:none">
+        <div style="margin-bottom:1rem">
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.3rem">Purchasing as</div>
+          <div style="font-weight:700;font-size:1rem" id="signupNameDisplay"></div>
+        </div>
+        <!-- Account tabs -->
+        <div style="display:flex;gap:.5rem;margin-bottom:1.2rem;background:var(--bg3);border-radius:8px;padding:.3rem">
+          <div id="tab-signup-modal" onclick="switchAccountTab('signup')" style="flex:1;text-align:center;padding:.5rem;border-radius:6px;font-size:.82rem;font-weight:600;cursor:pointer;background:var(--purple);color:#fff">New Account</div>
+          <div id="tab-signin-modal" onclick="switchAccountTab('signin')" style="flex:1;text-align:center;padding:.5rem;border-radius:6px;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--muted)">Sign In</div>
+        </div>
+        <div id="authError" style="display:none;padding:.7rem 1rem;border-radius:6px;font-size:.8rem;margin-bottom:.8rem;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5"></div>
+        <!-- Signup panel -->
+        <div id="panel-signup-modal">
+          <form id="signupForm" onsubmit="handleCreateAccount(event)">
+            <input type="hidden" id="signupNameHidden"/>
+            <div style="margin-bottom:1rem">
+              <label style="display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:.35rem">Email</label>
+              <input type="email" id="signupEmailModal" placeholder="you@email.com" style="width:100%;padding:.65rem .9rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;outline:none"/>
+            </div>
+            <div style="margin-bottom:1rem">
+              <label style="display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:.35rem">Password</label>
+              <input type="password" id="signupPasswordModal" placeholder="At least 6 characters" style="width:100%;padding:.65rem .9rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;outline:none"/>
+            </div>
+            <button type="submit" class="btn-primary" id="createAccountBtn" style="width:100%">Create Account & Pay →</button>
+          </form>
+        </div>
+        <!-- Sign in panel -->
+        <div id="panel-signin-modal" style="display:none">
+          <form id="signinForm" onsubmit="handleModalSignIn(event)">
+            <div style="margin-bottom:1rem">
+              <label style="display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:.35rem">Email</label>
+              <input type="email" id="signinEmailModal" placeholder="you@email.com" style="width:100%;padding:.65rem .9rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;outline:none"/>
+            </div>
+            <div style="margin-bottom:1rem">
+              <label style="display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:.35rem">Password</label>
+              <input type="password" id="signinPasswordModal" placeholder="••••••••" style="width:100%;padding:.65rem .9rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;outline:none"/>
+            </div>
+            <button type="submit" class="btn-primary" id="signinBtn" style="width:100%">Sign In & Pay →</button>
+          </form>
+        </div>
+        <button onclick="showModalStep('step-details')" style="background:none;border:none;color:var(--muted);font-size:.78rem;cursor:pointer;margin-top:.8rem">← Back</button>
+      </div>
+
+    </div>
+    <div class="success-msg" id="successMsg">
+      <h3>You're In! 💪</h3>
+      <p>Redirecting to your programme generator...</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const BYPASS = 'ABTEST';
+  let currentProg = '';
+  let selectedLift = '';
+  let bypassUnlocked = false;
+
+  async function handleSignOut() { await signOut(); }
+
+  const PAYHIP = {
+    '1rm':         'https://payhip.com/b/pmM7k',
+    'hypertrophy': 'https://payhip.com/b/obUnV',
+  };
+
+  const LIFT_PAGES = {
+    bench:    'PROG1_BENCH.html',
+    squat:    'PROG1_SQUAT.html',
+    deadlift: 'PROG1_DEADLIFT.html',
+    ohp:      'PROG1_OHP.html'
+  };
+
+  const COMING_SOON = ['INTAKE_SPORT.html', 'INTAKE_WEIGHTLOSS.html'];
+
+  function destPage() {
+    if (currentProg.includes('1RM'))         return LIFT_PAGES[selectedLift] || 'PROG1_BENCH.html';
+    if (currentProg.includes('Hypertrophy')) return 'PROG2_HYPERTROPHY.html';
+    if (currentProg.includes('Weight Loss')) return 'INTAKE_WEIGHTLOSS.html';
+    return 'INTAKE_SPORT.html';
+  }
+
+  function payhipLink() {
+    if (currentProg.includes('1RM'))         return PAYHIP['1rm'];
+    if (currentProg.includes('Hypertrophy')) return PAYHIP['hypertrophy'];
+    return null;
+  }
+
+  // ── MODAL OPEN ──────────────────────────────────────────────────────────
+  function openModal(name, price, duration) {
+    currentProg = name;
+    selectedLift = '';
+    bypassUnlocked = false;
+    document.getElementById('modalTitle').textContent = name;
+    document.getElementById('modalPrice').textContent = price + ' · ' + duration;
+    showModalStep('step-details');
+    document.getElementById('modalContent').style.display = 'block';
+    document.getElementById('successMsg').style.display = 'none';
+    document.getElementById('purchaseForm').reset();
+    document.getElementById('signupForm').reset();
+    document.getElementById('bypassNote').style.display = 'none';
+    document.getElementById('authError').style.display = 'none';
+    document.querySelectorAll('.lift-opt').forEach(o => o.classList.remove('selected'));
+
+    const isRM  = name.includes('1RM');
+    const isHyp = name.includes('Hypertrophy');
+    document.getElementById('liftSelector').style.display = isRM ? 'block' : 'none';
+    document.getElementById('specificField').style.display = (isRM || isHyp) ? 'none' : 'block';
+    if (!isRM && !isHyp) {
+      document.getElementById('specificLabel').textContent = 'Your Sport (e.g. Football, Boxing, Rugby)';
+      document.getElementById('buyerSpecific').placeholder = 'e.g. Football, Boxing, Rugby, Basketball';
+    }
+
+    document.getElementById('modalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    // Check login state now and store it — used by handlePurchase
+    getCurrentUser().then(user => {
+      window._modalUserLoggedIn = !!user;
+      document.getElementById('nextStepBtn').textContent = user
+        ? 'Go to Programme →'
+        : 'Next: Create Account →';
+    });
+  }
+
+  function showModalStep(step) {
+    document.getElementById('step-details').style.display = step === 'step-details' ? 'block' : 'none';
+    document.getElementById('step-account').style.display = step === 'step-account' ? 'block' : 'none';
+  }
+
+  function selectLift(el) {
+    document.querySelectorAll('.lift-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedLift = el.dataset.lift;
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  // ── BYPASS ──────────────────────────────────────────────────────────────
+  function tryBypass() {
+    const code = document.getElementById('bypassCode').value.trim().toUpperCase();
+    if (code !== BYPASS) { alert('Incorrect code.'); return; }
+    bypassUnlocked = true;
+    document.getElementById('bypassNote').style.display = 'block';
+    if (currentProg.includes('1RM') && !selectedLift) selectedLift = 'bench';
+    const dest = destPage();
+    if (COMING_SOON.includes(dest)) { showComingSoon(); return; }
+    document.getElementById('modalContent').style.display = 'none';
+    document.getElementById('successMsg').innerHTML = `<h3>PT Preview 🔑</h3><p style="color:var(--muted);font-size:.85rem;margin-top:.4rem">Redirecting to programme...</p>`;
+    document.getElementById('successMsg').style.display = 'block';
+    setTimeout(() => { window.location.href = './' + dest; }, 700);
+  }
+
+  function switchAccountTab(tab) {
+    const isSignup = tab === 'signup';
+    document.getElementById('panel-signup-modal').style.display = isSignup ? 'block' : 'none';
+    document.getElementById('panel-signin-modal').style.display = isSignup ? 'none' : 'block';
+    document.getElementById('tab-signup-modal').style.background = isSignup ? 'var(--purple)' : 'transparent';
+    document.getElementById('tab-signup-modal').style.color = isSignup ? '#fff' : 'var(--muted)';
+    document.getElementById('tab-signin-modal').style.background = isSignup ? 'transparent' : 'var(--purple)';
+    document.getElementById('tab-signin-modal').style.color = isSignup ? 'var(--muted)' : '#fff';
+    document.getElementById('authError').style.display = 'none';
+  }
+
+  async function handleModalSignIn(e) {
+    e.preventDefault();
+    const email = document.getElementById('signinEmailModal').value.trim();
+    const password = document.getElementById('signinPasswordModal').value;
+    document.getElementById('authError').style.display = 'none';
+    if (!email || !password) { showAuthError('Please enter your email and password.'); return; }
+    const btn = document.getElementById('signinBtn');
+    btn.disabled = true; btn.textContent = 'Signing in...';
+    const { data, error } = await signIn(email, password);
+    btn.disabled = false; btn.textContent = 'Sign In & Pay →';
+    if (error) { showAuthError(error.message); return; }
+    const name = (data.user?.user_metadata?.full_name) || email.split('@')[0];
+    goToPayment(name, email);
+  }
+
+  // ── STEP 1: DETAILS → ACCOUNT (or straight to programme if logged in) ─────
+  async function handlePurchase(e) {
+    e.preventDefault();
+    if (bypassUnlocked) return;
+    const name = document.getElementById('buyerName').value.trim();
+    const missing = [];
+    if (!name) missing.push('your name');
+    if (currentProg.includes('1RM') && !selectedLift) missing.push('your chosen lift');
+    if (missing.length) { alert('Please fill in: ' + missing.join(', ')); return; }
+    const dest = destPage();
+    if (COMING_SOON.includes(dest)) { showComingSoon(); return; }
+
+    // Use the login state cached when modal opened (avoids async timing issues)
+    if (window._modalUserLoggedIn || window.currentUser) {
+      document.getElementById('modalContent').style.display = 'none';
+      document.getElementById('successMsg').innerHTML = `
+        <h3>Welcome back! 💪</h3>
+        <p style="color:var(--muted);font-size:.85rem;margin-top:.4rem">Taking you to your programme...</p>`;
+      document.getElementById('successMsg').style.display = 'block';
+      setTimeout(() => { window.location.href = './' + dest; }, 700);
+      return;
+    }
+
+    // Not logged in — show account creation/sign in step
+    document.getElementById('signupNameHidden').value = name;
+    document.getElementById('signupNameDisplay').textContent = name;
+    showModalStep('step-account');
+  }
+
+  // ── STEP 2: CREATE ACCOUNT → PAYHIP ────────────────────────────────────
+  async function handleCreateAccount(e) {
+    e.preventDefault();
+    const name     = document.getElementById('signupNameHidden').value;
+    const email    = document.getElementById('signupEmailModal').value.trim();
+    const password = document.getElementById('signupPasswordModal').value;
+    const errBox   = document.getElementById('authError');
+    errBox.style.display = 'none';
+
+    if (!email || !password) { showAuthError('Please enter your email and password.'); return; }
+    if (password.length < 6) { showAuthError('Password must be at least 6 characters.'); return; }
+
+    const btn = document.getElementById('createAccountBtn');
+    btn.disabled = true; btn.textContent = 'Creating account...';
+
+    const { data, error } = await signUp(email, password, name);
+    btn.disabled = false; btn.textContent = 'Create Account & Pay →';
+
+    if (error) {
+      // If account already exists, try signing them in instead
+      if (error.message.includes('already registered') || error.message.includes('already exists')) {
+        const { data: loginData, error: loginError } = await signIn(email, password);
+        if (loginError) { showAuthError('Account exists — check your password.'); return; }
+        goToPayment(name, email);
+      } else {
+        showAuthError(error.message);
+        return;
+      }
+    } else {
+      goToPayment(name, email);
+    }
+  }
+
+  function goToPayment(name, email) {
+    const dest    = destPage();
+    const payLink = payhipLink();
+    const returnUrl = encodeURIComponent(window.location.origin + window.location.pathname.replace('index.html','') + dest);
+
+    document.getElementById('modalContent').style.display = 'none';
+    document.getElementById('successMsg').innerHTML = `
+      <h3>Account Created! 💪</h3>
+      <p style="color:var(--muted);font-size:.85rem;margin-top:.4rem">Taking you to payment now...</p>`;
+    document.getElementById('successMsg').style.display = 'block';
+
+    // Redirect to Payhip — they return to the intake page once payment is complete
+    // Payhip doesn't support custom return URLs on the free plan, so we open it in the same tab
+    // and the client will land back here via their bookmark/history after paying
+    setTimeout(() => {
+      window.location.href = payLink + '?affiliate_id=&checkout[custom][return]=' + returnUrl;
+    }, 900);
+  }
+
+  function showAuthError(msg) {
+    const box = document.getElementById('authError');
+    box.textContent = msg;
+    box.style.display = 'block';
+  }
+
+  function showComingSoon() {
+    document.getElementById('successMsg').innerHTML = `
+      <h3>Coming Soon 🔧</h3>
+      <p style="color:var(--muted);font-size:.85rem;margin-top:.5rem">
+        The <strong style="color:var(--white)">${currentProg}</strong> is still being built.<br><br>
+        The 1RM Booster and Hypertrophy programmes are fully ready now.
+      </p>`;
+    document.getElementById('modalContent').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Init Supabase on page load
+  window.addEventListener('load', () => initSupabase((user) => {
+    if (user && user.email === PT_EMAIL) bypassUnlocked = true;
+    if (user) updateProgrammeButtons();
+  }));
+
+  function updateProgrammeButtons() {
+    // 1RM Booster — find last used lift from localStorage
+    const liftPages = { bench: 'PROG1_BENCH.html', squat: 'PROG1_SQUAT.html', deadlift: 'PROG1_DEADLIFT.html', ohp: 'PROG1_OHP.html' };
+    const lastLift = localStorage.getItem('ab_last_lift') || 'bench';
+    const lastRMSession = localStorage.getItem('ab_last_rm_session') || 'W1D1';
+    const lastHypSession = localStorage.getItem('ab_last_hyp_session') || 'INTRO';
+    const lastHypSplit = localStorage.getItem('ab_last_hyp_split') || 'fullbody';
+
+    const rmBtn = document.getElementById('btn-1rm');
+    if (rmBtn) {
+      rmBtn.textContent = 'Open Programme';
+      rmBtn.onclick = () => {
+        window.location.href = './' + liftPages[lastLift] + '?session=' + lastRMSession;
+      };
+    }
+
+    const hypBtn = document.getElementById('btn-hyp');
+    if (hypBtn) {
+      hypBtn.textContent = 'Open Programme';
+      hypBtn.onclick = () => {
+        window.location.href = './PROG2_HYPERTROPHY.html?split=' + lastHypSplit + '&session=' + lastHypSession;
+      };
+    }
+  }
+</script>
+
+</body>
+</html>

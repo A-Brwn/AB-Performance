@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AB Performance — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0f;--bg2:#11111a;--bg3:#171724;
+  --purple:#7c3aed;--purple-lt:#a855f7;
+  --white:#f4f4f8;--muted:#8888a0;--border:rgba(124,58,237,.22);
+  --green:#22c55e;--red:#ef4444;
+}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+a{color:var(--purple-lt);text-decoration:none}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.08em;text-align:center;margin-bottom:2rem;display:block}
+.logo span{color:var(--purple-lt)}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:2.5rem;max-width:420px;width:100%}
+.tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;background:var(--bg3);border-radius:8px;padding:.3rem}
+.tab{flex:1;text-align:center;padding:.6rem;border-radius:6px;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--muted);transition:all .2s}
+.tab.active{background:var(--purple);color:#fff}
+.field{margin-bottom:1rem}
+.field label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:.4rem}
+.field input{width:100%;padding:.75rem 1rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s}
+.field input:focus{border-color:var(--purple-lt)}
+.btn{width:100%;padding:.85rem;background:var(--purple);color:#fff;border:none;border-radius:6px;font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;margin-top:.5rem;transition:background .2s}
+.btn:hover{background:var(--purple-lt)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.msg{padding:.7rem 1rem;border-radius:6px;font-size:.82rem;margin-bottom:1rem;display:none}
+.msg.error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5;display:block}
+.msg.success{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#86efac;display:block}
+.panel{display:none}.panel.active{display:block}
+.back-link{display:block;text-align:center;margin-top:1.2rem;font-size:.82rem;color:var(--muted)}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./auth.js"></script>
+</head>
+<body>
+
+<div style="width:100%;max-width:420px">
+  <a href="index.html" onclick="event.preventDefault();var b=window.location.href.substring(0,window.location.href.lastIndexOf('/')+1);window.location.href=b+'index.html';" class="logo nav-logo" style="text-decoration:none;cursor:pointer">AB <span>Performance</span></a>
+  <div class="card">
+    <div class="tabs">
+      <div class="tab active" id="tab-login" onclick="switchTab('login')">Log In</div>
+      <div class="tab" id="tab-signup" onclick="switchTab('signup')">Sign Up</div>
+    </div>
+
+    <div class="msg" id="msgBox"></div>
+
+    <!-- LOGIN PANEL -->
+    <div class="panel active" id="panel-login">
+      <div class="field"><label>Email</label><input type="email" id="loginEmail" placeholder="you@email.com" oninput="checkPTEmail()"/></div>
+      <div class="field"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••"/></div>
+      <!-- PT bypass field — only shows for PT email -->
+      <div class="field" id="bypassField" style="display:none">
+        <label style="color:var(--amber)">🔑 PT Bypass Code</label>
+        <input type="text" id="bypassCodeLogin" placeholder="Enter bypass code" style="border-color:rgba(245,158,11,.4);text-transform:uppercase;letter-spacing:.1em" oninput="if(this.value.toUpperCase()==='ABTEST'){document.getElementById('loginPassword').value='ABPERF2026'}"/>
+        <p style="font-size:.7rem;color:var(--muted);margin-top:.3rem">Creates your real PT account — stay logged in on any device.</p>
+      </div>
+      <button class="btn" id="loginBtn" onclick="handleLogin()">Log In</button>
+    </div>
+
+    <!-- SIGNUP PANEL -->
+    <div class="panel" id="panel-signup">
+      <div class="field"><label>Full Name</label><input type="text" id="signupName" placeholder="Your name"/></div>
+      <div class="field"><label>Email</label><input type="email" id="signupEmail" placeholder="you@email.com"/></div>
+      <div class="field"><label>Password</label><input type="password" id="signupPassword" placeholder="At least 6 characters"/></div>
+      <button class="btn" id="signupBtn" onclick="handleSignup()">Create Account</button>
+    </div>
+  </div>
+  <a href="./index.html" class="back-link">← Back to homepage</a>
+</div>
+
+<script>
+// Default redirect — go to homepage, using same origin to avoid path issues
+let redirectTo = window.location.origin + window.location.pathname.replace('LOGIN.html', '') + 'index.html';
+
+function checkPTEmail() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const bypassField = document.getElementById('bypassField');
+  const passwordField = bypassField.previousElementSibling;
+  if (email === 'alexbrown399@gmail.com') {
+    bypassField.style.display = 'block';
+    passwordField.style.display = 'none'; // hide standard password field
+  } else {
+    bypassField.style.display = 'none';
+    passwordField.style.display = 'block';
+  }
+}
+
+function switchTab(tab) {
+  document.getElementById('tab-login').classList.toggle('active', tab==='login');
+  document.getElementById('tab-signup').classList.toggle('active', tab==='signup');
+  document.getElementById('panel-login').classList.toggle('active', tab==='login');
+  document.getElementById('panel-signup').classList.toggle('active', tab==='signup');
+  document.getElementById('msgBox').className = 'msg';
+}
+
+function showMsg(text, type) {
+  const box = document.getElementById('msgBox');
+  box.textContent = text;
+  box.className = 'msg ' + type;
+}
+
+async function handleLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  if (!email || !password) { showMsg('Please enter your email and password.', 'error'); return; }
+
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = true; btn.textContent = 'Logging in...';
+
+  // PT admin shortcut
+  if (email === 'alexbrown399@gmail.com') {
+    let { data, error } = await signIn(email, 'ABPERF2026');
+    if (error) {
+      const { data: su, error: sue } = await signUp(email, 'ABPERF2026', 'Alex (PT Admin)');
+      if (sue) { btn.disabled = false; btn.textContent = 'Log In'; showMsg('Error: ' + sue.message, 'error'); return; }
+    }
+    btn.disabled = false; btn.textContent = 'Log In';
+    showMsg('Welcome back Alex 💪 Redirecting...', 'success');
+    setTimeout(() => { window.location.href = redirectTo; }, 800);
+    return;
+  }
+
+  const { data, error } = await signIn(email, password);
+  btn.disabled = false; btn.textContent = 'Log In';
+  if (error) { showMsg(error.message, 'error'); return; }
+  showMsg('Logged in! Redirecting...', 'success');
+  setTimeout(() => { window.location.href = redirectTo; }, 800);
+}
+
+async function handleSignup() {
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const password = document.getElementById('signupPassword').value;
+  if (!name || !email || !password) { showMsg('Please fill in all fields.', 'error'); return; }
+  if (password.length < 6) { showMsg('Password must be at least 6 characters.', 'error'); return; }
+  const btn = document.getElementById('signupBtn');
+  btn.disabled = true; btn.textContent = 'Creating account...';
+  const { data, error } = await signUp(email, password, name);
+  btn.disabled = false; btn.textContent = 'Create Account';
+  if (error) { showMsg(error.message, 'error'); return; }
+  showMsg('Account created! Redirecting...', 'success');
+  setTimeout(() => { window.location.href = redirectTo; }, 800);
+}
+
+window.addEventListener('load', () => {
+  initSupabase();
+  // Read redirect target + pre-fill name/programme from URL params (passed from payment flow)
+  const params = new URLSearchParams(window.location.search);
+  const dest = params.get('redirect');
+  if (dest) redirectTo = decodeURIComponent(dest);
+  const name = params.get('name');
+  if (name) document.getElementById('signupName').value = decodeURIComponent(name);
+  const mode = params.get('mode');
+  if (mode === 'signup') switchTab('signup');
+});
+</script>
+</body>
+</html>
