@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>1-1 Clients — AB Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./auth.js"></script>
+<style>
+  :root {
+    --bg: #0a0a0f; --bg2: #111118; --bg3: #1a1a24;
+    --white: #f0f0f5; --muted: #6b6b80; --border: #2a2a38;
+    --purple: #7c3aed; --purple-lt: #a78bfa; --green: #22c55e;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--white); font-family:'Inter',sans-serif; min-height:100vh; }
+
+  /* NAV */
+  nav { background:var(--bg2); border-bottom:1px solid var(--border); padding:.9rem 2rem; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; }
+  .logo { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:.08em; text-decoration:none; color:var(--white); }
+  .logo span { color:var(--purple-lt); }
+  .nav-right { display:flex; align-items:center; gap:1rem; }
+  #navUserLabel { font-size:.75rem; color:var(--purple-lt); font-weight:600; display:none; }
+  #navLoginBtn { font-size:.75rem; color:var(--muted); text-decoration:none; padding:.35rem .8rem; border:1px solid var(--border); border-radius:4px; font-weight:600; }
+  #navLogoutBtn { font-size:.75rem; color:var(--muted); text-decoration:none; font-weight:600; display:none; cursor:pointer; }
+
+  /* SCREENS */
+  .screen { display:none; min-height:calc(100vh - 60px); padding:3rem 2rem; max-width:900px; margin:0 auto; }
+  .screen.active { display:block; }
+
+  /* LOCK SCREEN */
+  .lock-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:2.5rem; max-width:420px; margin:4rem auto; text-align:center; }
+  .lock-icon { font-size:2.5rem; margin-bottom:1rem; }
+  .lock-card h2 { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:.06em; margin-bottom:.5rem; }
+  .lock-card p { color:var(--muted); font-size:.85rem; margin-bottom:1.5rem; line-height:1.6; }
+  .lock-input { width:100%; padding:.75rem 1rem; background:var(--bg3); border:1px solid var(--border); border-radius:6px; color:var(--white); font-size:1rem; font-family:'Inter',sans-serif; outline:none; text-align:center; letter-spacing:.15em; text-transform:uppercase; margin-bottom:1rem; }
+  .lock-input:focus { border-color:var(--purple-lt); }
+  .lock-btn { width:100%; padding:.8rem; background:var(--purple); color:#fff; border:none; border-radius:6px; font-weight:700; font-size:.9rem; cursor:pointer; letter-spacing:.05em; }
+  .lock-btn:hover { background:#6d28d9; }
+  .lock-error { color:#f87171; font-size:.8rem; margin-top:.5rem; display:none; }
+
+  /* CLIENT GRID */
+  .portal-header { margin-bottom:2rem; }
+  .portal-header h1 { font-family:'Bebas Neue',sans-serif; font-size:2.2rem; letter-spacing:.06em; margin-bottom:.3rem; }
+  .portal-header p { color:var(--muted); font-size:.85rem; }
+  .clients-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.2rem; }
+  .client-card { background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:1.5rem; cursor:pointer; transition:all .2s; text-align:center; position:relative; }
+  .client-card:hover { border-color:var(--purple-lt); background:var(--bg3); transform:translateY(-2px); }
+  .client-avatar { width:60px; height:60px; border-radius:50%; background:rgba(124,58,237,.2); border:2px solid var(--purple); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--purple-lt); margin:0 auto 1rem; }
+  .client-name { font-weight:700; font-size:.95rem; margin-bottom:.3rem; }
+  .client-tag { font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; }
+  .client-status { position:absolute; top:.8rem; right:.8rem; width:8px; height:8px; border-radius:50%; background:var(--green); }
+
+  /* CLIENT BYPASS MODAL */
+  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.7); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:200; display:none; }
+  .modal-overlay.active { display:flex; }
+  .bypass-modal { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:2rem; width:100%; max-width:380px; text-align:center; }
+  .bypass-modal h3 { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:.06em; margin-bottom:.5rem; }
+  .bypass-modal p { color:var(--muted); font-size:.82rem; margin-bottom:1.2rem; line-height:1.5; }
+  .bypass-input { width:100%; padding:.75rem 1rem; background:var(--bg3); border:1px solid var(--border); border-radius:6px; color:var(--white); font-size:1rem; font-family:'Inter',sans-serif; outline:none; text-align:center; letter-spacing:.15em; text-transform:uppercase; margin-bottom:.8rem; }
+  .bypass-input:focus { border-color:var(--purple-lt); }
+  .bypass-btn { width:100%; padding:.75rem; background:var(--purple); color:#fff; border:none; border-radius:6px; font-weight:700; font-size:.88rem; cursor:pointer; }
+  .bypass-error { color:#f87171; font-size:.78rem; margin-top:.5rem; display:none; }
+  .bypass-cancel { background:none; border:none; color:var(--muted); font-size:.78rem; cursor:pointer; margin-top:.8rem; display:block; width:100%; }
+
+  /* PROGRAMME PLACEHOLDER */
+  .prog-header { display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; padding-bottom:1.2rem; border-bottom:1px solid var(--border); }
+  .prog-header h2 { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:.06em; }
+  .back-btn { padding:.5rem 1rem; background:var(--bg3); border:1px solid var(--border); border-radius:6px; color:var(--muted); font-size:.8rem; font-weight:600; cursor:pointer; text-decoration:none; }
+  .coming-soon-card { background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:3rem 2rem; text-align:center; }
+  .coming-soon-card .cs-icon { font-size:3rem; margin-bottom:1rem; }
+  .coming-soon-card h3 { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:.06em; margin-bottom:.5rem; }
+  .coming-soon-card p { color:var(--muted); font-size:.85rem; line-height:1.7; max-width:400px; margin:0 auto; }
+
+  .field { margin-bottom:1rem; }
+  .field label { display:block; font-size:.7rem; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); font-weight:600; margin-bottom:.35rem; }
+  .field input, .field select { width:100%; padding:.65rem .9rem; background:var(--bg3); border:1px solid var(--border); border-radius:6px; color:var(--white); font-family:'Inter',sans-serif; font-size:.9rem; outline:none; }
+  .field input:focus, .field select:focus { border-color:var(--purple-lt); }
+  .auto-val { padding:.65rem .9rem; background:rgba(34,197,94,.08); border:1px solid rgba(34,197,94,.25); border-radius:6px; font-size:.9rem; color:var(--green); font-weight:600; }
+  .section-heading { font-size:.68rem; text-transform:uppercase; letter-spacing:.14em; color:var(--purple-lt); font-weight:700; margin:1.5rem 0 .8rem; padding-bottom:.4rem; border-bottom:1px solid var(--border); }
+  .field-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-bottom:1rem; }
+  .macro-row { display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem; }
+  .macro-pill { background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:.7rem 1.2rem; text-align:center; flex:1; min-width:90px; }
+  .macro-pill .mp-val { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; color:var(--purple-lt); }
+  .macro-pill .mp-label { font-size:.65rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-top:.1rem; }
+  .goal-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:.6rem; margin-top:.5rem; }
+  .goal-opt { background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:.8rem .7rem; cursor:pointer; text-align:center; transition:all .2s; }
+  .goal-opt:hover { border-color:var(--purple-lt); }
+  .goal-opt.selected { background:rgba(124,58,237,.15); border-color:var(--purple-lt); }
+  .goal-opt .goal-name { font-size:.78rem; font-weight:600; margin-bottom:.2rem; }
+  .goal-opt .goal-kcal { font-size:.68rem; color:var(--muted); }
+  .goal-opt.selected .goal-kcal { color:var(--purple-lt); }
+  .save-btn { padding:.8rem 2rem; background:var(--purple); color:#fff; border:none; border-radius:4px; font-weight:700; font-size:.85rem; cursor:pointer; letter-spacing:.06em; text-transform:uppercase; margin-top:1.5rem; }
+  .saved-msg { display:none; color:var(--green); font-size:.82rem; font-weight:600; margin-left:1rem; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" onclick="event.preventDefault();var b=window.location.href.substring(0,window.location.href.lastIndexOf('/')+1);window.location.href=b+'index.html';" class="logo" style="text-decoration:none;cursor:pointer">AB <span>Performance</span></a>
+  <div class="nav-right">
+    <span id="navUserLabel"></span>
+    <a href="./LOGIN.html" id="navLoginBtn">Log In</a>
+    <a href="#" id="navLogoutBtn" onclick="handleSignOut()">Sign Out</a>
+  </div>
+</nav>
+
+<!-- SCREEN 1: AUTH (if not logged in) -->
+<div class="screen active" id="screen-auth">
+  <div class="lock-card">
+    <div class="lock-icon">🔐</div>
+    <h2>1-1 Client Portal</h2>
+    <p>This area is for AB Performance PT clients only. Log in or create your account to continue.</p>
+    <button class="lock-btn" onclick="goToLogin()">Log In / Create Account</button>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:1rem">Already logged in? This page will update automatically.</p>
+  </div>
+</div>
+
+<!-- SCREEN 2: PORTAL PASSWORD -->
+<div class="screen" id="screen-lock">
+  <div class="lock-card">
+    <div class="lock-icon">🏋️</div>
+    <h2>Enter Access Code</h2>
+    <p>Enter the access code given to you by Alex to enter the client area.</p>
+    <input class="lock-input" id="portalCodeInput" type="text" placeholder="••••••••" maxlength="20"
+      oninput="this.value=this.value.toUpperCase()"
+      onkeydown="if(event.key==='Enter')checkPortalCode()"/>
+    <button class="lock-btn" onclick="checkPortalCode()">Enter</button>
+    <div class="lock-error" id="portalError">Incorrect code. Check with your PT.</div>
+  </div>
+</div>
+
+<!-- SCREEN 3: CLIENT GRID -->
+<div class="screen" id="screen-clients">
+  <div class="portal-header">
+    <h1>Client Portal</h1>
+    <p>Select your name to access your programme.</p>
+  </div>
+  <div class="clients-grid" id="clientsGrid">
+    <!-- Populated by JS -->
+  </div>
+</div>
+
+<!-- SCREEN 4: CLIENT PROGRAMME -->
+<div class="screen" id="screen-programme">
+  <div class="prog-header">
+    <button class="back-btn" onclick="showScreen('screen-clients')">← Back</button>
+    <h2 id="progClientName">Client</h2>
+  </div>
+  <div id="progContent">
+    <!-- Programme tabs will go here per client -->
+  </div>
+</div>
+
+<!-- CLIENT BYPASS MODAL -->
+<div class="modal-overlay" id="bypassModal">
+  <div class="bypass-modal">
+    <h3 id="bypassClientName">Your Name</h3>
+    <p>Enter your personal access code to open your programme.</p>
+    <input class="bypass-input" id="bypassCodeInput" type="text" placeholder="Your code"
+      oninput="this.value=this.value.toUpperCase()"
+      onkeydown="if(event.key==='Enter')checkBypassCode()"/>
+    <button class="bypass-btn" onclick="checkBypassCode()">Access My Programme</button>
+    <div class="bypass-error" id="bypassError">Incorrect code. Check with Alex.</div>
+    <button class="bypass-cancel" onclick="closeBypassModal()">Cancel</button>
+  </div>
+</div>
+
+<script>
+// ── CONFIGURATION ─────────────────────────────────────────────────────────────
+// Portal-wide access code (give this to all clients)
+const PORTAL_CODE = 'ABPT2026';
+
+// Client definitions — add new clients here
+// code: their personal bypass code (give individually)
+// prog: leave as null until programme is built
+const CLIENTS = [
+  { id: 'client1', name: 'Client 1', initials: 'C1', tag: 'Fat Loss / Muscle', code: 'CODE1', prog: null },
+  { id: 'client2', name: 'Client 2', initials: 'C2', tag: 'Fat Loss / Muscle', code: 'CODE2', prog: null },
+  { id: 'client3', name: 'Client 3', initials: 'C3', tag: 'Fat Loss / Muscle', code: 'CODE3', prog: null },
+  { id: 'client4', name: 'Client 4', initials: 'C4', tag: 'Fat Loss / Muscle', code: 'CODE4', prog: null },
+  // TO ADD A NEW CLIENT: copy a line above, increment id, fill in name/initials/code
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let portalUnlocked = false;
+let selectedClient = null;
+let statsGoalAdj = 0;
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  initSupabase((user) => {
+    if (user) {
+      // PT gets straight in, skips portal code
+      if (user.email === 'alexbrown399@gmail.com') {
+        portalUnlocked = true;
+        buildClientGrid();
+        showScreen('screen-clients');
+      } else {
+        // Check if they've already entered the portal code this session
+        if (sessionStorage.getItem('ab_portal_unlocked') === 'true') {
+          portalUnlocked = true;
+          buildClientGrid();
+          showScreen('screen-clients');
+        } else {
+          showScreen('screen-lock');
+        }
+      }
+    } else {
+      showScreen('screen-auth');
+    }
+  });
+});
+
+// ── SCREEN MANAGEMENT ─────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function goToLogin() {
+  const base = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+  window.location.href = base + 'LOGIN.html?redirect=' + encodeURIComponent(window.location.href);
+}
+
+// ── PORTAL CODE ───────────────────────────────────────────────────────────────
+function checkPortalCode() {
+  const code = document.getElementById('portalCodeInput').value.trim().toUpperCase();
+  const errEl = document.getElementById('portalError');
+  if (code === PORTAL_CODE) {
+    portalUnlocked = true;
+    sessionStorage.setItem('ab_portal_unlocked', 'true');
+    errEl.style.display = 'none';
+    buildClientGrid();
+    showScreen('screen-clients');
+  } else {
+    errEl.style.display = 'block';
+    document.getElementById('portalCodeInput').value = '';
+  }
+}
+
+// ── CLIENT GRID ───────────────────────────────────────────────────────────────
+function buildClientGrid() {
+  const grid = document.getElementById('clientsGrid');
+  grid.innerHTML = CLIENTS.map(c => `
+    <div class="client-card" onclick="openClientModal('${c.id}')">
+      <div class="client-status"></div>
+      <div class="client-avatar">${c.initials}</div>
+      <div class="client-name">${c.name}</div>
+      <div class="client-tag">${c.tag}</div>
+    </div>
+  `).join('');
+}
+
+// ── BYPASS MODAL ──────────────────────────────────────────────────────────────
+function openClientModal(clientId) {
+  selectedClient = CLIENTS.find(c => c.id === clientId);
+  if (!selectedClient) return;
+  document.getElementById('bypassClientName').textContent = selectedClient.name;
+  document.getElementById('bypassCodeInput').value = '';
+  document.getElementById('bypassError').style.display = 'none';
+  document.getElementById('bypassModal').classList.add('active');
+  setTimeout(() => document.getElementById('bypassCodeInput').focus(), 100);
+}
+
+function closeBypassModal() {
+  document.getElementById('bypassModal').classList.remove('active');
+  selectedClient = null;
+}
+
+function checkBypassCode() {
+  if (!selectedClient) return;
+  const code = document.getElementById('bypassCodeInput').value.trim().toUpperCase();
+  const errEl = document.getElementById('bypassError');
+  // PT admin can bypass with their own code
+  const isPT = window.currentUser && window.currentUser.email === 'alexbrown399@gmail.com';
+  if (code === selectedClient.code || isPT) {
+    errEl.style.display = 'none';
+    closeBypassModal();
+    openClientProgramme(selectedClient);
+  } else {
+    errEl.style.display = 'block';
+    document.getElementById('bypassCodeInput').value = '';
+  }
+}
+
+// ── CLIENT PROGRAMME ──────────────────────────────────────────────────────────
+function openClientProgramme(client) {
+  document.getElementById('progClientName').textContent = client.name + "'s Programme";
+  const content = document.getElementById('progContent');
+
+  if (!client.prog) {
+    // Programme not built yet — show placeholder
+    content.innerHTML = `
+      <div style="display:flex;gap:.8rem;margin-bottom:1.5rem;flex-wrap:wrap">
+        <div style="padding:.5rem 1rem;background:rgba(124,58,237,.12);border:1px solid var(--border);border-radius:6px;font-size:.75rem;font-weight:600;color:var(--purple-lt)">Fat Loss / Muscle Building</div>
+        <div style="padding:.5rem 1rem;background:rgba(124,58,237,.12);border:1px solid var(--border);border-radius:6px;font-size:.75rem;font-weight:600;color:var(--purple-lt)">1-1 PT Client</div>
+      </div>
+      <div class="coming-soon-card">
+        <div class="cs-icon">📋</div>
+        <h3>Programme Coming Soon</h3>
+        <p>Your personalised programme is being built based on your intake form. Alex will have it ready for your next session. In the meantime, your stats and macro targets are available below.</p>
+      </div>
+      <div style="margin-top:2rem">
+        <div class="section-heading">My Stats & Targets</div>
+        ${buildStatsForm(client.id)}
+      </div>
+    `;
+    // Load saved stats for this client
+    loadClientStats(client.id);
+  } else {
+    // Programme is built — load it (future feature)
+    content.innerHTML = '<p style="color:var(--muted)">Programme loading...</p>';
+  }
+
+  showScreen('screen-programme');
+}
+
+// ── STATS FORM ────────────────────────────────────────────────────────────────
+function buildStatsForm(clientId) {
+  return `
+    <div class="field-grid">
+      <div class="field"><label>Full Name</label><input type="text" id="cs_name" placeholder="Your name"/></div>
+      <div class="field"><label>Age</label><input type="number" id="cs_age" placeholder="e.g. 25" oninput="calcClientStats()"/></div>
+      <div class="field"><label>Height (cm)</label><input type="number" id="cs_height" placeholder="e.g. 175" oninput="calcClientStats()"/></div>
+      <div class="field"><label>Weight (kg)</label><input type="number" id="cs_weight" placeholder="e.g. 80" oninput="calcClientStats()"/></div>
+      <div class="field"><label>Sex</label>
+        <select id="cs_sex" onchange="calcClientStats()">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div class="field"><label>BMI</label><div class="auto-val" id="cs_bmi">—</div></div>
+    </div>
+    <div class="field-grid">
+      <div class="field" style="grid-column:1/-1"><label>Activity Level</label>
+        <select id="cs_activity" onchange="calcClientStats()">
+          <option value="1.2">Sedentary (desk job, no exercise)</option>
+          <option value="1.375" selected>Lightly active (light exercise / walking)</option>
+          <option value="1.55">Moderately active (3–5 days/week)</option>
+          <option value="1.725">Very active (hard training 6–7 days/week)</option>
+          <option value="1.9">Extremely active (physical job + daily training)</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-grid">
+      <div class="field"><label>BMR</label><div class="auto-val" id="cs_bmr">—</div></div>
+      <div class="field"><label>TDEE</label><div class="auto-val" id="cs_tdee">—</div></div>
+    </div>
+    <div class="section-heading">Goal</div>
+    <div class="goal-grid" id="cs_goalGrid">
+      <div class="goal-opt" data-adj="-500" onclick="selectClientGoal(this)"><div class="goal-name">Lose weight</div><div class="goal-kcal">−500 kcal</div></div>
+      <div class="goal-opt" data-adj="-250" onclick="selectClientGoal(this)"><div class="goal-name">Lose weight</div><div class="goal-kcal">−250 kcal</div></div>
+      <div class="goal-opt selected" data-adj="0" onclick="selectClientGoal(this)"><div class="goal-name">Maintain</div><div class="goal-kcal">Maintenance</div></div>
+      <div class="goal-opt" data-adj="250" onclick="selectClientGoal(this)"><div class="goal-name">Gain muscle</div><div class="goal-kcal">+250 kcal</div></div>
+      <div class="goal-opt" data-adj="500" onclick="selectClientGoal(this)"><div class="goal-name">Gain muscle fast</div><div class="goal-kcal">+500 kcal</div></div>
+    </div>
+    <div class="field-grid" style="margin-top:1rem">
+      <div class="field"><label>Daily Calorie Target</label><div class="auto-val" id="cs_cals">—</div></div>
+    </div>
+    <div class="section-heading">Macro Targets</div>
+    <div class="macro-row">
+      <div class="macro-pill"><div class="mp-val" id="cs_protein">—</div><div class="mp-label">Protein (g)</div></div>
+      <div class="macro-pill"><div class="mp-val" id="cs_fat">—</div><div class="mp-label">Fat (g)</div></div>
+      <div class="macro-pill"><div class="mp-val" id="cs_carbs">—</div><div class="mp-label">Carbs (g)</div></div>
+    </div>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:.6rem">Protein: 2.0g/kg · Fat: 1.0g/kg · Remaining → carbs.</p>
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+      <button class="save-btn" onclick="saveClientStats('${clientId}')">Save Stats</button>
+      <span class="saved-msg" id="cs_saved">✓ Saved</span>
+    </div>
+  `;
+}
+
+// ── CLIENT STATS LOGIC ────────────────────────────────────────────────────────
+function calcClientStats() {
+  const get = id => { const el = document.getElementById(id); return el ? parseFloat(el.value) || 0 : 0; };
+  const age = get('cs_age'), h = get('cs_height'), w = get('cs_weight');
+  const sex = document.getElementById('cs_sex') ? document.getElementById('cs_sex').value : 'male';
+  const act = document.getElementById('cs_activity') ? parseFloat(document.getElementById('cs_activity').value) : 1.375;
+  const bmiEl = document.getElementById('cs_bmi');
+  if (h && w && bmiEl) bmiEl.textContent = (w/((h/100)**2)).toFixed(1) + ' kg/m²';
+  if (age && h && w) {
+    const bmr = Math.round(sex === 'male' ? 10*w+6.25*h-5*age+5 : 10*w+6.25*h-5*age-161);
+    const tdee = Math.round(bmr * act);
+    const target = tdee + statsGoalAdj;
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    set('cs_bmr', bmr + ' kcal/day');
+    set('cs_tdee', tdee + ' kcal/day');
+    set('cs_cals', target + ' kcal/day');
+    const prot = Math.round(2*w), fat = Math.round(1*w);
+    const carbs = Math.max(0, Math.round((target - prot*4 - fat*9)/4));
+    set('cs_protein', prot + 'g');
+    set('cs_fat', fat + 'g');
+    set('cs_carbs', carbs + 'g');
+  }
+}
+
+function selectClientGoal(el) {
+  document.querySelectorAll('#cs_goalGrid .goal-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  statsGoalAdj = parseInt(el.dataset.adj);
+  calcClientStats();
+}
+
+function saveClientStats(clientId) {
+  const g = id => { const el = document.getElementById(id); return el ? (el.value || el.textContent || '') : ''; };
+  const data = {
+    name: g('cs_name'), age: g('cs_age'), weight: g('cs_weight'), height: g('cs_height'),
+    sex: g('cs_sex'), bmr: g('cs_bmr'), tdee: g('cs_tdee'), cals: g('cs_cals'),
+    protein: g('cs_protein'), fat: g('cs_fat'), carbs: g('cs_carbs'), goalAdj: statsGoalAdj
+  };
+  localStorage.setItem('ab_client_stats_' + clientId, JSON.stringify(data));
+  const saved = document.getElementById('cs_saved');
+  if (saved) { saved.style.display = 'inline'; setTimeout(() => saved.style.display = 'none', 2000); }
+}
+
+function loadClientStats(clientId) {
+  const raw = localStorage.getItem('ab_client_stats_' + clientId);
+  if (!raw) return;
+  try {
+    const s = JSON.parse(raw);
+    const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+    set('cs_name', s.name); set('cs_age', s.age); set('cs_weight', s.weight);
+    set('cs_height', s.height); set('cs_sex', s.sex);
+    if (s.goalAdj !== undefined) {
+      statsGoalAdj = parseInt(s.goalAdj) || 0;
+      document.querySelectorAll('#cs_goalGrid .goal-opt').forEach(el => {
+        el.classList.toggle('selected', parseInt(el.dataset.adj) === statsGoalAdj);
+      });
+    }
+    calcClientStats();
+  } catch(e) {}
+}
+
+async function handleSignOut() { await signOut(); }
+</script>
+</body>
+</html>
