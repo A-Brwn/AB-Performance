@@ -174,15 +174,14 @@
 // Portal-wide access code (give this to all clients)
 const PORTAL_CODE = 'ABPT2026';
 
-// Client definitions — add new clients here
-// code: their personal bypass code (give individually)
-// prog: leave as null until programme is built
+// Client definitions — email maps to their programme page
+// Add new clients here — set prog to their HTML file once built
 const CLIENTS = [
-  { id: 'client1', name: 'Client 1', initials: 'C1', tag: 'Fat Loss / Muscle', code: 'CODE1', prog: null },
-  { id: 'client2', name: 'Client 2', initials: 'C2', tag: 'Fat Loss / Muscle', code: 'CODE2', prog: null },
-  { id: 'client3', name: 'Client 3', initials: 'C3', tag: 'Fat Loss / Muscle', code: 'CODE3', prog: null },
-  { id: 'client4', name: 'Client 4', initials: 'C4', tag: 'Fat Loss / Muscle', code: 'CODE4', prog: null },
-  // TO ADD A NEW CLIENT: copy a line above, increment id, fill in name/initials/code
+  { id: 'diyatha',  name: 'Diyatha',  initials: 'D',  tag: 'Fat Loss / Muscle Building', email: 'diyatha7@gmail.com',  prog: 'PROG_DIYATHA.html' },
+  { id: 'client2',  name: 'Client 2', initials: 'C2', tag: 'Fat Loss / Muscle',           email: null,                  prog: null },
+  { id: 'client3',  name: 'Client 3', initials: 'C3', tag: 'Fat Loss / Muscle',           email: null,                  prog: null },
+  { id: 'client4',  name: 'Client 4', initials: 'C4', tag: 'Fat Loss / Muscle',           email: null,                  prog: null },
+  // TO ADD A CLIENT: copy a line, fill in name/initials/email/prog
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
@@ -194,20 +193,28 @@ let statsGoalAdj = 0;
 window.addEventListener('load', () => {
   initSupabase((user) => {
     if (user) {
-      // PT gets straight in, skips portal code
+      // PT gets straight in
       if (user.email === 'alexbrown399@gmail.com') {
         portalUnlocked = true;
         buildClientGrid();
         showScreen('screen-clients');
+        return;
+      }
+      // Check if client email matches a known client
+      const matchedClient = CLIENTS.find(c => c.email && c.email === user.email);
+      if (matchedClient && matchedClient.prog) {
+        // Auto-redirect to their programme — no bypass needed
+        const base = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+        window.location.href = base + matchedClient.prog;
+        return;
+      }
+      // Logged in but not auto-identified — show portal lock
+      if (sessionStorage.getItem('ab_portal_unlocked') === 'true') {
+        portalUnlocked = true;
+        buildClientGrid();
+        showScreen('screen-clients');
       } else {
-        // Check if they've already entered the portal code this session
-        if (sessionStorage.getItem('ab_portal_unlocked') === 'true') {
-          portalUnlocked = true;
-          buildClientGrid();
-          showScreen('screen-clients');
-        } else {
-          showScreen('screen-lock');
-        }
+        showScreen('screen-lock');
       }
     } else {
       showScreen('screen-auth');
