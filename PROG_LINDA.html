@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Linda — AB Performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./auth.js"></script>
+<style>
+:root{--bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--white:#f0f0f5;--muted:#6b6b80;--border:#2a2a38;--purple:#7c3aed;--purple-lt:#a78bfa;--green:#22c55e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh}
+nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.08em;text-decoration:none;color:var(--white)}
+.logo span{color:var(--purple-lt)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+#navUserLabel{font-size:.75rem;color:var(--purple-lt);font-weight:600;display:none}
+#navLoginBtn{font-size:.75rem;color:var(--muted);text-decoration:none;padding:.35rem .8rem;border:1px solid var(--border);border-radius:4px;font-weight:600}
+#navLogoutBtn{font-size:.75rem;color:var(--muted);text-decoration:none;font-weight:600;display:none;cursor:pointer}
+.prog-nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.6rem 1rem;display:flex;flex-wrap:wrap;gap:.3rem;position:sticky;top:57px;z-index:99;overflow-x:auto}
+.nav-btn{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:.4rem .6rem;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:.1rem;min-width:44px;transition:all .2s}
+.nav-btn span{font-size:.5rem;color:var(--muted);font-weight:400}
+.nav-btn:hover,.nav-btn.active{background:var(--purple);border-color:var(--purple);color:#fff}
+.nav-btn.active span{color:rgba(255,255,255,.7)}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.session{display:none}.session.active{display:block}
+.session-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.5rem}
+.session-header{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);background:var(--bg3)}
+.session-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em}
+.session-table{width:100%;border-collapse:collapse;font-size:.78rem}
+.session-table th{background:var(--bg3);padding:.6rem .8rem;text-align:left;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap}
+.session-table td{padding:.7rem .8rem;border-bottom:1px solid var(--border);vertical-align:top}
+.session-table tr:last-child td{border-bottom:none}
+.ex-name{font-weight:600;min-width:200px}
+.variation-note{font-size:.68rem;color:var(--muted);margin-top:.2rem;font-weight:400}
+.suggested-load{color:var(--purple-lt);font-weight:600;white-space:nowrap}
+.actual-input{width:70px;padding:.4rem .5rem;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--white);font-size:.82rem;outline:none;text-align:center}
+.actual-input:focus{border-color:var(--purple-lt)}
+.rpe-input{width:50px;padding:.4rem .5rem;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--white);font-size:.82rem;outline:none;text-align:center}
+.prev-cell{color:var(--muted);font-size:.75rem}
+.notes-cell{font-size:.72rem;color:var(--muted);line-height:1.6;min-width:220px;max-width:340px}
+.wu-page{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:2rem;max-width:800px}
+.wu-page h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;margin-bottom:1.2rem}
+.wu-block{margin-bottom:1.5rem}
+.wu-block h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:600;margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+.wu-item{display:flex;gap:1rem;margin-bottom:.8rem;align-items:flex-start}
+.wu-ex{font-weight:600;font-size:.85rem;min-width:200px}
+.wu-sets{font-size:.8rem;color:var(--purple-lt);font-weight:600;min-width:80px}
+.wu-note{font-size:.75rem;color:var(--muted);line-height:1.5}
+.info-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.9rem 1.1rem;margin-bottom:1rem;font-size:.82rem;line-height:1.7}
+.field{margin-bottom:1rem}
+.field label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600;margin-bottom:.35rem}
+.field input,.field select{width:100%;padding:.65rem .9rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;outline:none}
+.field input:focus,.field select:focus{border-color:var(--purple-lt)}
+.auto-val{padding:.65rem .9rem;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);border-radius:6px;font-size:.9rem;color:var(--green);font-weight:600}
+.field-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1rem}
+.section-heading{font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;color:var(--purple-lt);font-weight:700;margin:1.5rem 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+.goal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.6rem;margin-top:.5rem}
+.goal-opt{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.8rem .7rem;cursor:pointer;text-align:center;transition:all .2s}
+.goal-opt:hover{border-color:var(--purple-lt)}.goal-opt.selected{background:rgba(124,58,237,.15);border-color:var(--purple-lt)}
+.goal-opt .goal-name{font-size:.78rem;font-weight:600;margin-bottom:.2rem}
+.goal-opt .goal-kcal{font-size:.68rem;color:var(--muted)}.goal-opt.selected .goal-kcal{color:var(--purple-lt)}
+.macro-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem}
+.macro-pill{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.7rem 1.2rem;text-align:center;flex:1;min-width:90px}
+.macro-pill .mp-val{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--purple-lt)}
+.macro-pill .mp-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:.1rem}
+.save-btn{padding:.8rem 2rem;background:var(--purple);color:#fff;border:none;border-radius:4px;font-weight:700;font-size:.85rem;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;margin-top:1.5rem}
+.saved-msg{display:none;color:var(--green);font-size:.82rem;font-weight:600;margin-left:1rem}
+
+.yt-link{display:inline-flex;align-items:center;gap:.3rem;margin-top:.3rem;font-size:.68rem;color:#ff4444;text-decoration:none;font-weight:600;opacity:.85}
+.yt-link:hover{opacity:1}
+.yt-link::before{content:'▶';font-size:.6rem}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" onclick="event.preventDefault();var b=window.location.href.substring(0,window.location.href.lastIndexOf('/')+1);window.location.href=b+'index.html';" class="logo" style="cursor:pointer">AB <span>Performance</span></a>
+  <div class="nav-right">
+    <span id="navUserLabel"></span>
+    <a href="./LOGIN.html" id="navLoginBtn">Log In</a>
+    <a href="#" id="navLogoutBtn" onclick="handleSignOut()">Sign Out</a>
+  </div>
+</nav>
+<div class="prog-nav"><button class="nav-btn" onclick="showSess('STATS')" id="nav-STATS">STATS<span>My Stats</span></button>
+<button class="nav-btn active" onclick="showSess('WARMUP')" id="nav-WARMUP">WARM<span>Warm-Up</span></button>
+<button class="nav-btn" onclick="showSess('W1D1')" id="nav-W1D1">W1D1<span>PT Session</span></button>
+<button class="nav-btn" onclick="showSess('W1D2')" id="nav-W1D2">W1D2<span>C+W A</span></button>
+<button class="nav-btn" onclick="showSess('W1D3')" id="nav-W1D3">W1D3<span>C+W B</span></button>
+<button class="nav-btn" onclick="showSess('W2D1')" id="nav-W2D1">W2D1<span>PT Session</span></button>
+<button class="nav-btn" onclick="showSess('W2D2')" id="nav-W2D2">W2D2<span>C+W A</span></button>
+<button class="nav-btn" onclick="showSess('W2D3')" id="nav-W2D3">W2D3<span>C+W B</span></button>
+<button class="nav-btn" onclick="showSess('W3D1')" id="nav-W3D1">W3D1<span>PT Session</span></button>
+<button class="nav-btn" onclick="showSess('W3D2')" id="nav-W3D2">W3D2<span>C+W A</span></button>
+<button class="nav-btn" onclick="showSess('W3D3')" id="nav-W3D3">W3D3<span>C+W B</span></button>
+<button class="nav-btn" onclick="showSess('W4D1')" id="nav-W4D1">W4D1<span>PT Session</span></button>
+<button class="nav-btn" onclick="showSess('W4D2')" id="nav-W4D2">W4D2<span>C+W A</span></button>
+<button class="nav-btn" onclick="showSess('W4D3')" id="nav-W4D3">W4D3<span>C+W B</span></button>
+</div>
+<div class="main">
+<div class="session" id="sess-STATS">
+  <div class="wu-page" style="max-width:900px">
+    <h2>My Stats & Targets</h2>
+    <p style="color:var(--muted);font-size:.85rem;margin-bottom:1.5rem">Pre-filled from your intake form. Update weight as you progress.</p>
+    <div class="info-box" style="background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.25)">
+      <strong style="color:#fcd34d">⚠️ Health Notes</strong><br><strong>Lower Back Pain:</strong> No heavy spinal loading. All core work from floor. Stop if back pain increases.<br><strong>Hip Weakness:</strong> Focus on controlled movement — glute activation is priority.<br><strong>PCOS/Thyroid:</strong> Steady-state cardio is ideal for both — lower cortisol, better insulin sensitivity. Resistance training is hugely beneficial.
+    </div>
+    <div class="section-heading">Personal Details</div>
+    <div class="field-grid">
+      <div class="field"><label>Full Name</label><input type="text" id="st_name" value="Linda"/></div>
+      <div class="field"><label>Age</label><input type="number" id="st_age" value="35" oninput="calcStatsAll()"/></div>
+      <div class="field"><label>Height (cm)</label><input type="number" id="st_height" value="163" oninput="calcStatsAll()"/></div>
+      <div class="field"><label>Weight (kg)</label><input type="number" id="st_weight" value="68" oninput="calcStatsAll()"/></div>
+      <div class="field"><label>Sex</label>
+        <select id="st_sex" onchange="calcStatsAll()">
+          <option value="male" >Male</option>
+          <option value="female" selected>Female</option>
+        </select>
+      </div>
+      <div class="field"><label>BMI</label><div class="auto-val" id="st_bmi">25.6 kg/m²</div></div>
+    </div>
+    <div class="section-heading">Activity Level</div>
+    <div class="field-grid">
+      <div class="field" style="grid-column:1/-1"><label>Activity Level</label>
+        <select id="st_activity" onchange="calcStatsAll()">
+          <option value="1.2">Sedentary</option>
+          <option value="1.375">Lightly active</option>
+          <option value="1.55" selected>Moderately active (3–4 days/wk)</option>
+          <option value="1.725">Very active</option>
+        </select>
+      </div>
+    </div>
+    <div class="section-heading">Calorie Targets</div>
+    <div class="field-grid">
+      <div class="field"><label>BMR</label><div class="auto-val" id="st_bmr">1363 kcal/day</div></div>
+      <div class="field"><label>TDEE</label><div class="auto-val" id="st_tdee">2112 kcal/day</div></div>
+    </div>
+    <div class="section-heading">Goal</div>
+    <div class="goal-grid" id="st_goalGrid">
+      <div class="goal-opt selected" data-adj="-500" onclick="selectStatsGoal(this)"><div class="goal-name">Fat Loss</div><div class="goal-kcal">−500 kcal</div></div>
+      <div class="goal-opt" data-adj="-250" onclick="selectStatsGoal(this)"><div class="goal-name">Gradual Loss</div><div class="goal-kcal">−250 kcal</div></div>
+      <div class="goal-opt" data-adj="0" onclick="selectStatsGoal(this)"><div class="goal-name">Maintain</div><div class="goal-kcal">Maintenance</div></div>
+    </div>
+    <div class="field-grid" style="margin-top:1rem">
+      <div class="field"><label>Daily Calorie Target</label><div class="auto-val" id="st_cals">1612 kcal/day</div></div>
+    </div>
+    <div class="section-heading">Macro Targets</div>
+    <div class="macro-row">
+      <div class="macro-pill"><div class="mp-val" id="st_protein">141g</div><div class="mp-label">Protein (g)</div></div>
+      <div class="macro-pill"><div class="mp-val" id="st_fat">27g</div><div class="mp-label">Fat (g)</div></div>
+      <div class="macro-pill"><div class="mp-val" id="st_carbs">212g</div><div class="mp-label">Carbs (g)</div></div>
+    </div>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:.6rem">Protein high to preserve muscle during deficit. Fat low — fat loss protocol.</p>
+    <button class="save-btn" onclick="saveStats()">Save Stats</button>
+    <span class="saved-msg" id="statsSaved">✓ Saved</span>
+  </div>
+</div>
+<div class="session active" id="sess-WARMUP">
+  <div class="wu-page">
+    <h2>Warm-Up Protocol</h2>
+    <p style="color:var(--muted);font-size:.85rem;margin-bottom:1.2rem">Complete before every session. Do not skip — cold muscles underperform and injury risk increases significantly.</p>
+    
+    <div class="wu-block">
+      <h3>1. General Warm-Up (5 min)</h3>
+      <div class="wu-item"><div class="wu-ex">Light Cardio</div><div class="wu-sets">5 min</div><div class="wu-note">Brisk treadmill walk, cross-trainer or bike on low resistance. Raise heart rate gently — warm but not breathless.</div></div>
+    </div>
+    <div class="wu-block">
+      <h3>2. Injury Rehab & Activation (8–10 min)</h3>
+      <div class="wu-item"><div class="wu-ex">Hip Flexor Stretch</div><div class="wu-sets">2 × 30s each</div><div class="wu-note">Lunge position, front knee at 90°, drive hips forward. Important for anyone sitting at a desk — tight hip flexors pull on the lower back.</div></div>
+      <div class="wu-item"><div class="wu-ex">Band Pull-Aparts</div><div class="wu-sets">2 × 15</div><div class="wu-note">Light band at chest height. Pull apart to full extension. Activates rear delts and rotator cuff — improves shoulder mechanics and reduces elbow stress during pressing.</div></div>
+      <div class="wu-item"><div class="wu-ex">Bodyweight Squat</div><div class="wu-sets">2 × 10</div><div class="wu-note">Full depth. Controlled descent. Reinforces lower body movement pattern before adding load.</div></div>
+      <div class="wu-item"><div class="wu-ex">Arm Circles</div><div class="wu-sets">2 × 10 each direction</div><div class="wu-note">Large controlled circles. Shoulder mobility before pressing and pulling.</div></div>
+      
+      <div class="wu-item"><div class="wu-ex">Cat-Cow</div><div class="wu-sets">2 × 10</div><div class="wu-note">On all fours, alternate between arching and rounding the spine slowly. Mobilises lumbar spine — reduces stiffness and prepares the back for loading. Do this daily.</div></div>
+      <div class="wu-item"><div class="wu-ex">Clamshell (Light Band)</div><div class="wu-sets">2 × 15 each side</div><div class="wu-note">Side lying, knees bent, feet together. Open top knee like a clamshell. Directly targets hip abductors — weakness here is a major driver of lower back pain. Use light band when ready.</div></div>
+      <div class="wu-item"><div class="wu-ex">Glute Bridge</div><div class="wu-sets">2 × 15</div><div class="wu-note">Drive hips up and squeeze at top. Activates glutes and reduces lower back compensation. Essential before every session.</div></div>
+    </div>
+    <div class="wu-block">
+      <h3>3. Daily Rehab (do these every day, not just training days)</h3>
+      <div class="wu-item"><div class="wu-ex">Child's Pose</div><div class="wu-sets">1 × 60s</div><div class="wu-note">Kneel, sit back onto heels, reach arms forward on the floor. Hold and breathe. Decompresses the lower spine — do this morning and evening if possible.</div></div>
+      <div class="wu-item"><div class="wu-ex">Deep Glute Stretch (Pigeon Pose)</div><div class="wu-sets">1 × 30s each side</div><div class="wu-note">Brings knee to same-side wrist, extend back leg. Deep hip flexor and glute stretch. Directly addresses hip tightness contributing to lower back pain.</div></div>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W1D1">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W1D1 — PT Session — Weights</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 1 — Learning the movements. Light weight, perfect form.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Weight Used (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cable Row</div></td>
+      <td>3</td><td>12–15</td><td>2-1-1</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D1_Seated_Row_Machin" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive elbows back. Linda starts here while Sangkar does chest press. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Chest Press (Machine)<br><a href="https://www.youtube.com/watch?v=xUm0BiZCB_g" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Smith Machine</div></td>
+      <td>3</td><td>12–15</td><td>3-1-1</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D1_Chest_Press_Machi" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive hands away, controlled. Swap with Sangkar between sets.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lying Leg Curl (Machine)<br><a href="https://www.youtube.com/watch?v=1Tq3QdYUuHs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D1_Lying_Leg_Curl_Ma" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Linda starts here while Sangkar does leg press. Hips into pad. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Goblet Squat</div></td>
+      <td>3</td><td>12–15</td><td>3-1-1</td>
+      <td class="suggested-load">Light — form focus</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D1_Leg_Press_Machine" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range. Focus on controlling the descent. ⚠️ Hip weakness — focus on control, not weight. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
+      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D1_Lat_Pulldown_Wide" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Linda starts here while Sangkar does shoulder press. Pull elbows down and back.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D1_Shoulder_Press_Ma" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled — elbows slightly forward.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Bicep Curl (Machine or EZ Bar)<br><a href="https://www.youtube.com/watch?v=av7-8igSXTs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cable Curl</div></td>
+      <td>3</td><td>12</td><td>Natural</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D1_Bicep_Curl_Machin" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Linda starts here while Sangkar does tricep pushdown. Controlled curl. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Tricep Pushdown (Rope)<br><a href="https://www.youtube.com/watch?v=vB5OHsJ3EME" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D1_Tricep_Pushdown_R" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Rope attachment. Elbows fixed. Alternate with Sangkar.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">Bodyweight</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D1_Glute_Bridge" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 5</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive hips, squeeze at top 2s. Directly addresses glute weakness and lower back support. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>8 each side</td><td>Slow</td>
+      <td class="suggested-load">Bodyweight</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D1_Dead_Bug" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 5</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Lower back pressed to floor. Core stability — safe for lower back rehab. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W1D2">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W1D2 — Cardio + Weights A</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 1 — Learning the movements. Light weight, perfect form.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Weight Used (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Treadmill Incline Walk<br><a href="https://www.youtube.com/watch?v=p5pFBRiINg4" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td>1</td><td>30 min</td><td>N/A</td>
+      <td class="suggested-load">5km/h, 6% incline</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D2_Treadmill_Incline_" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>RPE 5</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Steady state. Conversational pace. Fat burning zone. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>3-1-1</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D2_Leg_Press_Machine" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 5</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">2 sets only — keep it light after cardio. Form focus. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">Bodyweight</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D2_Glute_Bridge" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 5</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Glute activation — rehab for both. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cable Row</div></td>
+      <td>2</td><td>15</td><td>2-1-1</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D2_Seated_Row_Machin" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 5</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Back activation. Posture support. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>20–30s</td><td>N/A</td>
+      <td class="suggested-load">Bodyweight</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D2_Plank_Hold" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 5</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Core foundation. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Child's Pose Stretch<br><a href="https://www.youtube.com/watch?v=qn5GKVQ7FDI" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>1</td><td>60s</td><td>N/A</td>
+      <td class="suggested-load">Bodyweight</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D2_Child's_Pose_Stret" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>—</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Lower back mobility — hold for 60 seconds, breathe steadily. Daily if possible. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W1D3">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W1D3 — Cardio + Weights B</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 1 — Learning the movements. Light weight, perfect form.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Weight Used (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Stationary Bike<br><a href="https://www.youtube.com/watch?v=5MwOkEHiXpg" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td>1</td><td>30 min</td><td>N/A</td>
+      <td class="suggested-load">Level 5–7</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D3_Stationary_Bike" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>RPE 5–6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Steady state. Seated — zero spinal load. Good for lower back. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>3-1-1</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D3_Shoulder_Press_Ma" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 5</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Upper body — light post-cardio. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
+      <td>2</td><td>15</td><td>3-1-1</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D3_Lat_Pulldown_Wide" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 5</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled pull. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Hip Thrust (Bodyweight)<br><a href="https://www.youtube.com/watch?v=xDmFkJxPzeM" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">Bodyweight</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D3_Hip_Thrust_Bodywe" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 5</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Best glute exercise. Upper back on bench. Drive and squeeze. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>8 each side</td><td>Slow</td>
+      <td class="suggested-load">Bodyweight</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D3_Dead_Bug" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 5</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Core stability — lower back pressed to floor. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cat-Cow Stretch<br><a href="https://www.youtube.com/watch?v=kqnua4rHVVA" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>1</td><td>10 reps</td><td>Slow</td>
+      <td class="suggested-load">Bodyweight</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D3_Cat-Cow_Stretch" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>—</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Spinal mobility. Arch and round slowly. Do this daily for lower back. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W2D1">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W2D1 — PT Session — Weights</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 2 — Small weight increases. Start pushing slightly harder.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Weight Used (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cable Row</div></td>
+      <td>3</td><td>12–15</td><td>2-1-1</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D1_Seated_Row_Machin" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive elbows back. Linda starts here while Sangkar does chest press. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Chest Press (Machine)<br><a href="https://www.youtube.com/watch?v=xUm0BiZCB_g" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Smith Machine</div></td>
+      <td>3</td><td>12–15</td><td>3-1-1</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D1_Chest_Press_Machi" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive hands away, controlled. Swap with Sangkar between sets.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lying Leg Curl (Machine)<br><a href="https://www.youtube.com/watch?v=1Tq3QdYUuHs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D1_Lying_Leg_Curl_Ma" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Linda starts here while Sangkar does leg press. Hips into pad. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Goblet Squat</div></td>
+      <td>3</td><td>12–15</td><td>3-1-1</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D1_Leg_Press_Machine" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range. Focus on controlling the descent. ⚠️ Hip weakness — focus on control, not weight. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
+      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D1_Lat_Pulldown_Wide" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Linda starts here while Sangkar does shoulder press. Pull elbows down and back.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D1_Shoulder_Press_Ma" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled — elbows slightly forward.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Bicep Curl (Machine or EZ Bar)<br><a href="https://www.youtube.com/watch?v=av7-8igSXTs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cable Curl</div></td>
+      <td>3</td><td>12</td><td>Natural</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D1_Bicep_Curl_Machin" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Linda starts here while Sangkar does tricep pushdown. Controlled curl. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Tricep Pushdown (Rope)<br><a href="https://www.youtube.com/watch?v=vB5OHsJ3EME" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D1_Tricep_Pushdown_R" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Rope attachment. Elbows fixed. Alternate with Sangkar.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D1_Glute_Bridge" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive hips, squeeze at top 2s. Directly addresses glute weakness and lower back support. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>8 each side</td><td>Slow</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D1_Dead_Bug" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Lower back pressed to floor. Core stability — safe for lower back rehab. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W2D2">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W2D2 — Cardio + Weights A</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 2 — Small weight increases. Start pushing slightly harder.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Weight Used (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Treadmill Incline Walk<br><a href="https://www.youtube.com/watch?v=p5pFBRiINg4" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td>1</td><td>30 min</td><td>N/A</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D2_Treadmill_Incline_" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Steady state. Conversational pace. Fat burning zone. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>3-1-1</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D2_Leg_Press_Machine" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">2 sets only — keep it light after cardio. Form focus. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D2_Glute_Bridge" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Glute activation — rehab for both. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cable Row</div></td>
+      <td>2</td><td>15</td><td>2-1-1</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D2_Seated_Row_Machin" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Back activation. Posture support. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>20–30s</td><td>N/A</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D2_Plank_Hold" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Core foundation. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Child's Pose Stretch<br><a href="https://www.youtube.com/watch?v=qn5GKVQ7FDI" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>1</td><td>60s</td><td>N/A</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D2_Child's_Pose_Stret" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>—</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Lower back mobility — hold for 60 seconds, breathe steadily. Daily if possible. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W2D3">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W2D3 — Cardio + Weights B</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 2 — Small weight increases. Start pushing slightly harder.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Weight Used (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Stationary Bike<br><a href="https://www.youtube.com/watch?v=5MwOkEHiXpg" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td>1</td><td>30 min</td><td>N/A</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D3_Stationary_Bike" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>RPE 6–7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Steady state. Seated — zero spinal load. Good for lower back. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>3-1-1</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D3_Shoulder_Press_Ma" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Upper body — light post-cardio. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
+      <td>2</td><td>15</td><td>3-1-1</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D3_Lat_Pulldown_Wide" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled pull. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Hip Thrust (Bodyweight)<br><a href="https://www.youtube.com/watch?v=xDmFkJxPzeM" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D3_Hip_Thrust_Bodywe" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Best glute exercise. Upper back on bench. Drive and squeeze. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>8 each side</td><td>Slow</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D3_Dead_Bug" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Core stability — lower back pressed to floor. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cat-Cow Stretch<br><a href="https://www.youtube.com/watch?v=kqnua4rHVVA" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>1</td><td>10 reps</td><td>Slow</td>
+      <td class="suggested-load">+small weight increase from W1</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D3_Cat-Cow_Stretch" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>—</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Spinal mobility. Arch and round slowly. Do this daily for lower back. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W3D1">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W3D1 — PT Session — Weights</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 3 — Intensification. 4 sets on main lifts where noted.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Weight Used (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cable Row</div></td>
+      <td>3</td><td>12–15</td><td>2-1-1</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D1_Seated_Row_Machin" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive elbows back. Linda starts here while Sangkar does chest press. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Chest Press (Machine)<br><a href="https://www.youtube.com/watch?v=xUm0BiZCB_g" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Smith Machine</div></td>
+      <td>3</td><td>12–15</td><td>3-1-1</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D1_Chest_Press_Machi" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive hands away, controlled. Swap with Sangkar between sets.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lying Leg Curl (Machine)<br><a href="https://www.youtube.com/watch?v=1Tq3QdYUuHs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D1_Lying_Leg_Curl_Ma" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Linda starts here while Sangkar does leg press. Hips into pad. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Goblet Squat</div></td>
+      <td>3</td><td>12–15</td><td>3-1-1</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D1_Leg_Press_Machine" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range. Focus on controlling the descent. ⚠️ Hip weakness — focus on control, not weight. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
+      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D1_Lat_Pulldown_Wide" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Linda starts here while Sangkar does shoulder press. Pull elbows down and back.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D1_Shoulder_Press_Ma" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled — elbows slightly forward.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Bicep Curl (Machine or EZ Bar)<br><a href="https://www.youtube.com/watch?v=av7-8igSXTs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cable Curl</div></td>
+      <td>3</td><td>12</td><td>Natural</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D1_Bicep_Curl_Machin" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Linda starts here while Sangkar does tricep pushdown. Controlled curl. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Tricep Pushdown (Rope)<br><a href="https://www.youtube.com/watch?v=vB5OHsJ3EME" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D1_Tricep_Pushdown_R" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Rope attachment. Elbows fixed. Alternate with Sangkar.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D1_Glute_Bridge" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive hips, squeeze at top 2s. Directly addresses glute weakness and lower back support. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>8 each side</td><td>Slow</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D1_Dead_Bug" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Lower back pressed to floor. Core stability — safe for lower back rehab. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W3D2">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W3D2 — Cardio + Weights A</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 3 — Intensification. 4 sets on main lifts where noted.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Weight Used (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Treadmill Incline Walk<br><a href="https://www.youtube.com/watch?v=p5pFBRiINg4" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td>1</td><td>30 min</td><td>N/A</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D2_Treadmill_Incline_" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Steady state. Conversational pace. Fat burning zone. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>3-1-1</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D2_Leg_Press_Machine" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">2 sets only — keep it light after cardio. Form focus. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D2_Glute_Bridge" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Glute activation — rehab for both. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cable Row</div></td>
+      <td>2</td><td>15</td><td>2-1-1</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D2_Seated_Row_Machin" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Back activation. Posture support. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>20–30s</td><td>N/A</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D2_Plank_Hold" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Core foundation. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Child's Pose Stretch<br><a href="https://www.youtube.com/watch?v=qn5GKVQ7FDI" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>1</td><td>60s</td><td>N/A</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D2_Child's_Pose_Stret" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>—</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Lower back mobility — hold for 60 seconds, breathe steadily. Daily if possible. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W3D3">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W3D3 — Cardio + Weights B</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 3 — Intensification. 4 sets on main lifts where noted.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Weight Used (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Stationary Bike<br><a href="https://www.youtube.com/watch?v=5MwOkEHiXpg" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td>1</td><td>30 min</td><td>N/A</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D3_Stationary_Bike" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>RPE 6–7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Steady state. Seated — zero spinal load. Good for lower back. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>3-1-1</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D3_Shoulder_Press_Ma" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Upper body — light post-cardio. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
+      <td>2</td><td>15</td><td>3-1-1</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D3_Lat_Pulldown_Wide" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled pull. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Hip Thrust (Bodyweight)<br><a href="https://www.youtube.com/watch?v=xDmFkJxPzeM" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D3_Hip_Thrust_Bodywe" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Best glute exercise. Upper back on bench. Drive and squeeze. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>8 each side</td><td>Slow</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D3_Dead_Bug" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Core stability — lower back pressed to floor. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cat-Cow Stretch<br><a href="https://www.youtube.com/watch?v=kqnua4rHVVA" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>1</td><td>10 reps</td><td>Slow</td>
+      <td class="suggested-load">+weight, add 4th set to main lifts</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D3_Cat-Cow_Stretch" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>—</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Spinal mobility. Arch and round slowly. Do this daily for lower back. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W4D1">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W4D1 — PT Session — Weights</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 4 — Peak. Heaviest weights. Record everything for Block 2.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Weight Used (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cable Row</div></td>
+      <td>3</td><td>12–15</td><td>2-1-1</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D1_Seated_Row_Machin" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive elbows back. Linda starts here while Sangkar does chest press. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Chest Press (Machine)<br><a href="https://www.youtube.com/watch?v=xUm0BiZCB_g" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Smith Machine</div></td>
+      <td>3</td><td>12–15</td><td>3-1-1</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D1_Chest_Press_Machi" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive hands away, controlled. Swap with Sangkar between sets.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lying Leg Curl (Machine)<br><a href="https://www.youtube.com/watch?v=1Tq3QdYUuHs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D1_Lying_Leg_Curl_Ma" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Linda starts here while Sangkar does leg press. Hips into pad. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Goblet Squat</div></td>
+      <td>3</td><td>12–15</td><td>3-1-1</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D1_Leg_Press_Machine" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range. Focus on controlling the descent. ⚠️ Hip weakness — focus on control, not weight. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
+      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D1_Lat_Pulldown_Wide" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Linda starts here while Sangkar does shoulder press. Pull elbows down and back.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D1_Shoulder_Press_Ma" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled — elbows slightly forward.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Bicep Curl (Machine or EZ Bar)<br><a href="https://www.youtube.com/watch?v=av7-8igSXTs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cable Curl</div></td>
+      <td>3</td><td>12</td><td>Natural</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D1_Bicep_Curl_Machin" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Linda starts here while Sangkar does tricep pushdown. Controlled curl. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Tricep Pushdown (Rope)<br><a href="https://www.youtube.com/watch?v=vB5OHsJ3EME" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D1_Tricep_Pushdown_R" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Rope attachment. Elbows fixed. Alternate with Sangkar.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D1_Glute_Bridge" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive hips, squeeze at top 2s. Directly addresses glute weakness and lower back support. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>3</td><td>8 each side</td><td>Slow</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D1_Dead_Bug" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Lower back pressed to floor. Core stability — safe for lower back rehab. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W4D2">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W4D2 — Cardio + Weights A</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 4 — Peak. Heaviest weights. Record everything for Block 2.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Weight Used (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Treadmill Incline Walk<br><a href="https://www.youtube.com/watch?v=p5pFBRiINg4" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td>1</td><td>30 min</td><td>N/A</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D2_Treadmill_Incline_" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Steady state. Conversational pace. Fat burning zone. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>3-1-1</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D2_Leg_Press_Machine" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">2 sets only — keep it light after cardio. Form focus. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D2_Glute_Bridge" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Glute activation — rehab for both. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cable Row</div></td>
+      <td>2</td><td>15</td><td>2-1-1</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D2_Seated_Row_Machin" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Back activation. Posture support. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>20–30s</td><td>N/A</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D2_Plank_Hold" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Core foundation. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Child's Pose Stretch<br><a href="https://www.youtube.com/watch?v=qn5GKVQ7FDI" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>1</td><td>60s</td><td>N/A</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D2_Child's_Pose_Stret" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>—</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Lower back mobility — hold for 60 seconds, breathe steadily. Daily if possible. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W4D3">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W4D3 — Cardio + Weights B</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 4 — Peak. Heaviest weights. Record everything for Block 2.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Weight Used (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Stationary Bike<br><a href="https://www.youtube.com/watch?v=5MwOkEHiXpg" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td>1</td><td>30 min</td><td>N/A</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D3_Stationary_Bike" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>RPE 6–7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Steady state. Seated — zero spinal load. Good for lower back. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>3-1-1</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D3_Shoulder_Press_Ma" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Upper body — light post-cardio. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
+      <td>2</td><td>15</td><td>3-1-1</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D3_Lat_Pulldown_Wide" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled pull. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Hip Thrust (Bodyweight)<br><a href="https://www.youtube.com/watch?v=xDmFkJxPzeM" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D3_Hip_Thrust_Bodywe" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Best glute exercise. Upper back on bench. Drive and squeeze. ⚠️ Hip weakness — focus on control, not weight.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>2</td><td>8 each side</td><td>Slow</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D3_Dead_Bug" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Core stability — lower back pressed to floor. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cat-Cow Stretch<br><a href="https://www.youtube.com/watch?v=kqnua4rHVVA" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td>1</td><td>10 reps</td><td>Slow</td>
+      <td class="suggested-load">Heaviest — record weights for Block 2</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D3_Cat-Cow_Stretch" placeholder="kg"/></td>
+      <td class="prev-cell">—</td>
+      <td>—</td><td>—</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Spinal mobility. Arch and round slowly. Do this daily for lower back. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+let statsGoalAdj = -500;
+window.addEventListener('load', () => { initSupabase(); loadStatsFromStorage(); loadPreviousWeights(); });
+async function handleSignOut() { await signOut(); }
+function showSess(key) {
+  document.querySelectorAll('.session').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const el=document.getElementById('sess-'+key);
+  const btn=document.getElementById('nav-'+key);
+  if(el) el.classList.add('active');
+  if(btn) btn.classList.add('active');
+  if(key!=='STATS'&&key!=='WARMUP') loadPreviousWeights();
+  window.scrollTo({top:0,behavior:'smooth'});
+  localStorage.setItem('linda_last_sess',key);
+}
+function saveWeight(input) {
+  const key=input.dataset.memkey;
+  if(!key||!input.value) return;
+  const stored=JSON.parse(localStorage.getItem('linda_weights')||'{}');
+  if(!stored[key]) stored[key]=[];
+  stored[key].unshift(parseFloat(input.value));
+  if(stored[key].length>5) stored[key].pop();
+  localStorage.setItem('linda_weights',JSON.stringify(stored));
+  const row=input.closest('tr');
+  if(row&&stored[key].length>1){const prev=row.querySelector('.prev-cell');if(prev){prev.textContent=stored[key][1]+'kg';prev.style.color='var(--green)';}}
+}
+function loadPreviousWeights() {
+  const stored=JSON.parse(localStorage.getItem('linda_weights')||'{}');
+  document.querySelectorAll('.actual-input').forEach(input=>{
+    const key=input.dataset.memkey;
+    if(key&&stored[key]&&stored[key].length>0){
+      input.value=stored[key][0];
+      const row=input.closest('tr');
+      if(row&&stored[key].length>1){const prev=row.querySelector('.prev-cell');if(prev){prev.textContent=stored[key][1]+'kg';prev.style.color='var(--green)';}}
+    }
+  });
+}
+function calcStatsAll() {
+  const age=parseFloat(document.getElementById('st_age').value)||0;
+  const h=parseFloat(document.getElementById('st_height').value)||0;
+  const w=parseFloat(document.getElementById('st_weight').value)||0;
+  const sex=document.getElementById('st_sex').value;
+  const act=parseFloat(document.getElementById('st_activity').value)||1.55;
+  if(h&&w) document.getElementById('st_bmi').textContent=(w/((h/100)**2)).toFixed(1)+' kg/m²';
+  if(age&&h&&w){
+    const bmr=Math.round(sex==='male'?10*w+6.25*h-5*age+5:10*w+6.25*h-5*age-161);
+    const tdee=Math.round(bmr*act);
+    const target=tdee+statsGoalAdj;
+    document.getElementById('st_bmr').textContent=bmr+' kcal/day';
+    document.getElementById('st_tdee').textContent=tdee+' kcal/day';
+    document.getElementById('st_cals').textContent=target+' kcal/day';
+    const prot=Math.round(2*w);
+    const fat=Math.round(0.45*w);
+    const carbs=Math.max(0,Math.round((target-prot*4-fat*9)/4));
+    document.getElementById('st_protein').textContent=prot+'g';
+    document.getElementById('st_fat').textContent=fat+'g';
+    document.getElementById('st_carbs').textContent=carbs+'g';
+  }
+}
+function selectStatsGoal(el) {
+  document.querySelectorAll('#st_goalGrid .goal-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  statsGoalAdj=parseInt(el.dataset.adj);
+  calcStatsAll();
+}
+function saveStats() {
+  const g=id=>{const el=document.getElementById(id);return el?(el.value||el.textContent||''):''};
+  const data={name:g('st_name'),age:g('st_age'),weight:g('st_weight'),height:g('st_height'),sex:g('st_sex'),bmr:g('st_bmr'),tdee:g('st_tdee'),cals:g('st_cals'),protein:g('st_protein'),fat:g('st_fat'),carbs:g('st_carbs'),goalAdj:statsGoalAdj};
+  localStorage.setItem('linda_stats',JSON.stringify(data));
+  const saved=document.getElementById('statsSaved');
+  if(saved){saved.style.display='inline';setTimeout(()=>saved.style.display='none',2000)}
+}
+function loadStatsFromStorage() {
+  const raw=localStorage.getItem('linda_stats');
+  if(!raw) return;
+  try{
+    const s=JSON.parse(raw);
+    const set=(id,val)=>{const el=document.getElementById(id);if(el&&val)el.value=val};
+    set('st_name',s.name);set('st_age',s.age);set('st_weight',s.weight);set('st_height',s.height);set('st_sex',s.sex);
+    if(s.goalAdj!==undefined){statsGoalAdj=parseInt(s.goalAdj)||-500;document.querySelectorAll('#st_goalGrid .goal-opt').forEach(el=>{el.classList.toggle('selected',parseInt(el.dataset.adj)===statsGoalAdj);});}
+    calcStatsAll();
+  }catch(e){}
+}
+</script>
+</body>
+</html>

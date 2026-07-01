@@ -67,6 +67,10 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
 .macro-pill .mp-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:.1rem}
 .save-btn{padding:.8rem 2rem;background:var(--purple);color:#fff;border:none;border-radius:4px;font-weight:700;font-size:.85rem;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;margin-top:1.5rem}
 .saved-msg{display:none;color:var(--green);font-size:.82rem;font-weight:600;margin-left:1rem}
+
+.yt-link{display:inline-flex;align-items:center;gap:.3rem;margin-top:.3rem;font-size:.68rem;color:#ff4444;text-decoration:none;font-weight:600;opacity:.85}
+.yt-link:hover{opacity:1}
+.yt-link::before{content:'▶';font-size:.6rem}
 </style>
 </head>
 <body>
@@ -201,7 +205,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Chest Press (Machine)<div class="variation-note">↔ Alternatives: ↔ Smith Machine Bench Press</div></td>
+      <td class="ex-name">Chest Press (Machine)<br><a href="https://www.youtube.com/watch?v=xUm0BiZCB_g" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Smith Machine Bench Press</div></td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
       <td class="suggested-load">Light — form focus</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D1_Chest_Press_Machine" placeholder="kg"/></td>
@@ -211,7 +216,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Machine preferred over barbell — reduces stabiliser demand, elbow-friendly. Keep wrists neutral.</td>
     </tr>
 <tr>
-      <td class="ex-name">Lat Pulldown (Wide Grip)<div class="variation-note">↔ Alternatives: ↔ Assisted Pull-Up Machine</div></td>
+      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Assisted Pull-Up Machine</div></td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
       <td class="suggested-load">Light</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D1_Lat_Pulldown_Wide_G" placeholder="kg"/></td>
@@ -221,7 +227,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Pull elbows down and back. Wide grip reduces wrist stress. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Shoulder Press (Machine)</td>
+      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
       <td class="suggested-load">Light</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D1_Shoulder_Press_Mach" placeholder="kg"/></td>
@@ -241,7 +247,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Sit tall, drive elbows back. Wide grip reduces pronation load.</td>
     </tr>
 <tr>
-      <td class="ex-name">Tricep Pushdown (Rope)<div class="variation-note">↔ Alternatives: ↔ Overhead Tricep Extension</div></td>
+      <td class="ex-name">Tricep Pushdown (Rope)<br><a href="https://www.youtube.com/watch?v=vB5OHsJ3EME" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Overhead Tricep Extension</div></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">Light</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D1_Tricep_Pushdown_Rop" placeholder="kg"/></td>
@@ -251,7 +258,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Rope reduces wrist stress vs bar. Elbows fixed at sides. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Plank Hold</td>
+      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>20–30s</td><td>N/A</td>
       <td class="suggested-load">Bodyweight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D1_Plank_Hold" placeholder="kg"/></td>
@@ -278,7 +285,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Leg Press (Machine)<div class="variation-note">↔ Alternatives: ↔ Goblet Squat</div></td>
+      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Goblet Squat</div></td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
       <td class="suggested-load">Light — form focus</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D2_Leg_Press_Machine" placeholder="kg"/></td>
@@ -288,7 +296,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Feet hip-width, mid-platform. Full range. Zero elbow stress.</td>
     </tr>
 <tr>
-      <td class="ex-name">Romanian Deadlift (Dumbbell)<div class="variation-note">↔ Alternatives: ↔ Cable Pull-Through</div></td>
+      <td class="ex-name">Romanian Deadlift (Dumbbell)<br><a href="https://www.youtube.com/watch?v=JCXUYuzwNrM" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Cable Pull-Through</div></td>
       <td>3</td><td>12</td><td>3-1-1</td>
       <td class="suggested-load">Light</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D2_Romanian_Deadlift_D" placeholder="kg"/></td>
@@ -298,7 +307,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Hip hinge, slight knee bend. Flat back. Use DBs — lighter grip load. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Leg Extension (Machine)</td>
+      <td class="ex-name">Leg Extension (Machine)<br><a href="https://www.youtube.com/watch?v=ljO4jkwv8wU" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">Light</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D2_Leg_Extension_Machi" placeholder="kg"/></td>
@@ -308,7 +317,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Slow controlled extension. No jerking. Fully elbow-safe.</td>
     </tr>
 <tr>
-      <td class="ex-name">Lying Leg Curl (Machine)</td>
+      <td class="ex-name">Lying Leg Curl (Machine)<br><a href="https://www.youtube.com/watch?v=1Tq3QdYUuHs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">Light</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D2_Lying_Leg_Curl_Mach" placeholder="kg"/></td>
@@ -318,7 +327,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Hips pressed into pad. Full range.</td>
     </tr>
 <tr>
-      <td class="ex-name">Seated Calf Raise</td>
+      <td class="ex-name">Seated Calf Raise<br><a href="https://www.youtube.com/watch?v=-M4-G8p1fCI" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>20</td><td>Natural</td>
       <td class="suggested-load">Light</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D2_Seated_Calf_Raise" placeholder="kg"/></td>
@@ -355,7 +364,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Incline Chest Press (Machine/DB)</td>
+      <td class="ex-name">Incline Chest Press (Machine/DB)<br><a href="https://www.youtube.com/watch?v=DbFgADa2PL8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
       <td class="suggested-load">Light</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D3_Incline_Chest_Press_" placeholder="kg"/></td>
@@ -375,7 +384,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Pull rope to forehead, elbows high. Rear delt + rotator cuff. Rope is elbow-safe.</td>
     </tr>
 <tr>
-      <td class="ex-name">Single Arm Dumbbell Row<div class="variation-note">↔ Alternatives: ↔ Machine Row</div></td>
+      <td class="ex-name">Single Arm Dumbbell Row<br><a href="https://www.youtube.com/watch?v=pYcpY20QaE8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Machine Row</div></td>
       <td>3</td><td>12 each</td><td>2-1-1</td>
       <td class="suggested-load">Light</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D3_Single_Arm_Dumbbell_" placeholder="kg"/></td>
@@ -385,7 +395,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Elbow up and back. Wrist neutral, no gripping tension. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Lateral Raise (Dumbbell)</td>
+      <td class="ex-name">Lateral Raise (Dumbbell)<br><a href="https://www.youtube.com/watch?v=3VcKaXpzqRo" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">Light</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D3_Lateral_Raise_Dumbb" placeholder="kg"/></td>
@@ -395,7 +405,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Lead with elbow not wrist. Light — isolation. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Tricep Overhead Extension (Rope)</td>
+      <td class="ex-name">Tricep Overhead Extension (Rope)<br><a href="https://www.youtube.com/watch?v=YbX7Wd8jQ-Q" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12–15</td><td>Natural</td>
       <td class="suggested-load">Light</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D3_Tricep_Overhead_Exte" placeholder="kg"/></td>
@@ -405,7 +415,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Stand facing away from cable. Extend to lockout. Rope reduces wrist stress. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Dead Bug</td>
+      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>8 each side</td><td>Slow</td>
       <td class="suggested-load">Bodyweight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D3_Dead_Bug" placeholder="kg"/></td>
@@ -432,7 +442,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Goblet Squat (Dumbbell)<div class="variation-note">↔ Alternatives: ↔ Leg Press</div></td>
+      <td class="ex-name">Goblet Squat (Dumbbell)<br><a href="https://www.youtube.com/watch?v=MeIiIdhvXT4" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Leg Press</div></td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
       <td class="suggested-load">Light</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D4_Goblet_Squat_Dumbbe" placeholder="kg"/></td>
@@ -442,7 +453,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">DB at chest — minimal wrist load vs barbell. Heels down, knees track toes. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Hip Thrust (Bodyweight)</td>
+      <td class="ex-name">Hip Thrust (Bodyweight)<br><a href="https://www.youtube.com/watch?v=xDmFkJxPzeM" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>2-1-2</td>
       <td class="suggested-load">Bodyweight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D4_Hip_Thrust_Bodyweig" placeholder="kg"/></td>
@@ -452,7 +463,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Upper back on bench. Drive hips up, squeeze at top, hold 1s. Week 1: bodyweight only.</td>
     </tr>
 <tr>
-      <td class="ex-name">Step-Up (Dumbbell)</td>
+      <td class="ex-name">Step-Up (Dumbbell)<br><a href="https://www.youtube.com/watch?v=dQqApCGd5Ss" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>10 each leg</td><td>Controlled</td>
       <td class="suggested-load">Light DB</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D4_Step-Up_Dumbbell" placeholder="kg"/></td>
@@ -462,7 +473,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Step through heel, torso upright. Good for balance. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Leg Extension (Machine)</td>
+      <td class="ex-name">Leg Extension (Machine)<br><a href="https://www.youtube.com/watch?v=ljO4jkwv8wU" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">Light</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D4_Leg_Extension_Machi" placeholder="kg"/></td>
@@ -472,7 +483,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Narrow stance = more quad focus.</td>
     </tr>
 <tr>
-      <td class="ex-name">Stationary Bike</td>
+      <td class="ex-name">Stationary Bike<br><a href="https://www.youtube.com/watch?v=5MwOkEHiXpg" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>1</td><td>20 min</td><td>N/A</td>
       <td class="suggested-load">Level 5–7</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W1D4_Stationary_Bike" placeholder="kg"/></td>
@@ -499,7 +510,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Chest Press (Machine)<div class="variation-note">↔ Alternatives: ↔ Smith Machine Bench Press</div></td>
+      <td class="ex-name">Chest Press (Machine)<br><a href="https://www.youtube.com/watch?v=xUm0BiZCB_g" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Smith Machine Bench Press</div></td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
       <td class="suggested-load">+2.5–5kg from W1</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D1_Chest_Press_Machine" placeholder="kg"/></td>
@@ -509,7 +521,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Small increase if W1 felt manageable. Same technique.</td>
     </tr>
 <tr>
-      <td class="ex-name">Lat Pulldown (Wide Grip)<div class="variation-note">↔ Alternatives: ↔ Assisted Pull-Up Machine</div></td>
+      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Assisted Pull-Up Machine</div></td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D1_Lat_Pulldown_Wide_G" placeholder="kg"/></td>
@@ -519,7 +532,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Elbow drive focus. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Shoulder Press (Machine)</td>
+      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12</td><td>3-1-1</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D1_Shoulder_Press_Mach" placeholder="kg"/></td>
@@ -539,7 +552,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Full squeeze. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Tricep Pushdown (Rope)</td>
+      <td class="ex-name">Tricep Pushdown (Rope)<br><a href="https://www.youtube.com/watch?v=vB5OHsJ3EME" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D1_Tricep_Pushdown_Rop" placeholder="kg"/></td>
@@ -549,7 +562,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Add small increment. Elbows pinned. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Plank Hold</td>
+      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>30–40s</td><td>N/A</td>
       <td class="suggested-load">Bodyweight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D1_Plank_Hold" placeholder="kg"/></td>
@@ -576,7 +589,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Leg Press (Machine)<div class="variation-note">↔ Alternatives: ↔ Goblet Squat</div></td>
+      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Goblet Squat</div></td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D2_Leg_Press_Machine" placeholder="kg"/></td>
@@ -586,7 +600,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Add weight — still full range. No sacrifice of depth.</td>
     </tr>
 <tr>
-      <td class="ex-name">Romanian Deadlift (Dumbbell)</td>
+      <td class="ex-name">Romanian Deadlift (Dumbbell)<br><a href="https://www.youtube.com/watch?v=JCXUYuzwNrM" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12</td><td>3-1-1</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D2_Romanian_Deadlift_D" placeholder="kg"/></td>
@@ -596,7 +610,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Increase DB slightly. Flat back. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Leg Extension (Machine)</td>
+      <td class="ex-name">Leg Extension (Machine)<br><a href="https://www.youtube.com/watch?v=ljO4jkwv8wU" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D2_Leg_Extension_Machi" placeholder="kg"/></td>
@@ -606,7 +620,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Controlled.</td>
     </tr>
 <tr>
-      <td class="ex-name">Lying Leg Curl (Machine)</td>
+      <td class="ex-name">Lying Leg Curl (Machine)<br><a href="https://www.youtube.com/watch?v=1Tq3QdYUuHs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D2_Lying_Leg_Curl_Mach" placeholder="kg"/></td>
@@ -616,7 +630,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Hips into pad.</td>
     </tr>
 <tr>
-      <td class="ex-name">Seated Calf Raise</td>
+      <td class="ex-name">Seated Calf Raise<br><a href="https://www.youtube.com/watch?v=-M4-G8p1fCI" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>20</td><td>Natural</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D2_Seated_Calf_Raise" placeholder="kg"/></td>
@@ -653,7 +667,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Incline Chest Press (Machine/DB)</td>
+      <td class="ex-name">Incline Chest Press (Machine/DB)<br><a href="https://www.youtube.com/watch?v=DbFgADa2PL8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12</td><td>3-1-1</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D3_Incline_Chest_Press_" placeholder="kg"/></td>
@@ -673,7 +687,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Small increment — high elbows.</td>
     </tr>
 <tr>
-      <td class="ex-name">Single Arm Dumbbell Row<div class="variation-note">↔ Alternatives: ↔ Machine Row</div></td>
+      <td class="ex-name">Single Arm Dumbbell Row<br><a href="https://www.youtube.com/watch?v=pYcpY20QaE8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Machine Row</div></td>
       <td>3</td><td>12 each</td><td>2-1-1</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D3_Single_Arm_Dumbbell_" placeholder="kg"/></td>
@@ -683,7 +698,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Heavier DB — elbow drive. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Lateral Raise (Dumbbell)</td>
+      <td class="ex-name">Lateral Raise (Dumbbell)<br><a href="https://www.youtube.com/watch?v=3VcKaXpzqRo" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D3_Lateral_Raise_Dumbb" placeholder="kg"/></td>
@@ -693,7 +708,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Still light — isolation. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Tricep Overhead Extension (Rope)</td>
+      <td class="ex-name">Tricep Overhead Extension (Rope)<br><a href="https://www.youtube.com/watch?v=YbX7Wd8jQ-Q" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12</td><td>Natural</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D3_Tricep_Overhead_Exte" placeholder="kg"/></td>
@@ -703,7 +718,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Full lockout. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Dead Bug</td>
+      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>10 each side</td><td>Slow</td>
       <td class="suggested-load">Bodyweight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D3_Dead_Bug" placeholder="kg"/></td>
@@ -730,7 +745,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Goblet Squat (Dumbbell)<div class="variation-note">↔ Alternatives: ↔ Leg Press</div></td>
+      <td class="ex-name">Goblet Squat (Dumbbell)<br><a href="https://www.youtube.com/watch?v=MeIiIdhvXT4" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Leg Press</div></td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D4_Goblet_Squat_Dumbbe" placeholder="kg"/></td>
@@ -750,7 +766,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Progress from bodyweight to light DB. Squeeze at top.</td>
     </tr>
 <tr>
-      <td class="ex-name">Step-Up (Dumbbell)</td>
+      <td class="ex-name">Step-Up (Dumbbell)<br><a href="https://www.youtube.com/watch?v=dQqApCGd5Ss" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12 each leg</td><td>Controlled</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D4_Step-Up_Dumbbell" placeholder="kg"/></td>
@@ -760,7 +776,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">More reps or weight. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Leg Extension (Machine)</td>
+      <td class="ex-name">Leg Extension (Machine)<br><a href="https://www.youtube.com/watch?v=ljO4jkwv8wU" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D4_Leg_Extension_Machi" placeholder="kg"/></td>
@@ -770,7 +786,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Controlled.</td>
     </tr>
 <tr>
-      <td class="ex-name">Stationary Bike</td>
+      <td class="ex-name">Stationary Bike<br><a href="https://www.youtube.com/watch?v=5MwOkEHiXpg" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>1</td><td>25 min</td><td>N/A</td>
       <td class="suggested-load">Level 6–8</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W2D4_Stationary_Bike" placeholder="kg"/></td>
@@ -797,7 +813,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Chest Press (Machine)<div class="variation-note">↔ Alternatives: ↔ Smith Machine Bench Press</div></td>
+      <td class="ex-name">Chest Press (Machine)<br><a href="https://www.youtube.com/watch?v=xUm0BiZCB_g" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Smith Machine Bench Press</div></td>
       <td>4</td><td>10–12</td><td>3-1-1</td>
       <td class="suggested-load">+weight from W2</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D1_Chest_Press_Machine" placeholder="kg"/></td>
@@ -807,7 +824,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">4 sets this week. Reduce reps slightly, weight goes up.</td>
     </tr>
 <tr>
-      <td class="ex-name">Lat Pulldown (Wide Grip)</td>
+      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>4</td><td>10–12</td><td>3-1-1</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D1_Lat_Pulldown_Wide_G" placeholder="kg"/></td>
@@ -817,7 +834,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">4 sets. Full stretch at top, squeeze at bottom. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Shoulder Press (Machine)</td>
+      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>10–12</td><td>3-1-1</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D1_Shoulder_Press_Mach" placeholder="kg"/></td>
@@ -837,7 +854,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">4 sets. Full squeeze each rep. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Tricep Pushdown (Rope)</td>
+      <td class="ex-name">Tricep Pushdown (Rope)<br><a href="https://www.youtube.com/watch?v=vB5OHsJ3EME" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12–15</td><td>Natural</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D1_Tricep_Pushdown_Rop" placeholder="kg"/></td>
@@ -847,7 +864,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Controlled. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Plank Hold</td>
+      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>40–50s</td><td>N/A</td>
       <td class="suggested-load">Bodyweight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D1_Plank_Hold" placeholder="kg"/></td>
@@ -874,7 +891,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Leg Press (Machine)<div class="variation-note">↔ Alternatives: ↔ Goblet Squat</div></td>
+      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Goblet Squat</div></td>
       <td>4</td><td>10–12</td><td>3-1-1</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D2_Leg_Press_Machine" placeholder="kg"/></td>
@@ -884,7 +902,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">4 sets. Heavier — don't sacrifice range of motion.</td>
     </tr>
 <tr>
-      <td class="ex-name">Romanian Deadlift (Dumbbell)</td>
+      <td class="ex-name">Romanian Deadlift (Dumbbell)<br><a href="https://www.youtube.com/watch?v=JCXUYuzwNrM" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>4</td><td>10–12</td><td>3-1-1</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D2_Romanian_Deadlift_D" placeholder="kg"/></td>
@@ -894,7 +912,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">4 sets. Don't round back as weight increases. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Leg Extension (Machine)</td>
+      <td class="ex-name">Leg Extension (Machine)<br><a href="https://www.youtube.com/watch?v=ljO4jkwv8wU" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D2_Leg_Extension_Machi" placeholder="kg"/></td>
@@ -904,7 +922,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Controlled.</td>
     </tr>
 <tr>
-      <td class="ex-name">Lying Leg Curl (Machine)</td>
+      <td class="ex-name">Lying Leg Curl (Machine)<br><a href="https://www.youtube.com/watch?v=1Tq3QdYUuHs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D2_Lying_Leg_Curl_Mach" placeholder="kg"/></td>
@@ -914,7 +932,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Full range.</td>
     </tr>
 <tr>
-      <td class="ex-name">Seated Calf Raise</td>
+      <td class="ex-name">Seated Calf Raise<br><a href="https://www.youtube.com/watch?v=-M4-G8p1fCI" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>20</td><td>Natural</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D2_Seated_Calf_Raise" placeholder="kg"/></td>
@@ -951,7 +969,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Incline Chest Press (Machine/DB)</td>
+      <td class="ex-name">Incline Chest Press (Machine/DB)<br><a href="https://www.youtube.com/watch?v=DbFgADa2PL8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>4</td><td>10–12</td><td>3-1-1</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D3_Incline_Chest_Press_" placeholder="kg"/></td>
@@ -971,7 +989,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Shoulder health priority. High elbows.</td>
     </tr>
 <tr>
-      <td class="ex-name">Single Arm Dumbbell Row<div class="variation-note">↔ Alternatives: ↔ Machine Row</div></td>
+      <td class="ex-name">Single Arm Dumbbell Row<br><a href="https://www.youtube.com/watch?v=pYcpY20QaE8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Machine Row</div></td>
       <td>4</td><td>10–12 each</td><td>2-1-1</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D3_Single_Arm_Dumbbell_" placeholder="kg"/></td>
@@ -981,7 +1000,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">4 sets. Heavier DB. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Lateral Raise (Dumbbell)</td>
+      <td class="ex-name">Lateral Raise (Dumbbell)<br><a href="https://www.youtube.com/watch?v=3VcKaXpzqRo" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">Same or +small</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D3_Lateral_Raise_Dumbb" placeholder="kg"/></td>
@@ -991,7 +1010,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Don't swing. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Tricep Overhead Extension (Rope)</td>
+      <td class="ex-name">Tricep Overhead Extension (Rope)<br><a href="https://www.youtube.com/watch?v=YbX7Wd8jQ-Q" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12</td><td>Natural</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D3_Tricep_Overhead_Exte" placeholder="kg"/></td>
@@ -1001,7 +1020,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Full extension. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Dead Bug</td>
+      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12 each side</td><td>Slow</td>
       <td class="suggested-load">Bodyweight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D3_Dead_Bug" placeholder="kg"/></td>
@@ -1028,7 +1047,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Goblet Squat (Dumbbell)<div class="variation-note">↔ Alternatives: ↔ Leg Press</div></td>
+      <td class="ex-name">Goblet Squat (Dumbbell)<br><a href="https://www.youtube.com/watch?v=MeIiIdhvXT4" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Leg Press</div></td>
       <td>4</td><td>10–12</td><td>3-1-1</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D4_Goblet_Squat_Dumbbe" placeholder="kg"/></td>
@@ -1048,7 +1068,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Heavier DB. Hold 2s squeeze at top.</td>
     </tr>
 <tr>
-      <td class="ex-name">Step-Up (Dumbbell)</td>
+      <td class="ex-name">Step-Up (Dumbbell)<br><a href="https://www.youtube.com/watch?v=dQqApCGd5Ss" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12 each leg</td><td>Controlled</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D4_Step-Up_Dumbbell" placeholder="kg"/></td>
@@ -1058,7 +1078,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Drive through heel. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Leg Extension (Machine)</td>
+      <td class="ex-name">Leg Extension (Machine)<br><a href="https://www.youtube.com/watch?v=ljO4jkwv8wU" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">+weight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D4_Leg_Extension_Machi" placeholder="kg"/></td>
@@ -1068,7 +1088,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Quad focus.</td>
     </tr>
 <tr>
-      <td class="ex-name">Stationary Bike</td>
+      <td class="ex-name">Stationary Bike<br><a href="https://www.youtube.com/watch?v=5MwOkEHiXpg" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>1</td><td>30 min</td><td>N/A</td>
       <td class="suggested-load">Level 7–9</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W3D4_Stationary_Bike" placeholder="kg"/></td>
@@ -1095,7 +1115,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Chest Press (Machine)<div class="variation-note">↔ Alternatives: ↔ Smith Machine Bench Press</div></td>
+      <td class="ex-name">Chest Press (Machine)<br><a href="https://www.youtube.com/watch?v=xUm0BiZCB_g" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Smith Machine Bench Press</div></td>
       <td>4</td><td>8–10</td><td>3-1-1</td>
       <td class="suggested-load">Heaviest — note it</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D1_Chest_Press_Machine" placeholder="kg"/></td>
@@ -1105,7 +1126,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Week 4 — push within good form. Record weight as benchmark for Block 2.</td>
     </tr>
 <tr>
-      <td class="ex-name">Lat Pulldown (Wide Grip)</td>
+      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>4</td><td>8–10</td><td>3-1-1</td>
       <td class="suggested-load">Heaviest — note it</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D1_Lat_Pulldown_Wide_G" placeholder="kg"/></td>
@@ -1115,7 +1136,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Full range. Record weight. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Shoulder Press (Machine)</td>
+      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>8–10</td><td>3-1-1</td>
       <td class="suggested-load">Heaviest — note it</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D1_Shoulder_Press_Mach" placeholder="kg"/></td>
@@ -1135,7 +1156,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Record weight. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Tricep Pushdown (Rope)</td>
+      <td class="ex-name">Tricep Pushdown (Rope)<br><a href="https://www.youtube.com/watch?v=vB5OHsJ3EME" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12</td><td>Natural</td>
       <td class="suggested-load">Challenging</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D1_Tricep_Pushdown_Rop" placeholder="kg"/></td>
@@ -1145,7 +1166,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Max controllable weight. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Plank Hold</td>
+      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>50–60s</td><td>N/A</td>
       <td class="suggested-load">Bodyweight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D1_Plank_Hold" placeholder="kg"/></td>
@@ -1172,7 +1193,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Leg Press (Machine)<div class="variation-note">↔ Alternatives: ↔ Goblet Squat</div></td>
+      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Goblet Squat</div></td>
       <td>4</td><td>8–10</td><td>3-1-1</td>
       <td class="suggested-load">Heaviest — note it</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D2_Leg_Press_Machine" placeholder="kg"/></td>
@@ -1182,7 +1204,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Record weight — baseline for Block 2.</td>
     </tr>
 <tr>
-      <td class="ex-name">Romanian Deadlift (Dumbbell)</td>
+      <td class="ex-name">Romanian Deadlift (Dumbbell)<br><a href="https://www.youtube.com/watch?v=JCXUYuzwNrM" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>4</td><td>10</td><td>3-1-1</td>
       <td class="suggested-load">Heaviest — note it</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D2_Romanian_Deadlift_D" placeholder="kg"/></td>
@@ -1192,7 +1214,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Flat back. Record weight. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Leg Extension (Machine)</td>
+      <td class="ex-name">Leg Extension (Machine)<br><a href="https://www.youtube.com/watch?v=ljO4jkwv8wU" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12–15</td><td>Natural</td>
       <td class="suggested-load">Heaviest</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D2_Leg_Extension_Machi" placeholder="kg"/></td>
@@ -1202,7 +1224,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Note the weight.</td>
     </tr>
 <tr>
-      <td class="ex-name">Lying Leg Curl (Machine)</td>
+      <td class="ex-name">Lying Leg Curl (Machine)<br><a href="https://www.youtube.com/watch?v=1Tq3QdYUuHs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12–15</td><td>Natural</td>
       <td class="suggested-load">Heaviest</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D2_Lying_Leg_Curl_Mach" placeholder="kg"/></td>
@@ -1212,7 +1234,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Full range. Note weight.</td>
     </tr>
 <tr>
-      <td class="ex-name">Seated Calf Raise</td>
+      <td class="ex-name">Seated Calf Raise<br><a href="https://www.youtube.com/watch?v=-M4-G8p1fCI" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>20</td><td>Natural</td>
       <td class="suggested-load">Heaviest</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D2_Seated_Calf_Raise" placeholder="kg"/></td>
@@ -1249,7 +1271,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Incline Chest Press (Machine/DB)</td>
+      <td class="ex-name">Incline Chest Press (Machine/DB)<br><a href="https://www.youtube.com/watch?v=DbFgADa2PL8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>4</td><td>8–10</td><td>3-1-1</td>
       <td class="suggested-load">Heaviest — note it</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D3_Incline_Chest_Press_" placeholder="kg"/></td>
@@ -1269,7 +1291,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Shoulder health — don't skip. Controlled.</td>
     </tr>
 <tr>
-      <td class="ex-name">Single Arm Dumbbell Row<div class="variation-note">↔ Alternatives: ↔ Machine Row</div></td>
+      <td class="ex-name">Single Arm Dumbbell Row<br><a href="https://www.youtube.com/watch?v=pYcpY20QaE8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Machine Row</div></td>
       <td>4</td><td>10 each</td><td>2-1-1</td>
       <td class="suggested-load">Heaviest — note it</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D3_Single_Arm_Dumbbell_" placeholder="kg"/></td>
@@ -1279,7 +1302,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Record weight for Block 2. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Lateral Raise (Dumbbell)</td>
+      <td class="ex-name">Lateral Raise (Dumbbell)<br><a href="https://www.youtube.com/watch?v=3VcKaXpzqRo" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">Moderate</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D3_Lateral_Raise_Dumbb" placeholder="kg"/></td>
@@ -1289,7 +1312,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Isolation — don't overload. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Tricep Overhead Extension (Rope)</td>
+      <td class="ex-name">Tricep Overhead Extension (Rope)<br><a href="https://www.youtube.com/watch?v=YbX7Wd8jQ-Q" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>10–12</td><td>Natural</td>
       <td class="suggested-load">Heaviest</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D3_Tricep_Overhead_Exte" placeholder="kg"/></td>
@@ -1299,7 +1322,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Full extension. Note weight. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Dead Bug</td>
+      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12 each side</td><td>Slow</td>
       <td class="suggested-load">Bodyweight</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D3_Dead_Bug" placeholder="kg"/></td>
@@ -1326,7 +1349,8 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Goblet Squat (Dumbbell)<div class="variation-note">↔ Alternatives: ↔ Leg Press</div></td>
+      <td class="ex-name">Goblet Squat (Dumbbell)<br><a href="https://www.youtube.com/watch?v=MeIiIdhvXT4" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
+<div class="variation-note">↔ Alternatives: ↔ Leg Press</div></td>
       <td>4</td><td>8–10</td><td>3-1-1</td>
       <td class="suggested-load">Heaviest — note it</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D4_Goblet_Squat_Dumbbe" placeholder="kg"/></td>
@@ -1346,7 +1370,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Heavy squeeze at top. Record weight.</td>
     </tr>
 <tr>
-      <td class="ex-name">Step-Up (Dumbbell)</td>
+      <td class="ex-name">Step-Up (Dumbbell)<br><a href="https://www.youtube.com/watch?v=dQqApCGd5Ss" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12 each</td><td>Controlled</td>
       <td class="suggested-load">Heaviest</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D4_Step-Up_Dumbbell" placeholder="kg"/></td>
@@ -1356,7 +1380,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Drive through heel. ⚠️ Tennis elbow — keep wrist neutral, light grip. Stop if elbow pain.</td>
     </tr>
 <tr>
-      <td class="ex-name">Leg Extension (Machine)</td>
+      <td class="ex-name">Leg Extension (Machine)<br><a href="https://www.youtube.com/watch?v=ljO4jkwv8wU" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>3</td><td>12–15</td><td>Natural</td>
       <td class="suggested-load">Heaviest</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D4_Leg_Extension_Machi" placeholder="kg"/></td>
@@ -1366,7 +1390,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td class="notes-cell">Note the weight.</td>
     </tr>
 <tr>
-      <td class="ex-name">Stationary Bike</td>
+      <td class="ex-name">Stationary Bike<br><a href="https://www.youtube.com/watch?v=5MwOkEHiXpg" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
       <td>1</td><td>30 min</td><td>N/A</td>
       <td class="suggested-load">Level 8–10</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="diyatha_W4D4_Stationary_Bike" placeholder="kg"/></td>
