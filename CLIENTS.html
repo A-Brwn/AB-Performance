@@ -266,6 +266,12 @@ function buildClientGrid() {
 function openClientModal(clientId) {
   selectedClient = CLIENTS.find(c => c.id === clientId);
   if (!selectedClient) return;
+  // PT skips modal entirely
+  const isPT = window.currentUser && window.currentUser.email === 'alexbrown399@gmail.com';
+  if (isPT) {
+    openClientProgramme(selectedClient);
+    return;
+  }
   document.getElementById('bypassClientName').textContent = selectedClient.name;
   document.getElementById('bypassCodeInput').value = '';
   document.getElementById('bypassError').style.display = 'none';
@@ -295,33 +301,27 @@ function checkBypassCode() {
 
 // ── CLIENT PROGRAMME ──────────────────────────────────────────────────────────
 function openClientProgramme(client) {
+  if (client.prog) {
+    // Redirect to their programme page
+    const base = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+    window.location.href = base + client.prog;
+    return;
+  }
+  // No programme yet — show placeholder inside portal
   document.getElementById('progClientName').textContent = client.name + "'s Programme";
   const content = document.getElementById('progContent');
-
-  if (!client.prog) {
-    // Programme not built yet — show placeholder
-    content.innerHTML = `
-      <div style="display:flex;gap:.8rem;margin-bottom:1.5rem;flex-wrap:wrap">
-        <div style="padding:.5rem 1rem;background:rgba(124,58,237,.12);border:1px solid var(--border);border-radius:6px;font-size:.75rem;font-weight:600;color:var(--purple-lt)">Fat Loss / Muscle Building</div>
-        <div style="padding:.5rem 1rem;background:rgba(124,58,237,.12);border:1px solid var(--border);border-radius:6px;font-size:.75rem;font-weight:600;color:var(--purple-lt)">1-1 PT Client</div>
-      </div>
-      <div class="coming-soon-card">
-        <div class="cs-icon">📋</div>
-        <h3>Programme Coming Soon</h3>
-        <p>Your personalised programme is being built based on your intake form. Alex will have it ready for your next session. In the meantime, your stats and macro targets are available below.</p>
-      </div>
-      <div style="margin-top:2rem">
-        <div class="section-heading">My Stats & Targets</div>
-        ${buildStatsForm(client.id)}
-      </div>
-    `;
-    // Load saved stats for this client
-    loadClientStats(client.id);
-  } else {
-    // Programme is built — load it (future feature)
-    content.innerHTML = '<p style="color:var(--muted)">Programme loading...</p>';
-  }
-
+  content.innerHTML = `
+    <div class="coming-soon-card">
+      <div class="cs-icon">📋</div>
+      <h3>Programme Coming Soon</h3>
+      <p>Your personalised programme is being built. Alex will have it ready for your next session.</p>
+    </div>
+    <div style="margin-top:2rem">
+      <div class="section-heading">My Stats & Targets</div>
+      ${buildStatsForm(client.id)}
+    </div>
+  `;
+  loadClientStats(client.id);
   showScreen('screen-programme');
 }
 
