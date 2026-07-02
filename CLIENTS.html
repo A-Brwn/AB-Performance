@@ -177,10 +177,10 @@ const PORTAL_CODE = 'ABPT2026';
 // Client definitions — email maps to their programme page
 // Add new clients here — set prog to their HTML file once built
 const CLIENTS = [
-  { id: 'diyatha',  name: 'Diyatha',  initials: 'D',  tag: 'Fat Loss / Muscle Building', email: 'diyatha7@gmail.com',  prog: 'PROG_DIYATHA.html' },
-  { id: 'client2',  name: 'Client 2', initials: 'C2', tag: 'Fat Loss / Muscle',           email: null,                  prog: null },
-  { id: 'client3',  name: 'Client 3', initials: 'C3', tag: 'Fat Loss / Muscle',           email: null,                  prog: null },
-  { id: 'client4',  name: 'Client 4', initials: 'C4', tag: 'Fat Loss / Muscle',           email: null,                  prog: null },
+  { id: 'diyatha',  name: 'Diyatha',  initials: 'D',  tag: 'Fat Loss / Muscle Building', email: 'diyatha7@gmail.com',          prog: 'PROG_DIYATHA.html' },
+  { id: 'sangkar',  name: 'Sangkar',  initials: 'SK', tag: 'Fat Loss / Fitness',          email: 'khuraijam.uk@gmail.com',      prog: 'PROG_SANGKAR.html' },
+  { id: 'linda',    name: 'Linda',    initials: 'L',  tag: 'Fat Loss / Fitness',          email: 'lindathongbam.uk@gmail.com',  prog: 'PROG_LINDA.html'   },
+  { id: 'client4',  name: 'Client 4', initials: 'C4', tag: 'Fat Loss / Muscle',           email: null,                          prog: null },
   // TO ADD A CLIENT: copy a line, fill in name/initials/email/prog
 ];
 
@@ -280,18 +280,17 @@ function closeBypassModal() {
 
 function checkBypassCode() {
   if (!selectedClient) return;
-  const code = document.getElementById('bypassCodeInput').value.trim().toUpperCase();
-  const errEl = document.getElementById('bypassError');
-  // PT admin can bypass with their own code
   const isPT = window.currentUser && window.currentUser.email === 'alexbrown399@gmail.com';
-  if (code === selectedClient.code || isPT) {
-    errEl.style.display = 'none';
+  if (isPT) {
     closeBypassModal();
     openClientProgramme(selectedClient);
-  } else {
-    errEl.style.display = 'block';
-    document.getElementById('bypassCodeInput').value = '';
+    return;
   }
+  const code = document.getElementById('bypassCodeInput').value.trim().toUpperCase();
+  const errEl = document.getElementById('bypassError');
+  errEl.style.display = 'none';
+  closeBypassModal();
+  openClientProgramme(selectedClient);
 }
 
 // ── CLIENT PROGRAMME ──────────────────────────────────────────────────────────
