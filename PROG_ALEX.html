@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Alex — AB Performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./auth.js"></script>
+<style>
+:root{--bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--white:#f0f0f5;--muted:#6b6b80;--border:#2a2a38;--purple:#7c3aed;--purple-lt:#a78bfa;--green:#22c55e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh}
+nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.08em;text-decoration:none;color:var(--white)}
+.logo span{color:var(--purple-lt)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+#navUserLabel{font-size:.75rem;color:var(--purple-lt);font-weight:600;display:none}
+#navLoginBtn{font-size:.75rem;color:var(--muted);text-decoration:none;padding:.35rem .8rem;border:1px solid var(--border);border-radius:4px;font-weight:600}
+#navLogoutBtn{font-size:.75rem;color:var(--muted);text-decoration:none;font-weight:600;display:none;cursor:pointer}
+.prog-nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.6rem 1rem;display:flex;flex-wrap:wrap;gap:.3rem;position:sticky;top:57px;z-index:99;overflow-x:auto}
+.nav-btn{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:.4rem .6rem;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:.1rem;min-width:44px;transition:all .2s}
+.nav-btn span{font-size:.5rem;color:var(--muted);font-weight:400}
+.nav-btn:hover,.nav-btn.active{background:var(--purple);border-color:var(--purple);color:#fff}
+.nav-btn.active span{color:rgba(255,255,255,.7)}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.session{display:none}.session.active{display:block}
+.session-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.5rem}
+.session-header{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);background:var(--bg3)}
+.session-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em}
+.session-table{width:100%;border-collapse:collapse;font-size:.78rem}
+.session-table th{background:var(--bg3);padding:.6rem .8rem;text-align:left;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap}
+.session-table td{padding:.7rem .8rem;border-bottom:1px solid var(--border);vertical-align:top}
+.session-table tr:last-child td{border-bottom:none}
+.ex-name{font-weight:600;min-width:200px}
+.variation-note{font-size:.68rem;color:var(--muted);margin-top:.2rem;font-weight:400}
+.suggested-load{color:var(--purple-lt);font-weight:600;white-space:nowrap}
+.actual-input{width:70px;padding:.4rem .5rem;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--white);font-size:.82rem;outline:none;text-align:center}
+.actual-input:focus{border-color:var(--purple-lt)}
+.rpe-input{width:50px;padding:.4rem .5rem;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--white);font-size:.82rem;outline:none;text-align:center}
+.prev-cell{color:var(--muted);font-size:.75rem}
+.notes-cell{font-size:.72rem;color:var(--muted);line-height:1.6;min-width:220px;max-width:340px}
+.wu-page{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:2rem;max-width:800px}
+.wu-page h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;margin-bottom:1.2rem}
+.wu-block{margin-bottom:1.5rem}
+.wu-block h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:600;margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+.wu-item{display:flex;gap:1rem;margin-bottom:.8rem;align-items:flex-start}
+.wu-ex{font-weight:600;font-size:.85rem;min-width:200px}
+.wu-sets{font-size:.8rem;color:var(--purple-lt);font-weight:600;min-width:80px}
+.wu-note{font-size:.75rem;color:var(--muted);line-height:1.5}
+.info-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.9rem 1.1rem;margin-bottom:1rem;font-size:.82rem;line-height:1.7}
+.field{margin-bottom:1rem}
+.field label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600;margin-bottom:.35rem}
+.field input,.field select{width:100%;padding:.65rem .9rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;outline:none}
+.field input:focus,.field select:focus{border-color:var(--purple-lt)}
+.auto-val{padding:.65rem .9rem;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);border-radius:6px;font-size:.9rem;color:var(--green);font-weight:600}
+.field-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1rem}
+.section-heading{font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;color:var(--purple-lt);font-weight:700;margin:1.5rem 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+.goal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.6rem;margin-top:.5rem}
+.goal-opt{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.8rem .7rem;cursor:pointer;text-align:center;transition:all .2s}
+.goal-opt:hover{border-color:var(--purple-lt)}.goal-opt.selected{background:rgba(124,58,237,.15);border-color:var(--purple-lt)}
+.goal-opt .goal-name{font-size:.78rem;font-weight:600;margin-bottom:.2rem}
+.goal-opt .goal-kcal{font-size:.68rem;color:var(--muted)}.goal-opt.selected .goal-kcal{color:var(--purple-lt)}
+.macro-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem}
+.macro-pill{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.7rem 1.2rem;text-align:center;flex:1;min-width:90px}
+.macro-pill .mp-val{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--purple-lt)}
+.macro-pill .mp-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:.1rem}
+.save-btn{padding:.8rem 2rem;background:var(--purple);color:#fff;border:none;border-radius:4px;font-weight:700;font-size:.85rem;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;margin-top:1.5rem}
+.saved-msg{display:none;color:var(--green);font-size:.82rem;font-weight:600;margin-left:1rem}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" onclick="event.preventDefault();var b=window.location.href.substring(0,window.location.href.lastIndexOf('/')+1);window.location.href=b+'index.html';" class="logo" style="cursor:pointer">AB <span>Performance</span></a>
+  <div class="nav-right">
+    <span id="navUserLabel"></span>
+    <a href="./LOGIN.html" id="navLoginBtn">Log In</a>
+    <a href="#" id="navLogoutBtn" onclick="handleSignOut()">Sign Out</a>
+  </div>
+</nav>
+<div class="prog-nav"><button class="nav-btn active" onclick="showSess('STATS')" id="nav-STATS">STATS<span>My Stats</span></button>
+<button class="nav-btn" onclick="showSess('WARMUP')" id="nav-WARMUP">WARM<span>Warm-Up</span></button>
+<button class="nav-btn" onclick="showSess('W1D1')" id="nav-W1D1">W1D1<span>Legs</span></button>
+<button class="nav-btn" onclick="showSess('W1D2')" id="nav-W1D2">W1D2<span>C&B</span></button>
+<button class="nav-btn" onclick="showSess('W1D3')" id="nav-W1D3">W1D3<span>S&A</span></button>
+<button class="nav-btn" onclick="showSess('W2D1')" id="nav-W2D1">W2D1<span>Legs</span></button>
+<button class="nav-btn" onclick="showSess('W2D2')" id="nav-W2D2">W2D2<span>C&B</span></button>
+<button class="nav-btn" onclick="showSess('W2D3')" id="nav-W2D3">W2D3<span>S&A</span></button>
+<button class="nav-btn" onclick="showSess('W3D1')" id="nav-W3D1">W3D1<span>Legs</span></button>
+<button class="nav-btn" onclick="showSess('W3D2')" id="nav-W3D2">W3D2<span>C&B</span></button>
+<button class="nav-btn" onclick="showSess('W3D3')" id="nav-W3D3">W3D3<span>S&A</span></button>
+<button class="nav-btn" onclick="showSess('W4D1')" id="nav-W4D1">W4D1<span>Legs</span></button>
+<button class="nav-btn" onclick="showSess('W4D2')" id="nav-W4D2">W4D2<span>C&B</span></button>
+<button class="nav-btn" onclick="showSess('W4D3')" id="nav-W4D3">W4D3<span>S&A</span></button>
+</div>
+<div class="main">
+
+<div class="session active" id="sess-STATS">
+  <div class="wu-page" style="max-width:900px">
+    <h2>My Stats — Alex</h2>
+    <p style="color:var(--muted);font-size:.85rem;margin-bottom:1.5rem">Your stats and macro targets for the current peptide cycle block. Update weight as you progress.</p>
+    <div class="info-box" style="background:rgba(124,58,237,.08);border-color:rgba(124,58,237,.3)">
+      <strong style="color:var(--purple-lt)">🧬 Current Cycle</strong><br>
+      CJC-1295 + Ipamorelin (GH pulse — recovery, sleep, muscle fullness) · GHK-Cu (collagen synthesis, tissue repair) · Goal: Maximum hypertrophy · Split: 3 on / 1 off
+    </div>
+    <div class="section-heading">Personal Details</div>
+    <div class="field-grid">
+      <div class="field"><label>Full Name</label><input type="text" id="st_name" value="Alex Brown"/></div>
+      <div class="field"><label>Age</label><input type="number" id="st_age" placeholder="Your age" oninput="calcStatsAll()"/></div>
+      <div class="field"><label>Height (cm)</label><input type="number" id="st_height" placeholder="Your height" oninput="calcStatsAll()"/></div>
+      <div class="field"><label>Weight (kg)</label><input type="number" id="st_weight" placeholder="Your weight" oninput="calcStatsAll()"/></div>
+      <div class="field"><label>Sex</label>
+        <select id="st_sex" onchange="calcStatsAll()"><option value="male" selected>Male</option><option value="female">Female</option></select>
+      </div>
+      <div class="field"><label>BMI</label><div class="auto-val" id="st_bmi">—</div></div>
+    </div>
+    <div class="section-heading">Activity Level</div>
+    <div class="field-grid">
+      <div class="field" style="grid-column:1/-1"><label>Activity Level</label>
+        <select id="st_activity" onchange="calcStatsAll()">
+          <option value="1.375">Lightly active</option>
+          <option value="1.55">Moderately active</option>
+          <option value="1.725" selected>Very active (training 6+ days/week)</option>
+          <option value="1.9">Extremely active</option>
+        </select>
+      </div>
+    </div>
+    <div class="section-heading">Calorie Targets</div>
+    <div class="field-grid">
+      <div class="field"><label>BMR</label><div class="auto-val" id="st_bmr">—</div></div>
+      <div class="field"><label>TDEE</label><div class="auto-val" id="st_tdee">—</div></div>
+    </div>
+    <div class="section-heading">Goal</div>
+    <div class="goal-grid" id="st_goalGrid">
+      <div class="goal-opt" data-adj="-250" onclick="selectStatsGoal(this)"><div class="goal-name">Cut</div><div class="goal-kcal">−250 kcal</div></div>
+      <div class="goal-opt" data-adj="0" onclick="selectStatsGoal(this)"><div class="goal-name">Recomp</div><div class="goal-kcal">Maintenance</div></div>
+      <div class="goal-opt selected" data-adj="250" onclick="selectStatsGoal(this)"><div class="goal-name">Lean Bulk</div><div class="goal-kcal">+250 kcal</div></div>
+      <div class="goal-opt" data-adj="500" onclick="selectStatsGoal(this)"><div class="goal-name">Bulk</div><div class="goal-kcal">+500 kcal</div></div>
+    </div>
+    <div class="field-grid" style="margin-top:1rem">
+      <div class="field"><label>Daily Calorie Target</label><div class="auto-val" id="st_cals">—</div></div>
+    </div>
+    <div class="section-heading">Macro Targets</div>
+    <div class="macro-row">
+      <div class="macro-pill"><div class="mp-val" id="st_protein">—</div><div class="mp-label">Protein (g)</div></div>
+      <div class="macro-pill"><div class="mp-val" id="st_fat">—</div><div class="mp-label">Fat (g)</div></div>
+      <div class="macro-pill"><div class="mp-val" id="st_carbs">—</div><div class="mp-label">Carbs (g)</div></div>
+    </div>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:.6rem">Protein: 2.2g/kg (higher during peptide cycle) · Fat: 1.0g/kg · Remaining → carbs.</p>
+    <button class="save-btn" onclick="saveStats()">Save Stats</button>
+    <span class="saved-msg" id="statsSaved">✓ Saved</span>
+  </div>
+</div>
+
+<div class="session" id="sess-WARMUP">
+  <div class="wu-page">
+    <h2>Warm-Up Protocol</h2>
+    <p style="color:var(--muted);font-size:.85rem;margin-bottom:1.2rem">5–10 min warm-up before every session. Adjust based on the day.</p>
+    <div class="wu-block">
+      <h3>Legs Day</h3>
+      <div class="wu-item"><div class="wu-ex">Bike / Treadmill</div><div class="wu-sets">5 min</div><div class="wu-note">Light cardio to raise core temp. Bike preferred — warms quads directly.</div></div>
+      <div class="wu-item"><div class="wu-ex">Hip Flexor Stretch</div><div class="wu-sets">2 × 30s each</div><div class="wu-note">Lunge position, drive hips forward. Essential before front squats.</div></div>
+      <div class="wu-item"><div class="wu-ex">Leg Swing</div><div class="wu-sets">2 × 15 each</div><div class="wu-note">Front-to-back and lateral swings. Hip mobility before loading.</div></div>
+      <div class="wu-item"><div class="wu-ex">Empty Bar / Goblet Squat</div><div class="wu-sets">2 × 10</div><div class="wu-note">Pattern the squat before load. Focus on depth and upright torso.</div></div>
+      <div class="wu-item"><div class="wu-ex">Ramp Sets</div><div class="wu-sets">60% × 5, 75% × 3</div><div class="wu-note">Two warm-up sets before working sets on main compound.</div></div>
+    </div>
+    <div class="wu-block">
+      <h3>Chest & Back Day</h3>
+      <div class="wu-item"><div class="wu-ex">Band Pull-Aparts</div><div class="wu-sets">2 × 20</div><div class="wu-note">Rear delt and rotator cuff activation before pressing.</div></div>
+      <div class="wu-item"><div class="wu-ex">Arm Circles</div><div class="wu-sets">2 × 10 each</div><div class="wu-note">Shoulder mobility before pressing and pulling.</div></div>
+      <div class="wu-item"><div class="wu-ex">Light DB Press + Cable Pullover</div><div class="wu-sets">1 × 15 each</div><div class="wu-note">Feel the movement patterns before working weight.</div></div>
+    </div>
+    <div class="wu-block">
+      <h3>Shoulders & Arms Day</h3>
+      <div class="wu-item"><div class="wu-ex">Face Pulls</div><div class="wu-sets">2 × 20</div><div class="wu-note">Rotator cuff and rear delt activation before overhead pressing.</div></div>
+      <div class="wu-item"><div class="wu-ex">Lateral Raise (very light)</div><div class="wu-sets">1 × 20</div><div class="wu-note">Blood into the delts before loading.</div></div>
+      <div class="wu-item"><div class="wu-ex">Light Curl + Pushdown</div><div class="wu-sets">1 × 15 each</div><div class="wu-note">Elbow warm-up before heavy arm work.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="sess-W1D1">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W1D1 — Legs + Forearms</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 1 — Accumulation. Feel out the weights, form sharp.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Actual (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Calf Raise (Leg Press)</td>
+      <td>5</td><td>20–25</td><td>Natural</td>
+      <td class="suggested-load">Moderate — high rep pump</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D1_Calf_Raise_Leg_Pr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Feet low on platform, full stretch at bottom, squeeze at top. High rep opener — get blood into the lower leg before loading.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Front Squat<div class="variation-note">↔ ↔ Leg Press (W2/W4)</div></td>
+      <td>4</td><td>6–8</td><td>3-1-1</td>
+      <td class="suggested-load">Heavy — challenging compound</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D1_Front_Squat" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>3min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Elbows high, upright torso. Quad dominant. Full depth — ATG if mobility allows. Main compound W1 & W3.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lying Hamstring Curl</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Moderate–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D1_Lying_Hamstring_Cu" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at top, squeeze hard at peak contraction. Don't let hips rise off pad on heavy reps.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Romanian Deadlift</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Moderate–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D1_Romanian_Deadlift" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hip hinge — push hips back, bar stays close to legs. Feel the hamstring stretch at the bottom. Controlled eccentric.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Extension</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D1_Leg_Extension" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Squeeze hard at full extension. Slow controlled lowering. Quad isolation — great with peptide cycle for tissue quality.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Seated Calf Raise</td>
+      <td>4</td><td>15–20</td><td>Natural</td>
+      <td class="suggested-load">Moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D1_Seated_Calf_Raise" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range — all the way down, all the way up. Soleus emphasis vs standing. Slow and controlled.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Reverse Curl (Barbell/EZ)</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Light–moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D1_Reverse_Curl_Barb" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Overhand grip, curl to full contraction. Brachioradialis and wrist extensors. Keep elbows fixed.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Behind the Back Wrist Curl</td>
+      <td>3</td><td>15–20</td><td>Natural</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D1_Behind_the_Back_Wr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>45s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Bar behind hips, wrist curl up and squeeze. Full flexor isolation. Finisher — go for the pump.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W1D2">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W1D2 — Chest & Back</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 1 — Accumulation. Feel out the weights, form sharp.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Actual (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">DB Press (Flat)</td>
+      <td>4</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Heavy — controlled</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D2_DB_Press_Flat" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range — stretch at the bottom, drive through the full press. Neutral wrists. Main chest compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Incline Smith Machine</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Moderate–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D2_Incline_Smith_Mach" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">30–45° incline. Upper chest emphasis. Control the descent, drive explosively. Good for progressive loading.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cable Fly (Hip-Hinged)</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D2_Cable_Fly_Hip-Hin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hip hinge ~45°, cables at low position. Fly arc from hips upward. Sam Sulek style — massive pec stretch. Squeeze hard at peak.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cable Pullover</td>
+      <td>3</td><td>12–15</td><td>2-1-1</td>
+      <td class="suggested-load">Moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D2_Cable_Pullover" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Straight arm pullover — feel the lat stretch fully at the top. Drive elbows to hips. Great lat pre-exhaust.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lat Pulldown</td>
+      <td>4</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D2_Lat_Pulldown" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at top, drive elbows down and back. Lean back slightly. Main back compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Neutral Grip Cable Row</td>
+      <td>4</td><td>10–12</td><td>2-1-1</td>
+      <td class="suggested-load">Moderate–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D2_Neutral_Grip_Cable" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive elbows back, squeeze shoulder blades. Neutral grip hits rhomboids and mid traps well. Control the return.</td>
+    </tr>
+<tr>
+      <td class="ex-name">T-Bar Row</td>
+      <td>4</td><td>8–10</td><td>2-1-1</td>
+      <td class="suggested-load">Heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D2_T-Bar_Row" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hip hinge, chest on pad if available. Drive elbows high for upper back emphasis. One of the best thickness builders.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W1D3">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W1D3 — Shoulders & Arms</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 1 — Accumulation. Feel out the weights, form sharp.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Actual (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">DB Shoulder Press</td>
+      <td>4</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D3_DB_Shoulder_Press" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range — lower DBs to ear level. Drive explosively. Neutral or pronated grip — your preference. Main shoulder compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cable Lateral Raise</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D3_Cable_Lateral_Rais" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Cable at hip height, lead with elbow not wrist. Slight forward lean. Better resistance curve than DB lateral raises at peak.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Rear Delt Cable Fly<div class="variation-note">↔ ↔ Face Pulls (W2/W4)</div></td>
+      <td>3</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Light–moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D3_Rear_Delt_Cable_Fl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Cables crossed at face height. Fly out and back. Full rear delt stretch. W1 & W3 — Face Pulls W2 & W4.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Straight Bar Curl</td>
+      <td>4</td><td>8–10</td><td>2-1-1</td>
+      <td class="suggested-load">Heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D3_Straight_Bar_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Elbows fixed at sides. Full range — complete stretch at bottom. Main bicep compound — go heavy.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Preacher Curl</td>
+      <td>3</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D3_Preacher_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at bottom — don't let elbows come up. Controls cheating perfectly. Great for bicep peak.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Incline DB Curl<div class="variation-note">↔ ↔ Cable Behind Curl (W2/W4)</div></td>
+      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">Light–moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D3_Incline_DB_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch in the stretched position — best exercise for long head. W1 & W3.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Overhead EZ Bar Extension</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D3_Overhead_EZ_Bar_Ex" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at the bottom — long head emphasis. Keep elbows pointed forward. Main tricep compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Straight Bar Pushdown</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D3_Straight_Bar_Pushd" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Elbows fixed, full extension. Squeeze at lockout. Lateral and medial head isolation.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Close Grip Bench Press<div class="variation-note">↔ ↔ Weighted Dips (W2/W4)</div></td>
+      <td>3</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Moderate–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D3_Close_Grip_Bench_P" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hands shoulder-width, elbows tucked. Heavy compound tricep movement. W1 & W3.</td>
+    </tr>
+<tr>
+      <td class="ex-name">DB Hammer Curl</td>
+      <td>3</td><td>12</td><td>Natural</td>
+      <td class="suggested-load">Moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D3_DB_Hammer_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Neutral grip, full range. Brachialis and brachioradialis — adds arm thickness. Keep it controlled.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Reverse Curl</td>
+      <td>2</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W1D3_Reverse_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>45s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Overhand grip curl. Forearm extensor + brachioradialis. Finisher.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W2D1">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W2D1 — Legs + Forearms</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 2 — Push harder. Small weight increases across all lifts.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Actual (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Calf Raise (Leg Press)</td>
+      <td>5</td><td>20–25</td><td>Natural</td>
+      <td class="suggested-load">Moderate+ — high rep pump</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D1_Calf_Raise_Leg_Pr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Feet low on platform, full stretch at bottom, squeeze at top. High rep opener — get blood into the lower leg before loading.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Front Squat<div class="variation-note">↔ → USE THIS: Leg Press (W2/W4)</div></td>
+      <td>4</td><td>6–8</td><td>3-1-1</td>
+      <td class="suggested-load">Heavy+ — challenging compound</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D1_Front_Squat" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>3min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Elbows high, upright torso. Quad dominant. Full depth — ATG if mobility allows. Main compound W2 & W4 — swap this week.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lying Hamstring Curl</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Moderate+–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D1_Lying_Hamstring_Cu" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at top, squeeze hard at peak contraction. Don't let hips rise off pad on heavy reps.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Romanian Deadlift</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Moderate+–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D1_Romanian_Deadlift" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hip hinge — push hips back, bar stays close to legs. Feel the hamstring stretch at the bottom. Controlled eccentric.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Extension</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Moderate+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D1_Leg_Extension" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Squeeze hard at full extension. Slow controlled lowering. Quad isolation — great with peptide cycle for tissue quality.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Seated Calf Raise</td>
+      <td>4</td><td>15–20</td><td>Natural</td>
+      <td class="suggested-load">Moderate+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D1_Seated_Calf_Raise" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range — all the way down, all the way up. Soleus emphasis vs standing. Slow and controlled.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Reverse Curl (Barbell/EZ)</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Light+–moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D1_Reverse_Curl_Barb" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Overhand grip, curl to full contraction. Brachioradialis and wrist extensors. Keep elbows fixed.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Behind the Back Wrist Curl</td>
+      <td>3</td><td>15–20</td><td>Natural</td>
+      <td class="suggested-load">Light+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D1_Behind_the_Back_Wr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>45s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Bar behind hips, wrist curl up and squeeze. Full flexor isolation. Finisher — go for the pump.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W2D2">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W2D2 — Chest & Back</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 2 — Push harder. Small weight increases across all lifts.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Actual (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">DB Press (Flat)</td>
+      <td>4</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Heavy+ — controlled</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D2_DB_Press_Flat" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range — stretch at the bottom, drive through the full press. Neutral wrists. Main chest compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Incline Smith Machine</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Moderate+–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D2_Incline_Smith_Mach" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">30–45° incline. Upper chest emphasis. Control the descent, drive explosively. Good for progressive loading.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cable Fly (Hip-Hinged)</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Moderate+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D2_Cable_Fly_Hip-Hin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hip hinge ~45°, cables at low position. Fly arc from hips upward. Sam Sulek style — massive pec stretch. Squeeze hard at peak.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cable Pullover</td>
+      <td>3</td><td>12–15</td><td>2-1-1</td>
+      <td class="suggested-load">Moderate+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D2_Cable_Pullover" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Straight arm pullover — feel the lat stretch fully at the top. Drive elbows to hips. Great lat pre-exhaust.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lat Pulldown</td>
+      <td>4</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Heavy+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D2_Lat_Pulldown" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at top, drive elbows down and back. Lean back slightly. Main back compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Neutral Grip Cable Row</td>
+      <td>4</td><td>10–12</td><td>2-1-1</td>
+      <td class="suggested-load">Moderate+–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D2_Neutral_Grip_Cable" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive elbows back, squeeze shoulder blades. Neutral grip hits rhomboids and mid traps well. Control the return.</td>
+    </tr>
+<tr>
+      <td class="ex-name">T-Bar Row</td>
+      <td>4</td><td>8–10</td><td>2-1-1</td>
+      <td class="suggested-load">Heavy+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D2_T-Bar_Row" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hip hinge, chest on pad if available. Drive elbows high for upper back emphasis. One of the best thickness builders.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W2D3">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W2D3 — Shoulders & Arms</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 2 — Push harder. Small weight increases across all lifts.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Actual (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">DB Shoulder Press</td>
+      <td>4</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Heavy+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D3_DB_Shoulder_Press" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range — lower DBs to ear level. Drive explosively. Neutral or pronated grip — your preference. Main shoulder compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cable Lateral Raise</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Moderate+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D3_Cable_Lateral_Rais" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Cable at hip height, lead with elbow not wrist. Slight forward lean. Better resistance curve than DB lateral raises at peak.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Rear Delt Cable Fly<div class="variation-note">↔ → USE THIS: Face Pulls (W2/W4)</div></td>
+      <td>3</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Light+–moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D3_Rear_Delt_Cable_Fl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Cables crossed at face height. Fly out and back. Full rear delt stretch. W2 & W4 — swap this week — Face Pulls W2 & W4.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Straight Bar Curl</td>
+      <td>4</td><td>8–10</td><td>2-1-1</td>
+      <td class="suggested-load">Heavy+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D3_Straight_Bar_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Elbows fixed at sides. Full range — complete stretch at bottom. Main bicep compound — go heavy.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Preacher Curl</td>
+      <td>3</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Moderate+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D3_Preacher_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at bottom — don't let elbows come up. Controls cheating perfectly. Great for bicep peak.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Incline DB Curl<div class="variation-note">↔ → USE THIS: Cable Behind Curl (W2/W4)</div></td>
+      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">Light+–moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D3_Incline_DB_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch in the stretched position — best exercise for long head. W2 & W4 — swap this week.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Overhead EZ Bar Extension</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Moderate+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D3_Overhead_EZ_Bar_Ex" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at the bottom — long head emphasis. Keep elbows pointed forward. Main tricep compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Straight Bar Pushdown</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Moderate+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D3_Straight_Bar_Pushd" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Elbows fixed, full extension. Squeeze at lockout. Lateral and medial head isolation.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Close Grip Bench Press<div class="variation-note">↔ → USE THIS: Weighted Dips (W2/W4)</div></td>
+      <td>3</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Moderate+–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D3_Close_Grip_Bench_P" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hands shoulder-width, elbows tucked. Heavy compound tricep movement. W2 & W4 — swap this week.</td>
+    </tr>
+<tr>
+      <td class="ex-name">DB Hammer Curl</td>
+      <td>3</td><td>12</td><td>Natural</td>
+      <td class="suggested-load">Moderate+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D3_DB_Hammer_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7–8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Neutral grip, full range. Brachialis and brachioradialis — adds arm thickness. Keep it controlled.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Reverse Curl</td>
+      <td>2</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Light+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W2D3_Reverse_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>45s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Overhand grip curl. Forearm extensor + brachioradialis. Finisher.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W3D1">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W3D1 — Legs + Forearms</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 3 — Intensification. Heavier loads, push close to failure.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Actual (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Calf Raise (Leg Press)</td>
+      <td>5</td><td>20–25</td><td>Natural</td>
+      <td class="suggested-load">Heavier — high rep pump</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D1_Calf_Raise_Leg_Pr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Feet low on platform, full stretch at bottom, squeeze at top. High rep opener — get blood into the lower leg before loading.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Front Squat<div class="variation-note">↔ ↔ Leg Press (W2/W4)</div></td>
+      <td>4</td><td>6–8</td><td>3-1-1</td>
+      <td class="suggested-load">Heaviest so far — challenging compound</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D1_Front_Squat" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>3min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Elbows high, upright torso. Quad dominant. Full depth — ATG if mobility allows. Main compound W1 & W3.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lying Hamstring Curl</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Heavier–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D1_Lying_Hamstring_Cu" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at top, squeeze hard at peak contraction. Don't let hips rise off pad on heavy reps.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Romanian Deadlift</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Heavier–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D1_Romanian_Deadlift" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hip hinge — push hips back, bar stays close to legs. Feel the hamstring stretch at the bottom. Controlled eccentric.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Extension</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Heavier</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D1_Leg_Extension" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Squeeze hard at full extension. Slow controlled lowering. Quad isolation — great with peptide cycle for tissue quality.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Seated Calf Raise</td>
+      <td>4</td><td>15–20</td><td>Natural</td>
+      <td class="suggested-load">Heavier</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D1_Seated_Calf_Raise" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range — all the way down, all the way up. Soleus emphasis vs standing. Slow and controlled.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Reverse Curl (Barbell/EZ)</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Moderate–moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D1_Reverse_Curl_Barb" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Overhand grip, curl to full contraction. Brachioradialis and wrist extensors. Keep elbows fixed.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Behind the Back Wrist Curl</td>
+      <td>3</td><td>15–20</td><td>Natural</td>
+      <td class="suggested-load">Moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D1_Behind_the_Back_Wr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>45s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Bar behind hips, wrist curl up and squeeze. Full flexor isolation. Finisher — go for the pump.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W3D2">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W3D2 — Chest & Back</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 3 — Intensification. Heavier loads, push close to failure.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Actual (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">DB Press (Flat)</td>
+      <td>4</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Heaviest so far — controlled</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D2_DB_Press_Flat" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range — stretch at the bottom, drive through the full press. Neutral wrists. Main chest compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Incline Smith Machine</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Heavier–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D2_Incline_Smith_Mach" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">30–45° incline. Upper chest emphasis. Control the descent, drive explosively. Good for progressive loading.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cable Fly (Hip-Hinged)</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Heavier</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D2_Cable_Fly_Hip-Hin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hip hinge ~45°, cables at low position. Fly arc from hips upward. Sam Sulek style — massive pec stretch. Squeeze hard at peak.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cable Pullover</td>
+      <td>3</td><td>12–15</td><td>2-1-1</td>
+      <td class="suggested-load">Heavier</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D2_Cable_Pullover" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Straight arm pullover — feel the lat stretch fully at the top. Drive elbows to hips. Great lat pre-exhaust.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lat Pulldown</td>
+      <td>4</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Heaviest so far</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D2_Lat_Pulldown" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at top, drive elbows down and back. Lean back slightly. Main back compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Neutral Grip Cable Row</td>
+      <td>4</td><td>10–12</td><td>2-1-1</td>
+      <td class="suggested-load">Heavier–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D2_Neutral_Grip_Cable" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive elbows back, squeeze shoulder blades. Neutral grip hits rhomboids and mid traps well. Control the return.</td>
+    </tr>
+<tr>
+      <td class="ex-name">T-Bar Row</td>
+      <td>4</td><td>8–10</td><td>2-1-1</td>
+      <td class="suggested-load">Heaviest so far</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D2_T-Bar_Row" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hip hinge, chest on pad if available. Drive elbows high for upper back emphasis. One of the best thickness builders.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W3D3">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W3D3 — Shoulders & Arms</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 3 — Intensification. Heavier loads, push close to failure.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Actual (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">DB Shoulder Press</td>
+      <td>4</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Heaviest so far</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D3_DB_Shoulder_Press" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range — lower DBs to ear level. Drive explosively. Neutral or pronated grip — your preference. Main shoulder compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cable Lateral Raise</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Heavier</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D3_Cable_Lateral_Rais" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Cable at hip height, lead with elbow not wrist. Slight forward lean. Better resistance curve than DB lateral raises at peak.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Rear Delt Cable Fly<div class="variation-note">↔ ↔ Face Pulls (W2/W4)</div></td>
+      <td>3</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Moderate–moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D3_Rear_Delt_Cable_Fl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Cables crossed at face height. Fly out and back. Full rear delt stretch. W1 & W3 — Face Pulls W2 & W4.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Straight Bar Curl</td>
+      <td>4</td><td>8–10</td><td>2-1-1</td>
+      <td class="suggested-load">Heaviest so far</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D3_Straight_Bar_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Elbows fixed at sides. Full range — complete stretch at bottom. Main bicep compound — go heavy.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Preacher Curl</td>
+      <td>3</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Heavier</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D3_Preacher_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at bottom — don't let elbows come up. Controls cheating perfectly. Great for bicep peak.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Incline DB Curl<div class="variation-note">↔ ↔ Cable Behind Curl (W2/W4)</div></td>
+      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">Moderate–moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D3_Incline_DB_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch in the stretched position — best exercise for long head. W1 & W3.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Overhead EZ Bar Extension</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Heavier</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D3_Overhead_EZ_Bar_Ex" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at the bottom — long head emphasis. Keep elbows pointed forward. Main tricep compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Straight Bar Pushdown</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Heavier</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D3_Straight_Bar_Pushd" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Elbows fixed, full extension. Squeeze at lockout. Lateral and medial head isolation.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Close Grip Bench Press<div class="variation-note">↔ ↔ Weighted Dips (W2/W4)</div></td>
+      <td>3</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Heavier–heavy</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D3_Close_Grip_Bench_P" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hands shoulder-width, elbows tucked. Heavy compound tricep movement. W1 & W3.</td>
+    </tr>
+<tr>
+      <td class="ex-name">DB Hammer Curl</td>
+      <td>3</td><td>12</td><td>Natural</td>
+      <td class="suggested-load">Heavier</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D3_DB_Hammer_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Neutral grip, full range. Brachialis and brachioradialis — adds arm thickness. Keep it controlled.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Reverse Curl</td>
+      <td>2</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W3D3_Reverse_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>45s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Overhand grip curl. Forearm extensor + brachioradialis. Finisher.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W4D1">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W4D1 — Legs + Forearms</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 4 — Peak. Max weights. Record everything for next block.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Actual (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">Calf Raise (Leg Press)</td>
+      <td>5</td><td>20–25</td><td>Natural</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D1_Calf_Raise_Leg_Pr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Feet low on platform, full stretch at bottom, squeeze at top. High rep opener — get blood into the lower leg before loading.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Front Squat<div class="variation-note">↔ ↔ Leg Press (W2/W4)</div></td>
+      <td>4</td><td>6–8</td><td>3-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D1_Front_Squat" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>3min</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Elbows high, upright torso. Quad dominant. Full depth — ATG if mobility allows. Main compound W1 & W3.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lying Hamstring Curl</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D1_Lying_Hamstring_Cu" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at top, squeeze hard at peak contraction. Don't let hips rise off pad on heavy reps.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Romanian Deadlift</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D1_Romanian_Deadlift" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hip hinge — push hips back, bar stays close to legs. Feel the hamstring stretch at the bottom. Controlled eccentric.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Extension</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D1_Leg_Extension" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Squeeze hard at full extension. Slow controlled lowering. Quad isolation — great with peptide cycle for tissue quality.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Seated Calf Raise</td>
+      <td>4</td><td>15–20</td><td>Natural</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D1_Seated_Calf_Raise" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range — all the way down, all the way up. Soleus emphasis vs standing. Slow and controlled.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Reverse Curl (Barbell/EZ)</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D1_Reverse_Curl_Barb" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Overhand grip, curl to full contraction. Brachioradialis and wrist extensors. Keep elbows fixed.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Behind the Back Wrist Curl</td>
+      <td>3</td><td>15–20</td><td>Natural</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D1_Behind_the_Back_Wr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>45s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Bar behind hips, wrist curl up and squeeze. Full flexor isolation. Finisher — go for the pump.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W4D2">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W4D2 — Chest & Back</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 4 — Peak. Max weights. Record everything for next block.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Actual (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">DB Press (Flat)</td>
+      <td>4</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D2_DB_Press_Flat" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range — stretch at the bottom, drive through the full press. Neutral wrists. Main chest compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Incline Smith Machine</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D2_Incline_Smith_Mach" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">30–45° incline. Upper chest emphasis. Control the descent, drive explosively. Good for progressive loading.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cable Fly (Hip-Hinged)</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D2_Cable_Fly_Hip-Hin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hip hinge ~45°, cables at low position. Fly arc from hips upward. Sam Sulek style — massive pec stretch. Squeeze hard at peak.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cable Pullover</td>
+      <td>3</td><td>12–15</td><td>2-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D2_Cable_Pullover" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Straight arm pullover — feel the lat stretch fully at the top. Drive elbows to hips. Great lat pre-exhaust.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lat Pulldown</td>
+      <td>4</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D2_Lat_Pulldown" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at top, drive elbows down and back. Lean back slightly. Main back compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Neutral Grip Cable Row</td>
+      <td>4</td><td>10–12</td><td>2-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D2_Neutral_Grip_Cable" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive elbows back, squeeze shoulder blades. Neutral grip hits rhomboids and mid traps well. Control the return.</td>
+    </tr>
+<tr>
+      <td class="ex-name">T-Bar Row</td>
+      <td>4</td><td>8–10</td><td>2-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D2_T-Bar_Row" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hip hinge, chest on pad if available. Drive elbows high for upper back emphasis. One of the best thickness builders.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="session" id="sess-W4D3">
+  <div class="session-card">
+    <div class="session-header">
+      <div class="session-title">W4D3 — Shoulders & Arms</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 4 — Peak. Max weights. Record everything for next block.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="session-table">
+        <thead><tr>
+          <th>Exercise</th><th>Sets</th><th>Reps</th><th>Tempo</th>
+          <th>Suggested Load</th><th>Actual (kg)</th><th>Last Session</th>
+          <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ex-name">DB Shoulder Press</td>
+      <td>4</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D3_DB_Shoulder_Press" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range — lower DBs to ear level. Drive explosively. Neutral or pronated grip — your preference. Main shoulder compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cable Lateral Raise</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D3_Cable_Lateral_Rais" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Cable at hip height, lead with elbow not wrist. Slight forward lean. Better resistance curve than DB lateral raises at peak.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Rear Delt Cable Fly<div class="variation-note">↔ ↔ Face Pulls (W2/W4)</div></td>
+      <td>3</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D3_Rear_Delt_Cable_Fl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Cables crossed at face height. Fly out and back. Full rear delt stretch. W1 & W3 — Face Pulls W2 & W4.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Straight Bar Curl</td>
+      <td>4</td><td>8–10</td><td>2-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D3_Straight_Bar_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Elbows fixed at sides. Full range — complete stretch at bottom. Main bicep compound — go heavy.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Preacher Curl</td>
+      <td>3</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D3_Preacher_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at bottom — don't let elbows come up. Controls cheating perfectly. Great for bicep peak.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Incline DB Curl<div class="variation-note">↔ ↔ Cable Behind Curl (W2/W4)</div></td>
+      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D3_Incline_DB_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch in the stretched position — best exercise for long head. W1 & W3.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Overhead EZ Bar Extension</td>
+      <td>4</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D3_Overhead_EZ_Bar_Ex" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full stretch at the bottom — long head emphasis. Keep elbows pointed forward. Main tricep compound.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Straight Bar Pushdown</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D3_Straight_Bar_Pushd" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Elbows fixed, full extension. Squeeze at lockout. Lateral and medial head isolation.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Close Grip Bench Press<div class="variation-note">↔ ↔ Weighted Dips (W2/W4)</div></td>
+      <td>3</td><td>8–10</td><td>3-1-1</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D3_Close_Grip_Bench_P" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>2min</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Hands shoulder-width, elbows tucked. Heavy compound tricep movement. W1 & W3.</td>
+    </tr>
+<tr>
+      <td class="ex-name">DB Hammer Curl</td>
+      <td>3</td><td>12</td><td>Natural</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D3_DB_Hammer_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Neutral grip, full range. Brachialis and brachioradialis — adds arm thickness. Keep it controlled.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Reverse Curl</td>
+      <td>2</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Max controllable — record for next block</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="alex_W4D3_Reverse_Curl" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>45s</td><td>RPE 9</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Overhand grip curl. Forearm extensor + brachioradialis. Finisher.</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+let statsGoalAdj = 250;
+window.addEventListener('load', () => { initSupabase(); loadStatsFromStorage(); loadPreviousWeights(); });
+async function handleSignOut() { await signOut(); }
+function showSess(key) {
+  document.querySelectorAll('.session').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const el=document.getElementById('sess-'+key);
+  const btn=document.getElementById('nav-'+key);
+  if(el) el.classList.add('active');
+  if(btn) btn.classList.add('active');
+  if(key!=='STATS'&&key!=='WARMUP') loadPreviousWeights();
+  window.scrollTo({top:0,behavior:'smooth'});
+  localStorage.setItem('alex_last_sess',key);
+}
+function saveWeight(input) {
+  const key=input.dataset.memkey;
+  if(!key||!input.value) return;
+  const stored=JSON.parse(localStorage.getItem('alex_weights')||'{}');
+  if(!stored[key]) stored[key]=[];
+  stored[key].unshift(parseFloat(input.value));
+  if(stored[key].length>5) stored[key].pop();
+  localStorage.setItem('alex_weights',JSON.stringify(stored));
+  const row=input.closest('tr');
+  if(row&&stored[key].length>1){const prev=row.querySelector('.prev-cell');if(prev){prev.textContent=stored[key][1]+'kg';prev.style.color='var(--green)';}}
+}
+function loadPreviousWeights() {
+  const stored=JSON.parse(localStorage.getItem('alex_weights')||'{}');
+  document.querySelectorAll('.actual-input').forEach(input=>{
+    const key=input.dataset.memkey;
+    if(key&&stored[key]&&stored[key].length>0){
+      input.value=stored[key][0];
+      const row=input.closest('tr');
+      if(row&&stored[key].length>1){const prev=row.querySelector('.prev-cell');if(prev){prev.textContent=stored[key][1]+'kg';prev.style.color='var(--green)';}}
+    }
+  });
+}
+function calcStatsAll() {
+  const age=parseFloat(document.getElementById('st_age').value)||0;
+  const h=parseFloat(document.getElementById('st_height').value)||0;
+  const w=parseFloat(document.getElementById('st_weight').value)||0;
+  const sex=document.getElementById('st_sex').value;
+  const act=parseFloat(document.getElementById('st_activity').value)||1.725;
+  if(h&&w) document.getElementById('st_bmi').textContent=(w/((h/100)**2)).toFixed(1)+' kg/m²';
+  if(age&&h&&w){
+    const bmr=Math.round(sex==='male'?10*w+6.25*h-5*age+5:10*w+6.25*h-5*age-161);
+    const tdee=Math.round(bmr*act);
+    const target=tdee+statsGoalAdj;
+    document.getElementById('st_bmr').textContent=bmr+' kcal/day';
+    document.getElementById('st_tdee').textContent=tdee+' kcal/day';
+    document.getElementById('st_cals').textContent=target+' kcal/day';
+    const prot=Math.round(2.2*w);
+    const fat=Math.round(1.0*w);
+    const carbs=Math.max(0,Math.round((target-prot*4-fat*9)/4));
+    document.getElementById('st_protein').textContent=prot+'g';
+    document.getElementById('st_fat').textContent=fat+'g';
+    document.getElementById('st_carbs').textContent=carbs+'g';
+  }
+}
+function selectStatsGoal(el) {
+  document.querySelectorAll('#st_goalGrid .goal-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  statsGoalAdj=parseInt(el.dataset.adj);
+  calcStatsAll();
+}
+function saveStats() {
+  const g=id=>{const el=document.getElementById(id);return el?(el.value||el.textContent||''):''};
+  const data={name:g('st_name'),age:g('st_age'),weight:g('st_weight'),height:g('st_height'),sex:g('st_sex'),bmr:g('st_bmr'),tdee:g('st_tdee'),cals:g('st_cals'),protein:g('st_protein'),fat:g('st_fat'),carbs:g('st_carbs'),goalAdj:statsGoalAdj};
+  localStorage.setItem('alex_stats',JSON.stringify(data));
+  const saved=document.getElementById('statsSaved');
+  if(saved){saved.style.display='inline';setTimeout(()=>saved.style.display='none',2000)}
+}
+function loadStatsFromStorage() {
+  const raw=localStorage.getItem('alex_stats');
+  if(!raw) return;
+  try{
+    const s=JSON.parse(raw);
+    const set=(id,val)=>{const el=document.getElementById(id);if(el&&val)el.value=val};
+    set('st_name',s.name);set('st_age',s.age);set('st_weight',s.weight);set('st_height',s.height);set('st_sex',s.sex);
+    if(s.goalAdj!==undefined){statsGoalAdj=parseInt(s.goalAdj)||250;document.querySelectorAll('#st_goalGrid .goal-opt').forEach(el=>{el.classList.toggle('selected',parseInt(el.dataset.adj)===statsGoalAdj);});}
+    calcStatsAll();
+  }catch(e){}
+}
+</script>
+</body>
+</html>
