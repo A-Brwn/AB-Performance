@@ -744,10 +744,31 @@
 
   async function handleSignOut() { await signOut(); }
 
-  const PAYHIP = {
-    '1rm':         'https://payhip.com/b/pmM7k',
-    'hypertrophy': 'https://payhip.com/b/obUnV',
+  const GUMROAD = {
+    bench:       'https://9645194875954.gumroad.com/l/pxeamx',
+    squat:       'https://9645194875954.gumroad.com/l/tbhrp',
+    deadlift:    'https://9645194875954.gumroad.com/l/ypddkz',
+    ohp:         'https://9645194875954.gumroad.com/l/eurhih',
+    hypertrophy: 'https://9645194875954.gumroad.com/l/jzpml',
   };
+
+  function gumroadLink() {
+    if (currentProg.includes('1RM')) return GUMROAD[selectedLift] || null;
+    if (currentProg.includes('Hypertrophy')) return GUMROAD['hypertrophy'];
+    return null;
+  }
+
+  async function hasPurchased(programme) {
+    const user = window.currentUser;
+    if (!user) return false;
+    if (user.email === 'alexbrown399@gmail.com') return true;
+    try {
+      const { data } = await window.supabaseClient
+        .from('purchases').select('id')
+        .eq('user_id', user.id).eq('programme', programme).limit(1);
+      return data && data.length > 0;
+    } catch(e) { return false; }
+  }
 
   const LIFT_PAGES = {
     bench:    'PROG1_BENCH.html',
@@ -868,7 +889,7 @@
     goToPayment(name, email);
   }
 
-  // ── STEP 1: DETAILS → ACCOUNT (or straight to programme if logged in) ─────
+  // ── STEP 1: DETAILS → CHECK PURCHASE OR SEND TO GUMROAD ─────────────────
   async function handlePurchase(e) {
     e.preventDefault();
     if (bypassUnlocked) return;
@@ -880,15 +901,31 @@
     const dest = destPage();
     if (COMING_SOON.includes(dest)) { showComingSoon(); return; }
 
-    // Use the login state cached when modal opened (avoids async timing issues)
+    // If logged in — check if they've already purchased
     if (window._modalUserLoggedIn || window.currentUser) {
-      document.getElementById('modalContent').style.display = 'none';
-      document.getElementById('successMsg').innerHTML = `
-        <h3>Welcome back! 💪</h3>
-        <p style="color:var(--muted);font-size:.85rem;margin-top:.4rem">Taking you to your programme...</p>`;
-      document.getElementById('successMsg').style.display = 'block';
-      setTimeout(() => { window.location.href = './' + dest; }, 700);
-      return;
+      const paid = await hasPurchased(dest);
+      if (paid) {
+        // Already paid — go straight to programme
+        document.getElementById('modalContent').style.display = 'none';
+        document.getElementById('successMsg').innerHTML = `
+          <h3>Welcome back! 💪</h3>
+          <p style="color:var(--muted);font-size:.85rem;margin-top:.4rem">Taking you to your programme...</p>`;
+        document.getElementById('successMsg').style.display = 'block';
+        setTimeout(() => { window.location.href = './' + dest; }, 700);
+        return;
+      } else {
+        // Logged in but not paid — send to Gumroad
+        const payLink = gumroadLink();
+        if (payLink && payLink !== 'https://9645194875954.gumroad.com/l/pxeamx' && !payLink.includes('GUMROAD_')) {
+          document.getElementById('modalContent').style.display = 'none';
+          document.getElementById('successMsg').innerHTML = `
+            <h3>Almost there! 💳</h3>
+            <p style="color:var(--muted);font-size:.85rem;margin-top:.4rem">Taking you to payment. Once complete, come back and log in to access your programme.</p>`;
+          document.getElementById('successMsg').style.display = 'block';
+          setTimeout(() => { window.location.href = payLink; }, 900);
+        }
+        return;
+      }
     }
 
     // Not logged in — show account creation/sign in step
@@ -897,7 +934,7 @@
     showModalStep('step-account');
   }
 
-  // ── STEP 2: CREATE ACCOUNT → PAYHIP ────────────────────────────────────
+  // ── STEP 2: CREATE ACCOUNT → GUMROAD ────────────────────────────────────
   async function handleCreateAccount(e) {
     e.preventDefault();
     const name     = document.getElementById('signupNameHidden').value;
@@ -932,20 +969,17 @@
 
   function goToPayment(name, email) {
     const dest    = destPage();
-    const payLink = payhipLink();
-    const returnUrl = encodeURIComponent(window.location.origin + window.location.pathname.replace('index.html','') + dest);
+    const payLink = gumroadLink();
 
     document.getElementById('modalContent').style.display = 'none';
     document.getElementById('successMsg').innerHTML = `
       <h3>Account Created! 💪</h3>
-      <p style="color:var(--muted);font-size:.85rem;margin-top:.4rem">Taking you to payment now...</p>`;
+      <p style="color:var(--muted);font-size:.85rem;margin-top:.4rem">Taking you to payment. Once complete, come back and log in to access your programme.</p>`;
     document.getElementById('successMsg').style.display = 'block';
 
-    // Redirect to Payhip — they return to the intake page once payment is complete
-    // Payhip doesn't support custom return URLs on the free plan, so we open it in the same tab
-    // and the client will land back here via their bookmark/history after paying
+    // Redirect to Gumroad for payment
     setTimeout(() => {
-      window.location.href = payLink + '?affiliate_id=&checkout[custom][return]=' + returnUrl;
+      window.location.href = payLink;
     }, 900);
   }
 
@@ -975,7 +1009,6 @@
   }));
 
   function updateProgrammeButtons() {
-    // 1RM Booster — find last used lift from localStorage
     const liftPages = { bench: 'PROG1_BENCH.html', squat: 'PROG1_SQUAT.html', deadlift: 'PROG1_DEADLIFT.html', ohp: 'PROG1_OHP.html' };
     const lastLift = localStorage.getItem('ab_last_lift') || 'bench';
     const lastRMSession = localStorage.getItem('ab_last_rm_session') || 'W1D1';
@@ -983,20 +1016,37 @@
     const lastHypSplit = localStorage.getItem('ab_last_hyp_split') || 'fullbody';
 
     const rmBtn = document.getElementById('btn-1rm');
-    if (rmBtn) {
-      rmBtn.textContent = 'Open Programme';
-      rmBtn.onclick = () => {
-        window.location.href = './' + liftPages[lastLift] + '?session=' + lastRMSession;
-      };
-    }
-
     const hypBtn = document.getElementById('btn-hyp');
-    if (hypBtn) {
-      hypBtn.textContent = 'Open Programme';
-      hypBtn.onclick = () => {
-        window.location.href = './PROG2_HYPERTROPHY.html?split=' + lastHypSplit + '&session=' + lastHypSession;
-      };
-    }
+
+    // Check 1RM purchase
+    hasPurchased(liftPages[lastLift]).then(paid => {
+      if (rmBtn) {
+        if (paid) {
+          rmBtn.textContent = 'Open Programme';
+          rmBtn.onclick = () => {
+            window.location.href = './' + liftPages[lastLift] + '?session=' + lastRMSession;
+          };
+        } else {
+          rmBtn.textContent = 'Buy Now';
+          rmBtn.onclick = () => openModal('1RM Booster', '£15', '4 Weeks');
+        }
+      }
+    });
+
+    // Check Hypertrophy purchase
+    hasPurchased('PROG2_HYPERTROPHY.html').then(paid => {
+      if (hypBtn) {
+        if (paid) {
+          hypBtn.textContent = 'Open Programme';
+          hypBtn.onclick = () => {
+            window.location.href = './PROG2_HYPERTROPHY.html?split=' + lastHypSplit + '&session=' + lastHypSession;
+          };
+        } else {
+          hypBtn.textContent = 'Buy Now';
+          hypBtn.onclick = () => openModal('Hypertrophy Programme', '£20', '6 Weeks');
+        }
+      }
+    });
   }
 </script>
 
