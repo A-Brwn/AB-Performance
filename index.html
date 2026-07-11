@@ -650,9 +650,7 @@
             <label>Full Name</label>
             <input type="text" id="buyerName" placeholder="Your name" />
           </div>
-          <p style="font-size:.75rem;color:var(--muted);margin:-.3rem 0 1rem">You'll create your login in the next step.</p>
-
-          <!-- 1RM lift selector -->
+          <p style="font-size:.75rem;color:var(--muted);margin:-.3rem 0 1rem">You will create your login in the next step.</p>
           <div id="liftSelector" style="display:none">
             <label>Choose Your Lift</label>
             <div class="lift-grid">
@@ -662,24 +660,14 @@
               <div class="lift-opt" data-lift="ohp" onclick="selectLift(this)">Overhead Press</div>
             </div>
           </div>
-
-          <!-- Sport specific text field -->
-          <div id="specificField" style="display:none">
-            <label id="specificLabel">Your Sport</label>
-            <input type="text" id="buyerSpecific" placeholder="e.g. Football, Boxing, Rugby"/>
-          </div>
-
-          <button type="submit" class="btn-primary" style="width:100%; margin-top:1rem;" id="nextStepBtn">
-            Next →
-          </button>
-
-          <div style="margin-top:1rem; padding-top:.8rem; border-top:1px solid var(--border)">
-            <div style="font-size:.68rem; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); margin-bottom:.4rem">PT Preview Access</div>
+          <button type="submit" class="btn-primary" style="width:100%;margin-top:1rem" id="nextStepBtn">Next &rarr;</button>
+          <div style="margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--border)">
+            <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.4rem">PT Preview Access</div>
             <div class="bypass-row">
-              <input type="text" id="bypassCode" placeholder="ENTER CODE" maxlength="10" />
+              <input type="text" id="bypassCode" placeholder="ENTER CODE" maxlength="10"/>
               <button type="button" onclick="tryBypass()">Skip Payment</button>
             </div>
-            <div id="bypassNote">✓ Code accepted — redirecting to programme</div>
+            <div id="bypassNote">Code accepted &mdash; redirecting to programme</div>
           </div>
         </form>
       </div>
@@ -690,13 +678,11 @@
           <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.3rem">Purchasing as</div>
           <div style="font-weight:700;font-size:1rem" id="signupNameDisplay"></div>
         </div>
-        <!-- Account tabs -->
         <div style="display:flex;gap:.5rem;margin-bottom:1.2rem;background:var(--bg3);border-radius:8px;padding:.3rem">
           <div id="tab-signup-modal" onclick="switchAccountTab('signup')" style="flex:1;text-align:center;padding:.5rem;border-radius:6px;font-size:.82rem;font-weight:600;cursor:pointer;background:var(--purple);color:#fff">New Account</div>
           <div id="tab-signin-modal" onclick="switchAccountTab('signin')" style="flex:1;text-align:center;padding:.5rem;border-radius:6px;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--muted)">Sign In</div>
         </div>
         <div id="authError" style="display:none;padding:.7rem 1rem;border-radius:6px;font-size:.8rem;margin-bottom:.8rem;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5"></div>
-        <!-- Signup panel -->
         <div id="panel-signup-modal">
           <form id="signupForm" onsubmit="handleCreateAccount(event)">
             <input type="hidden" id="signupNameHidden"/>
@@ -708,10 +694,9 @@
               <label style="display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:.35rem">Password</label>
               <input type="password" id="signupPasswordModal" placeholder="At least 6 characters" style="width:100%;padding:.65rem .9rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;outline:none"/>
             </div>
-            <button type="submit" class="btn-primary" id="createAccountBtn" style="width:100%">Create Account & Pay →</button>
+            <button type="submit" class="btn-primary" id="createAccountBtn" style="width:100%">Create Account &rarr;</button>
           </form>
         </div>
-        <!-- Sign in panel -->
         <div id="panel-signin-modal" style="display:none">
           <form id="signinForm" onsubmit="handleModalSignIn(event)">
             <div style="margin-bottom:1rem">
@@ -720,21 +705,61 @@
             </div>
             <div style="margin-bottom:1rem">
               <label style="display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:.35rem">Password</label>
-              <input type="password" id="signinPasswordModal" placeholder="••••••••" style="width:100%;padding:.65rem .9rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;outline:none"/>
+              <input type="password" id="signinPasswordModal" placeholder="..." style="width:100%;padding:.65rem .9rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;outline:none"/>
             </div>
-            <button type="submit" class="btn-primary" id="signinBtn" style="width:100%">Sign In & Pay →</button>
+            <button type="submit" class="btn-primary" id="signinBtn" style="width:100%">Sign In &rarr;</button>
           </form>
         </div>
-        <button onclick="showModalStep('step-details')" style="background:none;border:none;color:var(--muted);font-size:.78rem;cursor:pointer;margin-top:.8rem">← Back</button>
+        <button onclick="showModalStep('step-details')" style="background:none;border:none;color:var(--muted);font-size:.78rem;cursor:pointer;margin-top:.8rem">&larr; Back</button>
+      </div>
+
+      <!-- STEP 3: BANK DETAILS -->
+      <div id="step-bank" style="display:none">
+        <div style="text-align:center;margin-bottom:1.2rem">
+          <div style="font-size:1.5rem;margin-bottom:.5rem">&#x1F3E6;</div>
+          <div style="font-weight:700;font-size:1rem;margin-bottom:.3rem">Almost there!</div>
+          <div style="font-size:.82rem;color:var(--muted);line-height:1.6">Transfer payment below. Once received Alex will activate your access and you will get an email confirmation.</div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:1.1rem 1.2rem;margin-bottom:1rem">
+          <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600;margin-bottom:.8rem">Bank Transfer Details</div>
+          <div style="display:flex;flex-direction:column;gap:.6rem">
+            <div style="display:flex;justify-content:space-between">
+              <span style="font-size:.78rem;color:var(--muted)">Account Name</span>
+              <span style="font-size:.88rem;font-weight:700">Alex Brown</span>
+            </div>
+            <div style="display:flex;justify-content:space-between">
+              <span style="font-size:.78rem;color:var(--muted)">Sort Code</span>
+              <span style="font-size:.88rem;font-weight:700;letter-spacing:.1em" id="bankSortCode">40-47-70</span>
+            </div>
+            <div style="display:flex;justify-content:space-between">
+              <span style="font-size:.78rem;color:var(--muted)">Account Number</span>
+              <span style="font-size:.88rem;font-weight:700;letter-spacing:.1em" id="bankAccNum">13984168</span>
+            </div>
+            <div style="height:1px;background:var(--border);margin:.2rem 0"></div>
+            <div style="display:flex;justify-content:space-between">
+              <span style="font-size:.78rem;color:var(--muted)">Amount</span>
+              <span style="font-size:1rem;font-weight:700;color:var(--purple-lt)" id="bankAmount">£00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between">
+              <span style="font-size:.78rem;color:var(--muted)">Reference</span>
+              <span style="font-size:.88rem;font-weight:700;color:var(--purple-lt)" id="bankRef">Programme</span>
+            </div>
+          </div>
+        </div>
+        <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:8px;padding:.9rem 1rem;font-size:.78rem;color:#fcd34d;line-height:1.6;margin-bottom:1rem">
+          Use the reference above exactly so your payment can be matched. Access activated within 24 hours.
+        </div>
+        <div style="font-size:.75rem;color:var(--muted);text-align:center">Questions? Email <a href="mailto:alexbrown399@gmail.com" style="color:var(--purple-lt)">alexbrown399@gmail.com</a></div>
       </div>
 
     </div>
     <div class="success-msg" id="successMsg">
-      <h3>You're In! 💪</h3>
-      <p>Redirecting to your programme generator...</p>
+      <h3>You are In!</h3>
+      <p>Redirecting to your programme...</p>
     </div>
   </div>
 </div>
+
 
 <script>
   const BYPASS = 'ABTEST';
@@ -831,6 +856,7 @@
   function showModalStep(step) {
     document.getElementById('step-details').style.display = step === 'step-details' ? 'block' : 'none';
     document.getElementById('step-account').style.display = step === 'step-account' ? 'block' : 'none';
+    document.getElementById('step-bank').style.display    = step === 'step-bank'    ? 'block' : 'none';
   }
 
   function selectLift(el) {
@@ -886,7 +912,17 @@
     btn.disabled = false; btn.textContent = 'Sign In & Pay →';
     if (error) { showAuthError(error.message); return; }
     const name = (data.user?.user_metadata?.full_name) || email.split('@')[0];
-    goToPayment(name, email);
+    // Check if already purchased
+    const dest = destPage();
+    const paid = await hasPurchased(dest);
+    if (paid) {
+      document.getElementById('modalContent').style.display = 'none';
+      document.getElementById('successMsg').innerHTML = `<h3>Welcome back! 💪</h3><p style="color:var(--muted);font-size:.85rem;margin-top:.4rem">Taking you to your programme...</p>`;
+      document.getElementById('successMsg').style.display = 'block';
+      setTimeout(() => { window.location.href = './' + dest; }, 700);
+    } else {
+      showBankDetails(name, email);
+    }
   }
 
   // ── STEP 1: DETAILS → CHECK PURCHASE OR SEND TO GUMROAD ─────────────────
@@ -914,16 +950,8 @@
         setTimeout(() => { window.location.href = './' + dest; }, 700);
         return;
       } else {
-        // Logged in but not paid — send to Gumroad
-        const payLink = gumroadLink();
-        if (payLink && payLink !== 'https://9645194875954.gumroad.com/l/pxeamx' && !payLink.includes('GUMROAD_')) {
-          document.getElementById('modalContent').style.display = 'none';
-          document.getElementById('successMsg').innerHTML = `
-            <h3>Almost there! 💳</h3>
-            <p style="color:var(--muted);font-size:.85rem;margin-top:.4rem">Taking you to payment. Once complete, come back and log in to access your programme.</p>`;
-          document.getElementById('successMsg').style.display = 'block';
-          setTimeout(() => { window.location.href = payLink; }, 900);
-        }
+        // Logged in but not paid — show bank details
+        showBankDetails(window.currentUser.user_metadata?.full_name || name, window.currentUser.email);
         return;
       }
     }
@@ -957,30 +985,38 @@
       if (error.message.includes('already registered') || error.message.includes('already exists')) {
         const { data: loginData, error: loginError } = await signIn(email, password);
         if (loginError) { showAuthError('Account exists — check your password.'); return; }
-        goToPayment(name, email);
+        showBankDetails(name, email);
       } else {
         showAuthError(error.message);
         return;
       }
     } else {
-      goToPayment(name, email);
+      showBankDetails(name, email);
     }
   }
 
-  function goToPayment(name, email) {
-    const dest    = destPage();
-    const payLink = gumroadLink();
+  function showBankDetails(name, email) {
+    const dest = destPage();
+    const progName = currentProg;
+    const price = document.getElementById('modalPrice').textContent;
 
-    document.getElementById('modalContent').style.display = 'none';
-    document.getElementById('successMsg').innerHTML = `
-      <h3>Account Created! 💪</h3>
-      <p style="color:var(--muted);font-size:.85rem;margin-top:.4rem">Taking you to payment. Once complete, come back and log in to access your programme.</p>`;
-    document.getElementById('successMsg').style.display = 'block';
+    // Set bank details fields
+    document.getElementById('bankAmount').textContent = price;
+    document.getElementById('bankRef').textContent = progName;
 
-    // Redirect to Gumroad for payment
-    setTimeout(() => {
-      window.location.href = payLink;
-    }, 900);
+    // Store pending purchase in Supabase for admin visibility
+    if (window.currentUser) {
+      window.supabaseClient.from('pending_purchases').upsert({
+        user_id: window.currentUser.id,
+        email: email,
+        name: name,
+        programme: dest,
+        product: progName,
+        created_at: new Date().toISOString(),
+      }, { onConflict: 'user_id,programme' }).then(() => {});
+    }
+
+    showModalStep('step-bank');
   }
 
   function showAuthError(msg) {
@@ -1006,6 +1042,15 @@
   window.addEventListener('load', () => initSupabase((user) => {
     if (user && user.email === PT_EMAIL) bypassUnlocked = true;
     if (user) updateProgrammeButtons();
+    // Show access denied message if redirected from programme
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('access') === 'denied') {
+      const msg = document.createElement('div');
+      msg.style.cssText = 'position:fixed;top:1rem;left:50%;transform:translateX(-50%);background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.4);color:#fca5a5;padding:.8rem 1.5rem;border-radius:8px;font-size:.85rem;font-weight:600;z-index:9999;text-align:center';
+      msg.textContent = 'Programme access requires a valid purchase. Please buy the programme to continue.';
+      document.body.appendChild(msg);
+      setTimeout(() => msg.remove(), 5000);
+    }
   }));
 
   function updateProgrammeButtons() {

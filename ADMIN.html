@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AB Performance - Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./auth.js"></script>
+<style>
+:root{--bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--white:#f0f0f5;--muted:#6b6b80;--border:#2a2a38;--purple:#7c3aed;--purple-lt:#a78bfa;--green:#22c55e;--red:#ef4444}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--white);font-family:"Inter",sans-serif;min-height:100vh}
+nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-family:"Bebas Neue",sans-serif;font-size:1.4rem;letter-spacing:.08em;text-decoration:none;color:var(--white)}
+.logo span{color:var(--purple-lt)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+#navUserLabel{font-size:.75rem;color:var(--purple-lt);font-weight:600;display:none}
+#navLogoutBtn{font-size:.75rem;color:var(--muted);text-decoration:none;font-weight:600;display:none;cursor:pointer}
+#navLoginBtn{font-size:.75rem;color:var(--muted);text-decoration:none;padding:.35rem .8rem;border:1px solid var(--border);border-radius:4px;font-weight:600}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+h1{font-family:"Bebas Neue",sans-serif;font-size:2rem;letter-spacing:.06em;margin-bottom:.3rem}
+.subtitle{color:var(--muted);font-size:.85rem;margin-bottom:2rem}
+.section-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.14em;color:var(--purple-lt);font-weight:700;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:2rem}
+.card-header{padding:1rem 1.2rem;border-bottom:1px solid var(--border);background:var(--bg3);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-weight:700;font-size:.9rem}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th{padding:.7rem 1rem;text-align:left;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border)}
+td{padding:.8rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.prog-tag{display:inline-block;padding:.2rem .6rem;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);border-radius:4px;font-size:.72rem;color:var(--purple-lt);font-weight:600}
+.approve-btn{padding:.4rem .9rem;background:var(--green);color:#fff;border:none;border-radius:4px;font-size:.75rem;font-weight:700;cursor:pointer}
+.approve-btn:hover{background:#16a34a}
+.revoke-btn{padding:.4rem .9rem;background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3);border-radius:4px;font-size:.75rem;font-weight:700;cursor:pointer}
+.revoke-btn:hover{background:rgba(239,68,68,.3)}
+.empty{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem}
+.refresh-btn{padding:.4rem .9rem;background:var(--bg3);border:1px solid var(--border);color:var(--muted);border-radius:4px;font-size:.75rem;font-weight:600;cursor:pointer}
+.refresh-btn:hover{border-color:var(--purple-lt);color:var(--white)}
+.toast{position:fixed;bottom:1rem;right:1rem;background:var(--bg2);border:1px solid var(--border);color:var(--white);padding:.8rem 1.2rem;border-radius:8px;font-size:.82rem;font-weight:600;z-index:999;display:none}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" onclick="event.preventDefault();var b=window.location.href.substring(0,window.location.href.lastIndexOf('/')+1);window.location.href=b+'index.html';" class="logo" style="cursor:pointer">AB <span>Performance</span></a>
+  <div class="nav-right">
+    <span id="navUserLabel"></span>
+    <a href="./LOGIN.html" id="navLoginBtn">Log In</a>
+    <a href="#" id="navLogoutBtn" onclick="handleSignOut()">Sign Out</a>
+  </div>
+</nav>
+
+<div class="main" id="mainContent" style="display:none">
+  <h1>Admin Panel</h1>
+  <div class="subtitle">Pending payments and active purchases. Approve after confirming bank transfer received.</div>
+
+  <div class="section-title">Pending Payment <span id="pendingCount" style="color:var(--muted)"></span></div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Awaiting Payment Confirmation</div>
+      <button class="refresh-btn" onclick="loadData()">Refresh</button>
+    </div>
+    <table>
+      <thead><tr><th>Name</th><th>Email</th><th>Programme</th><th>Signed Up</th><th>Action</th></tr></thead>
+      <tbody id="pendingTable"><tr><td colspan="5" class="empty">Loading...</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="section-title">Active Purchases <span id="activeCount" style="color:var(--muted)"></span></div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Users with Programme Access</div>
+    </div>
+    <table>
+      <thead><tr><th>Email</th><th>Programme</th><th>Approved</th><th>Action</th></tr></thead>
+      <tbody id="activeTable"><tr><td colspan="4" class="empty">Loading...</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<div id="accessDenied" style="display:none;text-align:center;padding:4rem 2rem">
+  <div style="font-size:2rem;margin-bottom:1rem">&#x1F512;</div>
+  <div style="font-weight:700;margin-bottom:.5rem">PT Access Only</div>
+  <div style="color:var(--muted);font-size:.85rem">This page is restricted to Alex Brown.</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+async function handleSignOut() { await signOut(); }
+
+function showToast(msg, ok) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  t.style.borderColor = ok !== false ? 'var(--green)' : 'var(--red)';
+  setTimeout(function() { t.style.display = 'none'; }, 3000);
+}
+
+function fmtDate(str) {
+  if (!str) return '--';
+  var d = new Date(str);
+  return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' });
+}
+
+function progLabel(prog) {
+  var map = {
+    'PROG1_BENCH.html':'Bench 1RM','PROG1_SQUAT.html':'Squat 1RM',
+    'PROG1_DEADLIFT.html':'Deadlift 1RM','PROG1_OHP.html':'OHP 1RM',
+    'PROG2_HYPERTROPHY.html':'Hypertrophy'
+  };
+  return map[prog] || prog;
+}
+
+
+async function approvePurchase(userId, email, programme, product, pendingId) {
+  var res = await window.supabaseClient.from('purchases').upsert({
+    user_id: userId, email: email, product: product, programme: programme,
+    gumroad_sale_id: 'manual_' + Date.now(),
+  }, { onConflict: 'gumroad_sale_id' });
+  if (res.error) { showToast('Error: ' + res.error.message, false); return; }
+  await window.supabaseClient.from('pending_purchases').delete().eq('id', pendingId);
+  showToast('Access granted to ' + email);
+  loadData();
+}
+
+async function revokePurchase(purchaseId, email) {
+  if (!confirm('Revoke access for ' + email + '?')) return;
+  var res = await window.supabaseClient.from('purchases').delete().eq('id', purchaseId);
+  if (res.error) { showToast('Error: ' + res.error.message, false); return; }
+  showToast('Access revoked for ' + email);
+  loadData();
+}
+
+async function loadData() {
+  var pRes = await window.supabaseClient.from('pending_purchases').select('*').order('created_at', { ascending: false });
+  var pending = pRes.data || [];
+  document.getElementById('pendingCount').textContent = '(' + pending.length + ')';
+  var pb = document.getElementById('pendingTable');
+  if (pending.length === 0) {
+    pb.innerHTML = '<tr><td colspan="5" class="empty">No pending payments</td></tr>';
+  } else {
+    pb.innerHTML = '';
+    pending.forEach(function(p) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td style="font-weight:600">' + (p.name || '--') + '</td>' +
+        '<td>' + p.email + '</td>' +
+        '<td><span class="prog-tag">' + progLabel(p.programme) + '</span></td>' +
+        '<td style="color:var(--muted);font-size:.78rem">' + fmtDate(p.created_at) + '</td>' +
+        '<td></td>';
+      var btn = document.createElement('button');
+      btn.className = 'approve-btn';
+      btn.textContent = 'Approve';
+      btn.addEventListener('click', (function(row) {
+        return function() { approvePurchase(row.user_id, row.email, row.programme, row.product, row.id); };
+      })(p));
+      tr.cells[4].appendChild(btn);
+      pb.appendChild(tr);
+    });
+  }
+
+  var aRes = await window.supabaseClient.from('purchases').select('*').order('created_at', { ascending: false });
+  var active = aRes.data || [];
+  document.getElementById('activeCount').textContent = '(' + active.length + ')';
+  var ab = document.getElementById('activeTable');
+  if (active.length === 0) {
+    ab.innerHTML = '<tr><td colspan="4" class="empty">No active purchases</td></tr>';
+  } else {
+    ab.innerHTML = '';
+    active.forEach(function(p) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + p.email + '</td>' +
+        '<td><span class="prog-tag">' + progLabel(p.programme) + '</span></td>' +
+        '<td style="color:var(--muted);font-size:.78rem">' + fmtDate(p.created_at) + '</td>' +
+        '<td></td>';
+      var btn = document.createElement('button');
+      btn.className = 'revoke-btn';
+      btn.textContent = 'Revoke';
+      btn.addEventListener('click', (function(row) {
+        return function() { revokePurchase(row.id, row.email); };
+      })(p));
+      tr.cells[3].appendChild(btn);
+      ab.appendChild(tr);
+    });
+  }
+}
+
+window.addEventListener('load', function() {
+  initSupabase(function(user) {
+    if (!user || user.email !== 'alexbrown399@gmail.com') {
+      document.getElementById('accessDenied').style.display = 'block';
+      return;
+    }
+    document.getElementById('mainContent').style.display = 'block';
+    loadData();
+  });
+});
+</script>
+</body>
+</html>
