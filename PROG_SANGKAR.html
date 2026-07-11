@@ -16,12 +16,13 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
 .nav-right{display:flex;align-items:center;gap:1rem}
 #navUserLabel{font-size:.75rem;color:var(--purple-lt);font-weight:600;display:none}
 #navLoginBtn{font-size:.75rem;color:var(--muted);text-decoration:none;padding:.35rem .8rem;border:1px solid var(--border);border-radius:4px;font-weight:600}
-#navLogoutBtn{font-size:.75rem;color:var(--muted);text-decoration:none;font-weight:600;display:none;cursor:pointer}
+#navLogoutBtn{font-size:.75rem;color:var(--muted);cursor:pointer;font-weight:600;display:none}
 .prog-nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.6rem 1rem;display:flex;flex-wrap:wrap;gap:.3rem;position:sticky;top:57px;z-index:99;overflow-x:auto}
 .nav-btn{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:.4rem .6rem;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:.1rem;min-width:44px;transition:all .2s}
 .nav-btn span{font-size:.5rem;color:var(--muted);font-weight:400}
 .nav-btn:hover,.nav-btn.active{background:var(--purple);border-color:var(--purple);color:#fff}
 .nav-btn.active span{color:rgba(255,255,255,.7)}
+.nav-btn.pt-session{border-color:rgba(124,58,237,.4)}
 .main{max-width:1100px;margin:0 auto;padding:2rem}
 .session{display:none}.session.active{display:block}
 .session-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.5rem}
@@ -55,18 +56,12 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
 .auto-val{padding:.65rem .9rem;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);border-radius:6px;font-size:.9rem;color:var(--green);font-weight:600}
 .field-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1rem}
 .section-heading{font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;color:var(--purple-lt);font-weight:700;margin:1.5rem 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
-.goal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.6rem;margin-top:.5rem}
-.goal-opt{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.8rem .7rem;cursor:pointer;text-align:center;transition:all .2s}
-.goal-opt:hover{border-color:var(--purple-lt)}.goal-opt.selected{background:rgba(124,58,237,.15);border-color:var(--purple-lt)}
-.goal-opt .goal-name{font-size:.78rem;font-weight:600;margin-bottom:.2rem}
-.goal-opt .goal-kcal{font-size:.68rem;color:var(--muted)}.goal-opt.selected .goal-kcal{color:var(--purple-lt)}
 .macro-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem}
 .macro-pill{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.7rem 1.2rem;text-align:center;flex:1;min-width:90px}
 .macro-pill .mp-val{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--purple-lt)}
 .macro-pill .mp-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:.1rem}
 .save-btn{padding:.8rem 2rem;background:var(--purple);color:#fff;border:none;border-radius:4px;font-weight:700;font-size:.85rem;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;margin-top:1.5rem}
 .saved-msg{display:none;color:var(--green);font-size:.82rem;font-weight:600;margin-left:1rem}
-
 .yt-link{display:inline-flex;align-items:center;gap:.3rem;margin-top:.3rem;font-size:.68rem;color:#ff4444;text-decoration:none;font-weight:600;opacity:.85}
 .yt-link:hover{opacity:1}
 .yt-link::before{content:'▶';font-size:.6rem}
@@ -81,28 +76,27 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
     <a href="#" id="navLogoutBtn" onclick="handleSignOut()">Sign Out</a>
   </div>
 </nav>
-<div class="prog-nav"><button class="nav-btn" onclick="showSess('STATS')" id="nav-STATS">STATS<span>My Stats</span></button>
-<button class="nav-btn active" onclick="showSess('WARMUP')" id="nav-WARMUP">WARM<span>Warm-Up</span></button>
-<button class="nav-btn" onclick="showSess('W1D1')" id="nav-W1D1">W1D1<span>PT Session</span></button>
-<button class="nav-btn" onclick="showSess('W1D2')" id="nav-W1D2">W1D2<span>C+W A</span></button>
-<button class="nav-btn" onclick="showSess('W1D3')" id="nav-W1D3">W1D3<span>C+W B</span></button>
-<button class="nav-btn" onclick="showSess('W2D1')" id="nav-W2D1">W2D1<span>PT Session</span></button>
-<button class="nav-btn" onclick="showSess('W2D2')" id="nav-W2D2">W2D2<span>C+W A</span></button>
-<button class="nav-btn" onclick="showSess('W2D3')" id="nav-W2D3">W2D3<span>C+W B</span></button>
-<button class="nav-btn" onclick="showSess('W3D1')" id="nav-W3D1">W3D1<span>PT Session</span></button>
-<button class="nav-btn" onclick="showSess('W3D2')" id="nav-W3D2">W3D2<span>C+W A</span></button>
-<button class="nav-btn" onclick="showSess('W3D3')" id="nav-W3D3">W3D3<span>C+W B</span></button>
-<button class="nav-btn" onclick="showSess('W4D1')" id="nav-W4D1">W4D1<span>PT Session</span></button>
-<button class="nav-btn" onclick="showSess('W4D2')" id="nav-W4D2">W4D2<span>C+W A</span></button>
-<button class="nav-btn" onclick="showSess('W4D3')" id="nav-W4D3">W4D3<span>C+W B</span></button>
+<div class="prog-nav"><button class="nav-btn active" onclick="showSess('STATS')" id="nav-STATS">STATS<span>My Stats</span></button>
+<button class="nav-btn" onclick="showSess('WARMUP')" id="nav-WARMUP">WARM<span>Warm-Up</span></button>
+<button class="nav-btn pt-session" onclick="showSess('W1D1')" id="nav-W1D1">W1D1<span>PT: Push</span></button>
+<button class="nav-btn" onclick="showSess('W1D2')" id="nav-W1D2">W1D2<span>Pull</span></button>
+<button class="nav-btn" onclick="showSess('W1D3')" id="nav-W1D3">W1D3<span>Rehab</span></button>
+<button class="nav-btn pt-session" onclick="showSess('W2D1')" id="nav-W2D1">W2D1<span>PT: Pull</span></button>
+<button class="nav-btn" onclick="showSess('W2D2')" id="nav-W2D2">W2D2<span>Push</span></button>
+<button class="nav-btn" onclick="showSess('W2D3')" id="nav-W2D3">W2D3<span>Rehab</span></button>
+<button class="nav-btn pt-session" onclick="showSess('W3D1')" id="nav-W3D1">W3D1<span>PT: Push</span></button>
+<button class="nav-btn" onclick="showSess('W3D2')" id="nav-W3D2">W3D2<span>Pull</span></button>
+<button class="nav-btn" onclick="showSess('W3D3')" id="nav-W3D3">W3D3<span>Rehab</span></button>
+<button class="nav-btn pt-session" onclick="showSess('W4D1')" id="nav-W4D1">W4D1<span>PT: Pull</span></button>
+<button class="nav-btn" onclick="showSess('W4D2')" id="nav-W4D2">W4D2<span>Push</span></button>
+<button class="nav-btn" onclick="showSess('W4D3')" id="nav-W4D3">W4D3<span>Full Rehab</span></button>
 </div>
 <div class="main">
-<div class="session" id="sess-STATS">
+<div class="session active" id="sess-STATS">
   <div class="wu-page" style="max-width:900px">
-    <h2>My Stats & Targets</h2>
-    <p style="color:var(--muted);font-size:.85rem;margin-bottom:1.5rem">Pre-filled from your intake form. Update weight as you progress.</p>
+    <h2>My Stats & Targets — Sangkar</h2>
     <div class="info-box" style="background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.25)">
-      <strong style="color:#fcd34d">⚠️ Health Notes</strong><br><strong>Tennis Elbow:</strong> All exercises modified — rope attachments, EZ bar, wide grips. Stop if elbow pain.<br><strong>Asthma:</strong> All cardio is steady-state moderate. Inhaler must be accessible at all times.
+      <strong style="color:#fcd34d">Health Notes</strong><br><strong>Tennis Elbow:</strong> All exercises modified — wrist neutral, rope attachments, EZ bar. Stop if elbow pain.<br><strong>Asthma:</strong> All cardio is steady-state. Inhaler must be accessible.
     </div>
     <div class="section-heading">Personal Details</div>
     <div class="field-grid">
@@ -129,62 +123,56 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
         </select>
       </div>
     </div>
-    <div class="section-heading">Calorie Targets</div>
+    <div class="section-heading">Calorie & Macro Targets</div>
     <div class="field-grid">
       <div class="field"><label>BMR</label><div class="auto-val" id="st_bmr">1729 kcal/day</div></div>
       <div class="field"><label>TDEE</label><div class="auto-val" id="st_tdee">2680 kcal/day</div></div>
+      <div class="field"><label>Target Calories</label><div class="auto-val" id="st_cals">2180 kcal/day</div></div>
     </div>
     <div class="section-heading">Goal</div>
-    <div class="goal-grid" id="st_goalGrid">
-      <div class="goal-opt selected" data-adj="-500" onclick="selectStatsGoal(this)"><div class="goal-name">Fat Loss</div><div class="goal-kcal">−500 kcal</div></div>
-      <div class="goal-opt" data-adj="-250" onclick="selectStatsGoal(this)"><div class="goal-name">Gradual Loss</div><div class="goal-kcal">−250 kcal</div></div>
-      <div class="goal-opt" data-adj="0" onclick="selectStatsGoal(this)"><div class="goal-name">Maintain</div><div class="goal-kcal">Maintenance</div></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.6rem;margin-top:.5rem" id="st_goalGrid">
+      <div class="goal-opt selected" data-adj="-500" onclick="selectStatsGoal(this)" style="background:rgba(124,58,237,.15);border:1px solid var(--purple-lt);border-radius:8px;padding:.8rem .7rem;cursor:pointer;text-align:center"><div style="font-size:.78rem;font-weight:600;margin-bottom:.2rem">Fat Loss</div><div style="font-size:.68rem;color:var(--purple-lt)">−500 kcal</div></div>
+      <div class="goal-opt" data-adj="-250" onclick="selectStatsGoal(this)" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.8rem .7rem;cursor:pointer;text-align:center"><div style="font-size:.78rem;font-weight:600;margin-bottom:.2rem">Gradual Loss</div><div style="font-size:.68rem;color:var(--muted)">−250 kcal</div></div>
+      <div class="goal-opt" data-adj="0" onclick="selectStatsGoal(this)" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.8rem .7rem;cursor:pointer;text-align:center"><div style="font-size:.78rem;font-weight:600;margin-bottom:.2rem">Maintain</div><div style="font-size:.68rem;color:var(--muted)">Maintenance</div></div>
     </div>
-    <div class="field-grid" style="margin-top:1rem">
-      <div class="field"><label>Daily Calorie Target</label><div class="auto-val" id="st_cals">2180 kcal/day</div></div>
-    </div>
-    <div class="section-heading">Macro Targets</div>
     <div class="macro-row">
       <div class="macro-pill"><div class="mp-val" id="st_protein">191g</div><div class="mp-label">Protein (g)</div></div>
       <div class="macro-pill"><div class="mp-val" id="st_fat">36g</div><div class="mp-label">Fat (g)</div></div>
       <div class="macro-pill"><div class="mp-val" id="st_carbs">286g</div><div class="mp-label">Carbs (g)</div></div>
     </div>
-    <p style="font-size:.72rem;color:var(--muted);margin-top:.6rem">Protein high to preserve muscle during deficit. Fat low — fat loss protocol.</p>
     <button class="save-btn" onclick="saveStats()">Save Stats</button>
-    <span class="saved-msg" id="statsSaved">✓ Saved</span>
+    <span class="saved-msg" id="statsSaved">Saved</span>
   </div>
 </div>
-<div class="session active" id="sess-WARMUP">
+<div class="session" id="sess-WARMUP">
   <div class="wu-page">
     <h2>Warm-Up Protocol</h2>
-    <p style="color:var(--muted);font-size:.85rem;margin-bottom:1.2rem">Complete before every session. Do not skip — cold muscles underperform and injury risk increases significantly.</p>
-    <div class="info-box" style="background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.25)"><strong style="color:#fcd34d">Asthma:</strong> Have your inhaler accessible before starting. 2 puffs of reliever inhaler 10–15 min before exercise helps prevent symptoms.</div>
+    <p style="color:var(--muted);font-size:.85rem;margin-bottom:1.2rem">Complete before every session. Do not skip.</p>
+    <div class="info-box" style="background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.25)"><strong style="color:#fcd34d">Asthma:</strong> Have your inhaler accessible. 2 puffs 10–15 min before exercise helps prevent symptoms.</div>
     <div class="wu-block">
       <h3>1. General Warm-Up (5 min)</h3>
-      <div class="wu-item"><div class="wu-ex">Light Cardio</div><div class="wu-sets">5 min</div><div class="wu-note">Brisk treadmill walk, cross-trainer or bike on low resistance. Raise heart rate gently — warm but not breathless.</div></div>
+      <div class="wu-item"><div class="wu-ex">Cross Trainer / Bike / Treadmill</div><div class="wu-sets">5 min</div><div class="wu-note">Light cardio — raise heart rate gently. Warm but not breathless.</div></div>
     </div>
     <div class="wu-block">
-      <h3>2. Injury Rehab & Activation (8–10 min)</h3>
-      <div class="wu-item"><div class="wu-ex">Hip Flexor Stretch</div><div class="wu-sets">2 × 30s each</div><div class="wu-note">Lunge position, front knee at 90°, drive hips forward. Important for anyone sitting at a desk — tight hip flexors pull on the lower back.</div></div>
-      <div class="wu-item"><div class="wu-ex">Band Pull-Aparts</div><div class="wu-sets">2 × 15</div><div class="wu-note">Light band at chest height. Pull apart to full extension. Activates rear delts and rotator cuff — improves shoulder mechanics and reduces elbow stress during pressing.</div></div>
-      <div class="wu-item"><div class="wu-ex">Bodyweight Squat</div><div class="wu-sets">2 × 10</div><div class="wu-note">Full depth. Controlled descent. Reinforces lower body movement pattern before adding load.</div></div>
-      <div class="wu-item"><div class="wu-ex">Arm Circles</div><div class="wu-sets">2 × 10 each direction</div><div class="wu-note">Large controlled circles. Shoulder mobility before pressing and pulling.</div></div>
-      
-      <div class="wu-item"><div class="wu-ex">Wrist Extensor Stretch</div><div class="wu-sets">2 × 30s each</div><div class="wu-note">Arm straight, palm facing down. Gently pull fingers toward you with other hand. Hold 30s. Directly stretches the overloaded tendon in tennis elbow. Do this daily.</div></div>
-      <div class="wu-item"><div class="wu-ex">Reverse Wrist Curl (Light DB)</div><div class="wu-sets">2 × 15</div><div class="wu-note">Palm facing down, light dumbbell. Curl wrist up, lower slowly. Strengthens wrist extensors — the root cause of tennis elbow. 1–2kg only to start.</div></div>
+      <h3>2. Mobility & Rehab Activation (5 min)</h3>
+      <div class="wu-item"><div class="wu-ex">Hip Flexor Stretch</div><div class="wu-sets">2 × 30s each</div><div class="wu-note">Lunge position, drive hips forward. Tight hip flexors are common with desk work.</div></div>
+      <div class="wu-item"><div class="wu-ex">Glute Bridge</div><div class="wu-sets">2 × 15</div><div class="wu-note">Drive hips up and squeeze. Activates glutes before all lower body work.</div></div>
+      <div class="wu-item"><div class="wu-ex">Band Pull-Aparts</div><div class="wu-sets">2 × 15</div><div class="wu-note">Light band at chest height, pull apart. Rear delt activation before pressing.</div></div>
+      <div class="wu-item"><div class="wu-ex">Bodyweight Squat</div><div class="wu-sets">2 × 10</div><div class="wu-note">Full depth. Controlled descent. Reinforces movement pattern.</div></div>
+      <div class="wu-item"><div class="wu-ex">Wrist Extensor Stretch</div><div class="wu-sets">2 × 30s each</div><div class="wu-note">Arm straight, palm down, pull fingers toward you. Hold 30s. Tennis elbow rehab — do this daily.</div></div>
+      <div class="wu-item"><div class="wu-ex">Reverse Wrist Curl (Light DB)</div><div class="wu-sets">2 × 15</div><div class="wu-note">Palm down, curl wrist up. Strengthens wrist extensors. 1–2kg only.</div></div>
     </div>
     <div class="wu-block">
-      <h3>3. Daily Rehab (do these every day, not just training days)</h3>
-      <div class="wu-item"><div class="wu-ex">Child's Pose</div><div class="wu-sets">1 × 60s</div><div class="wu-note">Kneel, sit back onto heels, reach arms forward on the floor. Hold and breathe. Decompresses the lower spine — do this morning and evening if possible.</div></div>
-      <div class="wu-item"><div class="wu-ex">Deep Glute Stretch (Pigeon Pose)</div><div class="wu-sets">1 × 30s each side</div><div class="wu-note">Brings knee to same-side wrist, extend back leg. Deep hip flexor and glute stretch. Directly addresses hip tightness contributing to lower back pain.</div></div>
+      <h3>3. Daily Rehab (do every day, not just training days)</h3>
+      <div class="wu-item"><div class="wu-ex">Child's Pose</div><div class="wu-sets">1 × 60s</div><div class="wu-note">Kneel, sit back, reach arms forward. Decompresses the spine.</div></div>
     </div>
   </div>
 </div>
 <div class="session" id="sess-W1D1">
   <div class="session-card">
-    <div class="session-header">
-      <div class="session-title">W1D1 — PT Session — Weights</div>
-      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 1 — Learning the movements. Light weight, perfect form.</div>
+    <div class="session-header" style="background:rgba(124,58,237,.15)">
+      <div class="session-title">W1D1 — PT Session — Push + Legs</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 1 — Learning movements. Light weight, perfect form.</div>
     </div>
     <div style="overflow-x:auto">
       <table class="session-table">
@@ -196,122 +184,82 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
         <tbody><tr>
       <td class="ex-name">Chest Press (Machine)</td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
-      <td class="suggested-load">39kg</td>
+      <td class="suggested-load">39.0kg</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Chest_Press_Machi" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>90s</td><td>RPE 7</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Wrist neutral — TE. Same weight as test, focus on form first session.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Lat Pulldown (Wide Grip)</td>
-      <td>3</td><td>12–15</td><td>3-1-1</td>
-      <td class="suggested-load">32kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Lat_Pulldown_Wide" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Wide grip. Drive elbows down and back. ⚠️ Tennis elbow — keep wrist neutral.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Leg Press (Machine)</td>
-      <td>3</td><td>12–15</td><td>3-1-1</td>
-      <td class="suggested-load">45kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Leg_Press_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Full range — bring knees close to chest on the way down.</td>
+      <td class="notes-cell">Drive hands away, controlled return. Form focus — first proper session. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
       <td class="ex-name">Shoulder Press (Machine)</td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
-      <td class="suggested-load">18kg</td>
+      <td class="suggested-load">18.0kg</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Shoulder_Press_Ma" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>90s</td><td>RPE 7</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Elbows slightly forward. Controlled on the way down. ⚠️ Tennis elbow.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Lying Leg Curl (Machine)</td>
-      <td>3</td><td>12–15</td><td>3-1-1</td>
-      <td class="suggested-load">18kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Lying_Leg_Curl_Ma" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hips pressed into pad. Slow controlled lowering.</td>
+      <td class="notes-cell">Elbows slightly forward. Full range. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
       <td class="ex-name">Tricep Pushdown (Rope)</td>
-      <td>3</td><td>15</td><td>3-1-1</td>
-      <td class="suggested-load">27kg</td>
+      <td>3</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">27.0kg</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Tricep_Pushdown_R" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7</td>
+      <td>60s</td><td>RPE 7</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Rope attachment — wrist neutral. Elbows fixed at sides. ⚠️ Tennis elbow.</td>
+      <td class="notes-cell">Rope reduces wrist stress. Elbows fixed at sides. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
-      <td class="ex-name">Bicep Curl (EZ Bar)</td>
+      <td class="ex-name">Leg Press (Machine)</td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
-      <td class="suggested-load">23kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Bicep_Curl_EZ_Bar" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="suggested-load">45.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Leg_Press_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>90s</td><td>RPE 7</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">EZ bar reduces wrist pronation. Controlled curl. ⚠️ Tennis elbow.</td>
+      <td class="notes-cell">Full range — bring knees toward chest. </td>
     </tr>
 <tr>
-      <td class="ex-name">Leg Extension (Machine)</td>
-      <td>3</td><td>12–15</td><td>3-1-1</td>
-      <td class="suggested-load">25kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Leg_Extension_Mac" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="ex-name">Lying Hamstring Curl</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">18.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Lying_Hamstring_Cu" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7</td>
+      <td>60s</td><td>RPE 7</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Slow extension — squeeze at the top. No jerking.</td>
+      <td class="notes-cell">Hips pressed into pad. Full range. </td>
     </tr>
 <tr>
-      <td class="ex-name">Glute Bridge</td>
-      <td>3</td><td>15</td><td>3-1-1</td>
+      <td class="ex-name">Hip Thrust (Bodyweight) <span style="font-size:.6rem;background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3);padding:.1rem .4rem;border-radius:3px;font-weight:700">NEW</span></td>
+      <td>3</td><td>15</td><td>2-1-2</td>
       <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Glute_Bridge" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Drive hips up, squeeze at top, hold 2s. Build to adding weight next week.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Plank Hold</td>
-      <td>3</td><td>20–30s</td><td>3-1-1</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Plank_Hold" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Neutral spine. Build hold time each session.</td>
-    </tr>    <tr>
-      <td class="ex-name">Crunch</td>
-      <td>3</td><td>15–20</td><td>Controlled</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Crunch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Hip_Thrust_Bodywe" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hands on temples, curl upper back off floor. Lower slowly. Don't pull neck.</td>
+      <td class="notes-cell">Upper back on bench. Drive hips up, squeeze hard at top, hold 2s. Glute activation.</td>
     </tr>
-</tbody>
+<tr>
+      <td class="ex-name">Plank Hold</td>
+      <td>3</td><td>20–30s</td><td>N/A</td>
+      <td class="suggested-load">BW</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D1_Plank_Hold" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Neutral spine. Build hold time each week. </td>
+    </tr></tbody>
       </table>
     </div>
   </div>
 </div>
 <div class="session" id="sess-W1D2">
   <div class="session-card">
-    <div class="session-header">
-      <div class="session-title">W1D2 — Cardio + Weights A</div>
-      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 1 — Learning the movements. Light weight, perfect form.</div>
+    <div class="session-header" style="">
+      <div class="session-title">W1D2 — Independent — Cardio + Pull</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 1 — Learning movements. Light weight, perfect form.</div>
     </div>
     <div style="overflow-x:auto">
       <table class="session-table">
@@ -321,86 +269,64 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Treadmill Incline Walk<br><a href="https://www.youtube.com/watch?v=p5pFBRiINg4" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D2_Treadmill_Incline_" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="suggested-load">Level 5 / 5km/h 8% incline</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D2_Cross_Trainer__Tr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>—</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Steady state. Conversational pace. Fat burning zone. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+      <td class="notes-cell">Steady state. Conversational pace — you should be able to speak in full sentences. ⚠️ Asthma — steady rest, inhaler accessible.</td>
     </tr>
 <tr>
-      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>15</td><td>3-1-1</td>
-      <td class="suggested-load">45kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D2_Leg_Press_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="ex-name">Lat Pulldown (Wide Grip)</td>
+      <td>2</td><td>12–15</td><td>3-1-1</td>
+      <td class="suggested-load">32.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D2_Lat_Pulldown_Wide" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 5</td>
+      <td>90s</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">2 sets only — keep it light after cardio. Form focus. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Hip weakness — focus on control, not weight.</td>
+      <td class="notes-cell">Pull elbows down and back. Wide grip. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
-      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td class="ex-name">Seated Row (Machine)</td>
+      <td>2</td><td>12–15</td><td>2-1-1</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D2_Seated_Row_Machin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive elbows back, squeeze shoulder blades. </td>
+    </tr>
+<tr>
+      <td class="ex-name">Glute Bridge</td>
       <td>2</td><td>15</td><td>2-1-2</td>
       <td class="suggested-load">BW</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D2_Glute_Bridge" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Glute activation — rehab for both. ⚠️ Hip weakness — focus on control, not weight.</td>
+      <td class="notes-cell">Daily rehab. Drive hips up and squeeze. Glute activation.</td>
     </tr>
 <tr>
-      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cable Row</div></td>
-      <td>2</td><td>15</td><td>2-1-1</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D2_Seated_Row_Machin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 5</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Back activation. Posture support. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td class="ex-name">Plank Hold</td>
       <td>2</td><td>20–30s</td><td>N/A</td>
       <td class="suggested-load">BW</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D2_Plank_Hold" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Core foundation. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Child's Pose Stretch<br><a href="https://www.youtube.com/watch?v=qn5GKVQ7FDI" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>1</td><td>60s</td><td>N/A</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D2_Child's_Pose_Stret" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>—</td><td>—</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Lower back mobility — hold for 60 seconds, breathe steadily. Daily if possible. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>    <tr>
-      <td class="ex-name">Crunch</td>
-      <td>3</td><td>15–20</td><td>Controlled</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D2_Crunch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hands on temples, curl upper back off floor. Lower slowly. Don't pull neck.</td>
-    </tr>
-</tbody>
+      <td class="notes-cell">Neutral spine. Core stability.</td>
+    </tr></tbody>
       </table>
     </div>
   </div>
 </div>
 <div class="session" id="sess-W1D3">
   <div class="session-card">
-    <div class="session-header">
-      <div class="session-title">W1D3 — Cardio + Weights B</div>
-      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 1 — Learning the movements. Light weight, perfect form.</div>
+    <div class="session-header" style="">
+      <div class="session-title">W1D3 — Independent — Cardio + Rehab</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 1 — Learning movements. Light weight, perfect form.</div>
     </div>
     <div style="overflow-x:auto">
       <table class="session-table">
@@ -410,86 +336,64 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Stationary Bike<br><a href="https://www.youtube.com/watch?v=5MwOkEHiXpg" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D3_Stationary_Bike" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="suggested-load">Level 5 / 5km/h 8% incline</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D3_Cross_Trainer__Tr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>—</td><td>RPE 5–6</td>
+      <td>—</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Steady state. Seated — zero spinal load. Good for lower back. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+      <td class="notes-cell">Steady state. Same as D2. Fat burning zone. ⚠️ Asthma — steady rest, inhaler accessible.</td>
     </tr>
 <tr>
-      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td class="ex-name">Leg Press (Machine)</td>
       <td>2</td><td>15</td><td>3-1-1</td>
-      <td class="suggested-load">18kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D3_Shoulder_Press_Ma" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="suggested-load">45.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D3_Leg_Press_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 5</td>
+      <td>90s</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Upper body — light post-cardio. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+      <td class="notes-cell">Light — 2 sets only after cardio. Full range. </td>
     </tr>
 <tr>
-      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
-      <td>2</td><td>15</td><td>3-1-1</td>
-      <td class="suggested-load">32kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D3_Lat_Pulldown_Wide" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="ex-name">Glute Bridge</td>
+      <td>3</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">BW</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D3_Glute_Bridge" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Controlled pull. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+      <td class="notes-cell">Rehab focus. Quality squeeze every rep. </td>
     </tr>
 <tr>
-      <td class="ex-name">Hip Thrust (Bodyweight)<br><a href="https://www.youtube.com/watch?v=xDmFkJxPzeM" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>15</td><td>2-1-2</td>
+      <td class="ex-name">Plank Hold</td>
+      <td>3</td><td>25–30s</td><td>N/A</td>
       <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D3_Hip_Thrust_Bodywe" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D3_Plank_Hold" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Best glute exercise. Upper back on bench. Drive and squeeze. ⚠️ Hip weakness — focus on control, not weight.</td>
+      <td class="notes-cell">Core stability.</td>
     </tr>
 <tr>
-      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>8 each side</td><td>Slow</td>
+      <td class="ex-name">Wrist Extensor Stretch</td>
+      <td>2</td><td>2 × 30s each</td><td>Controlled</td>
       <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D3_Dead_Bug" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D3_Wrist_Extensor_Str" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 5</td>
+      <td>45s</td><td>RPE 4</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Core stability — lower back pressed to floor. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Cat-Cow Stretch<br><a href="https://www.youtube.com/watch?v=kqnua4rHVVA" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>1</td><td>10 reps</td><td>Slow</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D3_Cat-Cow_Stretch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>—</td><td>—</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Spinal mobility. Arch and round slowly. Do this daily for lower back. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>    <tr>
-      <td class="ex-name">Crunch</td>
-      <td>3</td><td>15–20</td><td>Controlled</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W1D3_Crunch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hands on temples, curl upper back off floor. Lower slowly. Don't pull neck.</td>
-    </tr>
-</tbody>
+      <td class="notes-cell">Arm straight, pull fingers back. Tendon rehab — do this daily. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
+    </tr></tbody>
       </table>
     </div>
   </div>
 </div>
 <div class="session" id="sess-W2D1">
   <div class="session-card">
-    <div class="session-header">
-      <div class="session-title">W2D1 — PT Session — Weights</div>
-      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 2 — Small weight increases. Start pushing slightly harder.</div>
+    <div class="session-header" style="background:rgba(124,58,237,.15)">
+      <div class="session-title">W2D1 — PT Session — Pull + Legs</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 2 — Small weight increases. Push slightly harder.</div>
     </div>
     <div style="overflow-x:auto">
       <table class="session-table">
@@ -499,139 +403,84 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Chest Press (Machine)<br><a href="https://www.youtube.com/watch?v=xUm0BiZCB_g" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Smith Machine Chest Press</div></td>
+      <td class="ex-name">Lat Pulldown (Wide Grip)</td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
-      <td class="suggested-load">39kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Chest_Press_Machi" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Drive hands away, controlled return. Machine keeps path safe for beginners. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cable Row</div></td>
-      <td>3</td><td>12–15</td><td>2-1-1</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Seated_Row_Machin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Drive elbows back, squeeze shoulder blades. Superset with chest press — alternate with Linda.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Goblet Squat</div></td>
-      <td>3</td><td>12–15</td><td>3-1-1</td>
-      <td class="suggested-load">45kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Leg_Press_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Feet hip-width, full range. Primary lower body movement — safe for both injuries.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Lying Leg Curl (Machine)<br><a href="https://www.youtube.com/watch?v=1Tq3QdYUuHs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>3</td><td>12–15</td><td>Natural</td>
-      <td class="suggested-load">18kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Lying_Leg_Curl_Ma" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hips pressed into pad. Hamstring isolation — supports knee stability.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>3</td><td>12</td><td>3-1-1</td>
-      <td class="suggested-load">18kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Shoulder_Press_Ma" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Elbows slightly forward. Controlled throughout. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
-      <td>3</td><td>12</td><td>3-1-1</td>
-      <td class="suggested-load">32kg</td>
+      <td class="suggested-load">32.0kg</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Lat_Pulldown_Wide" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>90s</td><td>RPE 7</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Pull elbows down and back. Wide grip reduces wrist stress. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+      <td class="notes-cell">Full stretch at top, drive elbows down. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
-      <td class="ex-name">Tricep Pushdown (Rope)<br><a href="https://www.youtube.com/watch?v=vB5OHsJ3EME" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td class="ex-name">Seated Row (Machine)</td>
+      <td>3</td><td>12–15</td><td>2-1-1</td>
+      <td class="suggested-load">BW / Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Seated_Row_Machin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive elbows back, squeeze. </td>
+    </tr>
+<tr>
+      <td class="ex-name">Bicep Curl (EZ Bar / Machine)</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">23.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Bicep_Curl_EZ_Bar" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled curl. Full range. ⚠️ Tennis elbow — wrist neutral, light grip. — EZ bar reduces wrist load.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Press (Machine)</td>
+      <td>3</td><td>12–15</td><td>3-1-1</td>
+      <td class="suggested-load">45.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Leg_Press_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">+weight from W1. Full range. </td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Extension (Machine)</td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">25.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Leg_Extension_Mac" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled extension. Squeeze at top.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Cable Lateral Raise <span style="font-size:.6rem;background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3);padding:.1rem .4rem;border-radius:3px;font-weight:700">NEW</span></td>
       <td>3</td><td>15</td><td>Natural</td>
-      <td class="suggested-load">27kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Tricep_Pushdown_R" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Rope reduces wrist stress. Elbows fixed. Superset with bicep curl — alternate with Linda. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Bicep Curl (Machine or EZ Bar)<br><a href="https://www.youtube.com/watch?v=av7-8igSXTs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cable Curl</div></td>
-      <td>3</td><td>12</td><td>Natural</td>
-      <td class="suggested-load">23kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Bicep_Curl_Machin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">EZ bar reduces wrist pronation vs straight bar. Light and controlled. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>3</td><td>15</td><td>2-1-2</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Glute_Bridge" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="suggested-load">Light — form focus</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Cable_Lateral_Rais" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Drive hips up, squeeze at top, hold 2s. Rehab for both — glute activation + lower back support.</td>
+      <td class="notes-cell">Cable at hip height, lead with elbow. Slight forward lean. NEW exercise — light and controlled. Keep wrist relaxed. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
-      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>3</td><td>20–30s</td><td>N/A</td>
+      <td class="ex-name">Plank Hold</td>
+      <td>3</td><td>25–35s</td><td>N/A</td>
       <td class="suggested-load">BW</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Plank_Hold" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Neutral spine. Core foundation for both clients.</td>
-    </tr>    <tr>
-      <td class="ex-name">Crunch</td>
-      <td>3</td><td>15–20</td><td>Controlled</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Crunch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hands on temples, curl upper back off floor. Lower slowly. Don't pull neck.</td>
-    </tr>
-    <tr>
-      <td class="ex-name">Ab Crunch Machine</td>
-      <td>3</td><td>12–15</td><td>2-1-1</td>
-      <td class="suggested-load">Light</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D1_Ab_Crunch_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Squeeze at bottom, slow return. ⚠️ Tennis elbow — light grip on machine handle.</td>
-    </tr>
-</tbody>
+      <td class="notes-cell">Build hold time. </td>
+    </tr></tbody>
       </table>
     </div>
   </div>
 </div>
 <div class="session" id="sess-W2D2">
   <div class="session-card">
-    <div class="session-header">
-      <div class="session-title">W2D2 — Cardio + Weights A</div>
-      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 2 — Small weight increases. Start pushing slightly harder.</div>
+    <div class="session-header" style="">
+      <div class="session-title">W2D2 — Independent — Cardio + Push</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 2 — Small weight increases. Push slightly harder.</div>
     </div>
     <div style="overflow-x:auto">
       <table class="session-table">
@@ -641,96 +490,64 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Treadmill Incline Walk<br><a href="https://www.youtube.com/watch?v=p5pFBRiINg4" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D2_Treadmill_Incline_" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="suggested-load">Level 6 / 5.5km/h 8% incline</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D2_Cross_Trainer__Tr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>—</td><td>RPE 6</td>
+      <td>—</td><td>RPE 5–6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Steady state. Conversational pace. Fat burning zone. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+      <td class="notes-cell">Slightly harder than W1. Still conversational pace. ⚠️ Asthma — steady rest, inhaler accessible.</td>
     </tr>
 <tr>
-      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>15</td><td>3-1-1</td>
-      <td class="suggested-load">45kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D2_Leg_Press_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="ex-name">Chest Press (Machine)</td>
+      <td>2</td><td>12–15</td><td>3-1-1</td>
+      <td class="suggested-load">39.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D2_Chest_Press_Machi" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>90s</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">2 sets only — keep it light after cardio. Form focus. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Hip weakness — focus on control, not weight.</td>
+      <td class="notes-cell">2 sets post-cardio. Form focus. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
-      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td class="ex-name">Shoulder Press (Machine)</td>
+      <td>2</td><td>12–15</td><td>3-1-1</td>
+      <td class="suggested-load">18.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D2_Shoulder_Press_Ma" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Hip Thrust (Bodyweight)</td>
+      <td>2</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">BW</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D2_Hip_Thrust_Bodywe" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Drive and squeeze. Glute activation.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Glute Bridge</td>
       <td>2</td><td>15</td><td>2-1-2</td>
       <td class="suggested-load">BW</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D2_Glute_Bridge" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
+      <td>60s</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Glute activation — rehab for both. ⚠️ Hip weakness — focus on control, not weight.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cable Row</div></td>
-      <td>2</td><td>15</td><td>2-1-1</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D2_Seated_Row_Machin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Back activation. Posture support. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>20–30s</td><td>N/A</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D2_Plank_Hold" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Core foundation. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Child's Pose Stretch<br><a href="https://www.youtube.com/watch?v=qn5GKVQ7FDI" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>1</td><td>60s</td><td>N/A</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D2_Child's_Pose_Stret" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>—</td><td>—</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Lower back mobility — hold for 60 seconds, breathe steadily. Daily if possible. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>    <tr>
-      <td class="ex-name">Crunch</td>
-      <td>3</td><td>15–20</td><td>Controlled</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D2_Crunch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hands on temples, curl upper back off floor. Lower slowly. Don't pull neck.</td>
-    </tr>
-    <tr>
-      <td class="ex-name">Ab Crunch Machine</td>
-      <td>3</td><td>12–15</td><td>2-1-1</td>
-      <td class="suggested-load">Light</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D2_Ab_Crunch_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Squeeze at bottom, slow return. ⚠️ Tennis elbow — light grip on machine handle.</td>
-    </tr>
-</tbody>
+      <td class="notes-cell">Rehab. </td>
+    </tr></tbody>
       </table>
     </div>
   </div>
 </div>
 <div class="session" id="sess-W2D3">
   <div class="session-card">
-    <div class="session-header">
-      <div class="session-title">W2D3 — Cardio + Weights B</div>
-      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 2 — Small weight increases. Start pushing slightly harder.</div>
+    <div class="session-header" style="">
+      <div class="session-title">W2D3 — Independent — Cardio + Rehab</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 2 — Small weight increases. Push slightly harder.</div>
     </div>
     <div style="overflow-x:auto">
       <table class="session-table">
@@ -740,96 +557,64 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Stationary Bike<br><a href="https://www.youtube.com/watch?v=5MwOkEHiXpg" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D3_Stationary_Bike" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="suggested-load">Level 6 / 5.5km/h 8% incline</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D3_Cross_Trainer__Tr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>—</td><td>RPE 6–7</td>
+      <td>—</td><td>RPE 5–6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Steady state. Seated — zero spinal load. Good for lower back. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+      <td class="notes-cell">Steady state. ⚠️ Asthma — steady rest, inhaler accessible.</td>
     </tr>
 <tr>
-      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>15</td><td>3-1-1</td>
-      <td class="suggested-load">18kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D3_Shoulder_Press_Ma" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="ex-name">Cable Lateral Raise</td>
+      <td>2</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D3_Cable_Lateral_Rais" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">You have been shown this — practice the technique. Lead with elbow. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Lat Pulldown (Wide Grip)</td>
+      <td>2</td><td>12–15</td><td>3-1-1</td>
+      <td class="suggested-load">32.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D3_Lat_Pulldown_Wide" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>90s</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Upper body — light post-cardio. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+      <td class="notes-cell">2 sets. Elbow drive. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
-      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
-      <td>2</td><td>15</td><td>3-1-1</td>
-      <td class="suggested-load">32kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D3_Lat_Pulldown_Wide" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Controlled pull. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Hip Thrust (Bodyweight)<br><a href="https://www.youtube.com/watch?v=xDmFkJxPzeM" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>15</td><td>2-1-2</td>
+      <td class="ex-name">Glute Bridge</td>
+      <td>3</td><td>15</td><td>2-1-2</td>
       <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D3_Hip_Thrust_Bodywe" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D3_Glute_Bridge" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
+      <td>60s</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Best glute exercise. Upper back on bench. Drive and squeeze. ⚠️ Hip weakness — focus on control, not weight.</td>
+      <td class="notes-cell">Rehab. </td>
     </tr>
 <tr>
-      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>8 each side</td><td>Slow</td>
+      <td class="ex-name">Plank Hold</td>
+      <td>3</td><td>25–35s</td><td>N/A</td>
       <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D3_Dead_Bug" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D3_Plank_Hold" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
+      <td>60s</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Core stability — lower back pressed to floor. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Cat-Cow Stretch<br><a href="https://www.youtube.com/watch?v=kqnua4rHVVA" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>1</td><td>10 reps</td><td>Slow</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D3_Cat-Cow_Stretch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>—</td><td>—</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Spinal mobility. Arch and round slowly. Do this daily for lower back. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>    <tr>
-      <td class="ex-name">Crunch</td>
-      <td>3</td><td>15–20</td><td>Controlled</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D3_Crunch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hands on temples, curl upper back off floor. Lower slowly. Don't pull neck.</td>
-    </tr>
-    <tr>
-      <td class="ex-name">Ab Crunch Machine</td>
-      <td>3</td><td>12–15</td><td>2-1-1</td>
-      <td class="suggested-load">Light</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W2D3_Ab_Crunch_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Squeeze at bottom, slow return. ⚠️ Tennis elbow — light grip on machine handle.</td>
-    </tr>
-</tbody>
+      <td class="notes-cell">Core.</td>
+    </tr></tbody>
       </table>
     </div>
   </div>
 </div>
 <div class="session" id="sess-W3D1">
   <div class="session-card">
-    <div class="session-header">
-      <div class="session-title">W3D1 — PT Session — Weights</div>
-      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 3 — Intensification. 4 sets on main lifts where noted.</div>
+    <div class="session-header" style="background:rgba(124,58,237,.15)">
+      <div class="session-title">W3D1 — PT Session — Push + Legs</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 3 — Heavier loads. New exercises introduced.</div>
     </div>
     <div style="overflow-x:auto">
       <table class="session-table">
@@ -839,139 +624,84 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Chest Press (Machine)<br><a href="https://www.youtube.com/watch?v=xUm0BiZCB_g" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Smith Machine Chest Press</div></td>
-      <td>3</td><td>12–15</td><td>3-1-1</td>
+      <td class="ex-name">Chest Press (Machine)</td>
+      <td>3</td><td>10–12</td><td>3-1-1</td>
       <td class="suggested-load">41.5kg</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Chest_Press_Machi" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>90s</td><td>RPE 7–8</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Drive hands away, controlled return. Machine keeps path safe for beginners. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+      <td class="notes-cell">+weight from W1. Push harder. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
-      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cable Row</div></td>
-      <td>3</td><td>12–15</td><td>2-1-1</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Seated_Row_Machin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7–8</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Drive elbows back, squeeze shoulder blades. Superset with chest press — alternate with Linda.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Goblet Squat</div></td>
-      <td>3</td><td>12–15</td><td>3-1-1</td>
-      <td class="suggested-load">47.5kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Leg_Press_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7–8</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Feet hip-width, full range. Primary lower body movement — safe for both injuries.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Lying Leg Curl (Machine)<br><a href="https://www.youtube.com/watch?v=1Tq3QdYUuHs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>3</td><td>12–15</td><td>Natural</td>
-      <td class="suggested-load">20.5kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Lying_Leg_Curl_Ma" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7–8</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hips pressed into pad. Hamstring isolation — supports knee stability.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="ex-name">Shoulder Press (Machine)</td>
+      <td>3</td><td>10–12</td><td>3-1-1</td>
       <td class="suggested-load">20.5kg</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Shoulder_Press_Ma" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>90s</td><td>RPE 7–8</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Elbows slightly forward. Controlled throughout. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+      <td class="notes-cell">Heavier — controlled. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
-      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
-      <td>3</td><td>12</td><td>3-1-1</td>
-      <td class="suggested-load">34.5kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Lat_Pulldown_Wide" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7–8</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Pull elbows down and back. Wide grip reduces wrist stress. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Tricep Pushdown (Rope)<br><a href="https://www.youtube.com/watch?v=vB5OHsJ3EME" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td class="ex-name">Tricep Pushdown (Rope)</td>
       <td>3</td><td>15</td><td>Natural</td>
       <td class="suggested-load">29.5kg</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Tricep_Pushdown_R" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 7–8</td>
+      <td>60s</td><td>RPE 7</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Rope reduces wrist stress. Elbows fixed. Superset with bicep curl — alternate with Linda. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+      <td class="notes-cell">+weight. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
-      <td class="ex-name">Bicep Curl (Machine or EZ Bar)<br><a href="https://www.youtube.com/watch?v=av7-8igSXTs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cable Curl</div></td>
-      <td>3</td><td>12</td><td>Natural</td>
-      <td class="suggested-load">25.5kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Bicep_Curl_Machin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="ex-name">Leg Press (Machine)</td>
+      <td>3</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">47.5kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Leg_Press_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 7–8</td>
+      <td>90s</td><td>RPE 7–8</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">EZ bar reduces wrist pronation vs straight bar. Light and controlled. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+      <td class="notes-cell">Heavier. Full range. </td>
     </tr>
 <tr>
-      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td class="ex-name">Hip Thrust (Bodyweight → Light DB)</td>
       <td>3</td><td>15</td><td>2-1-2</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Glute_Bridge" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="suggested-load">BW / Light DB</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Hip_Thrust_Bodywe" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Progress from BW — try a light DB on hips. Glute focus.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Face Pulls (Cable) <span style="font-size:.6rem;background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3);padding:.1rem .4rem;border-radius:3px;font-weight:700">NEW</span></td>
+      <td>3</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Face_Pulls_Cable" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Drive hips up, squeeze at top, hold 2s. Rehab for both — glute activation + lower back support.</td>
+      <td class="notes-cell">Rope attachment, pull to forehead, elbows high. Rear delt + rotator cuff. NEW exercise — shoulder health for both of you.</td>
     </tr>
 <tr>
-      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>3</td><td>20–30s</td><td>N/A</td>
+      <td class="ex-name">Plank Hold</td>
+      <td>3</td><td>30–40s</td><td>N/A</td>
       <td class="suggested-load">BW</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Plank_Hold" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Neutral spine. Core foundation for both clients.</td>
-    </tr>    <tr>
-      <td class="ex-name">Crunch</td>
-      <td>3</td><td>15–20</td><td>Controlled</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Crunch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hands on temples, curl upper back off floor. Lower slowly. Don't pull neck.</td>
-    </tr>
-    <tr>
-      <td class="ex-name">Ab Crunch Machine</td>
-      <td>3</td><td>12–15</td><td>2-1-1</td>
-      <td class="suggested-load">+weight</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D1_Ab_Crunch_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Squeeze at bottom, slow return. ⚠️ Tennis elbow — light grip on machine handle.</td>
-    </tr>
-</tbody>
+      <td class="notes-cell">Building hold time. </td>
+    </tr></tbody>
       </table>
     </div>
   </div>
 </div>
 <div class="session" id="sess-W3D2">
   <div class="session-card">
-    <div class="session-header">
-      <div class="session-title">W3D2 — Cardio + Weights A</div>
-      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 3 — Intensification. 4 sets on main lifts where noted.</div>
+    <div class="session-header" style="">
+      <div class="session-title">W3D2 — Independent — Cardio + Pull</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 3 — Heavier loads. New exercises introduced.</div>
     </div>
     <div style="overflow-x:auto">
       <table class="session-table">
@@ -981,96 +711,74 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Treadmill Incline Walk<br><a href="https://www.youtube.com/watch?v=p5pFBRiINg4" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D2_Treadmill_Incline_" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="suggested-load">Level 7 / 6km/h 10% incline</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D2_Cross_Trainer__Tr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>—</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Steady state. Conversational pace. Fat burning zone. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+      <td class="notes-cell">Increased intensity from W2. ⚠️ Asthma — steady rest, inhaler accessible.</td>
     </tr>
 <tr>
-      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>15</td><td>3-1-1</td>
-      <td class="suggested-load">47.5kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D2_Leg_Press_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="ex-name">Lat Pulldown (Wide Grip)</td>
+      <td>2</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">34.5kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D2_Lat_Pulldown_Wide" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 6</td>
+      <td>90s</td><td>RPE 7</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">2 sets only — keep it light after cardio. Form focus. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Hip weakness — focus on control, not weight.</td>
+      <td class="notes-cell">+weight. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
-      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>15</td><td>2-1-2</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D2_Glute_Bridge" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Glute activation — rehab for both. ⚠️ Hip weakness — focus on control, not weight.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cable Row</div></td>
-      <td>2</td><td>15</td><td>2-1-1</td>
-      <td class="suggested-load">BW</td>
+      <td class="ex-name">Seated Row (Machine)</td>
+      <td>2</td><td>10–12</td><td>2-1-1</td>
+      <td class="suggested-load">BW / Light</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D2_Seated_Row_Machin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
+      <td>90s</td><td>RPE 7</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Back activation. Posture support. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+      <td class="notes-cell">+weight. </td>
     </tr>
 <tr>
-      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>20–30s</td><td>N/A</td>
+      <td class="ex-name">Face Pulls (Cable)</td>
+      <td>2</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D2_Face_Pulls_Cable" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Practise technique from PT session. Elbows high.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Hip Thrust</td>
+      <td>2</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">Light DB / BW</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D2_Hip_Thrust" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Glute squeeze. </td>
+    </tr>
+<tr>
+      <td class="ex-name">Plank Hold</td>
+      <td>2</td><td>30–40s</td><td>N/A</td>
       <td class="suggested-load">BW</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D2_Plank_Hold" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
+      <td>60s</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Core foundation. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Child's Pose Stretch<br><a href="https://www.youtube.com/watch?v=qn5GKVQ7FDI" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>1</td><td>60s</td><td>N/A</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D2_Child's_Pose_Stret" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>—</td><td>—</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Lower back mobility — hold for 60 seconds, breathe steadily. Daily if possible. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>    <tr>
-      <td class="ex-name">Crunch</td>
-      <td>3</td><td>15–20</td><td>Controlled</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D2_Crunch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hands on temples, curl upper back off floor. Lower slowly. Don't pull neck.</td>
-    </tr>
-    <tr>
-      <td class="ex-name">Ab Crunch Machine</td>
-      <td>3</td><td>12–15</td><td>2-1-1</td>
-      <td class="suggested-load">+weight</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D2_Ab_Crunch_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Squeeze at bottom, slow return. ⚠️ Tennis elbow — light grip on machine handle.</td>
-    </tr>
-</tbody>
+      <td class="notes-cell">Core.</td>
+    </tr></tbody>
       </table>
     </div>
   </div>
 </div>
 <div class="session" id="sess-W3D3">
   <div class="session-card">
-    <div class="session-header">
-      <div class="session-title">W3D3 — Cardio + Weights B</div>
-      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 3 — Intensification. 4 sets on main lifts where noted.</div>
+    <div class="session-header" style="">
+      <div class="session-title">W3D3 — Independent — Cardio + Rehab</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 3 — Heavier loads. New exercises introduced.</div>
     </div>
     <div style="overflow-x:auto">
       <table class="session-table">
@@ -1080,95 +788,63 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Stationary Bike<br><a href="https://www.youtube.com/watch?v=5MwOkEHiXpg" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D3_Stationary_Bike" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="suggested-load">Level 7 / 6km/h 10% incline</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D3_Cross_Trainer__Tr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>—</td><td>RPE 6–7–8</td>
+      <td>—</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Steady state. Seated — zero spinal load. Good for lower back. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+      <td class="notes-cell">Steady state. ⚠️ Asthma — steady rest, inhaler accessible.</td>
     </tr>
 <tr>
-      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>15</td><td>3-1-1</td>
-      <td class="suggested-load">20.5kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D3_Shoulder_Press_Ma" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Upper body — light post-cardio. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
-      <td>2</td><td>15</td><td>3-1-1</td>
-      <td class="suggested-load">34.5kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D3_Lat_Pulldown_Wide" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Controlled pull. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Hip Thrust (Bodyweight)<br><a href="https://www.youtube.com/watch?v=xDmFkJxPzeM" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>15</td><td>2-1-2</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D3_Hip_Thrust_Bodywe" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Best glute exercise. Upper back on bench. Drive and squeeze. ⚠️ Hip weakness — focus on control, not weight.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>8 each side</td><td>Slow</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D3_Dead_Bug" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Core stability — lower back pressed to floor. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Cat-Cow Stretch<br><a href="https://www.youtube.com/watch?v=kqnua4rHVVA" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>1</td><td>10 reps</td><td>Slow</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D3_Cat-Cow_Stretch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>—</td><td>—</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Spinal mobility. Arch and round slowly. Do this daily for lower back. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>    <tr>
-      <td class="ex-name">Crunch</td>
-      <td>3</td><td>15–20</td><td>Controlled</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D3_Crunch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hands on temples, curl upper back off floor. Lower slowly. Don't pull neck.</td>
-    </tr>
-    <tr>
-      <td class="ex-name">Ab Crunch Machine</td>
-      <td>3</td><td>12–15</td><td>2-1-1</td>
-      <td class="suggested-load">+weight</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D3_Ab_Crunch_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="ex-name">Cable Lateral Raise</td>
+      <td>3</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Light+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D3_Cable_Lateral_Rais" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 7</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Squeeze at bottom, slow return. ⚠️ Tennis elbow — light grip on machine handle.</td>
+      <td class="notes-cell">Small weight increase from W2. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
-</tbody>
+<tr>
+      <td class="ex-name">Leg Press (Machine)</td>
+      <td>2</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">47.5kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D3_Leg_Press_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">2 sets post-cardio. </td>
+    </tr>
+<tr>
+      <td class="ex-name">Glute Bridge</td>
+      <td>3</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">BW</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D3_Glute_Bridge" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 5</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Rehab. </td>
+    </tr>
+<tr>
+      <td class="ex-name">Wrist Extensor Stretch</td>
+      <td>2</td><td>2×30s each</td><td>Controlled</td>
+      <td class="suggested-load">BW</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W3D3_Wrist_Extensor_Str" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>45s</td><td>RPE 4</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">⚠️ Tennis elbow — wrist neutral, light grip. Daily tendon rehab.</td>
+    </tr></tbody>
       </table>
     </div>
   </div>
 </div>
 <div class="session" id="sess-W4D1">
   <div class="session-card">
-    <div class="session-header">
-      <div class="session-title">W4D1 — PT Session — Weights</div>
+    <div class="session-header" style="background:rgba(124,58,237,.15)">
+      <div class="session-title">W4D1 — PT Session — Pull + Legs</div>
       <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 4 — Peak. Heaviest weights. Record everything for Block 2.</div>
     </div>
     <div style="overflow-x:auto">
@@ -1179,138 +855,83 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Chest Press (Machine)<br><a href="https://www.youtube.com/watch?v=xUm0BiZCB_g" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Smith Machine Chest Press</div></td>
-      <td>3</td><td>12–15</td><td>3-1-1</td>
-      <td class="suggested-load">44kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Chest_Press_Machi" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7–8</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Drive hands away, controlled return. Machine keeps path safe for beginners. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cable Row</div></td>
-      <td>3</td><td>12–15</td><td>2-1-1</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Seated_Row_Machin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7–8</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Drive elbows back, squeeze shoulder blades. Superset with chest press — alternate with Linda.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Goblet Squat</div></td>
-      <td>3</td><td>12–15</td><td>3-1-1</td>
-      <td class="suggested-load">50kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Leg_Press_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7–8</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Feet hip-width, full range. Primary lower body movement — safe for both injuries.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Lying Leg Curl (Machine)<br><a href="https://www.youtube.com/watch?v=1Tq3QdYUuHs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>3</td><td>12–15</td><td>Natural</td>
-      <td class="suggested-load">23kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Lying_Leg_Curl_Ma" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7–8</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hips pressed into pad. Hamstring isolation — supports knee stability.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>3</td><td>12</td><td>3-1-1</td>
-      <td class="suggested-load">23kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Shoulder_Press_Ma" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7–8</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Elbows slightly forward. Controlled throughout. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
-      <td>3</td><td>12</td><td>3-1-1</td>
-      <td class="suggested-load">37kg</td>
+      <td class="ex-name">Lat Pulldown (Wide Grip)</td>
+      <td>3</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">37.0kg</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Lat_Pulldown_Wide" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 7–8</td>
+      <td>90s</td><td>RPE 8</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Pull elbows down and back. Wide grip reduces wrist stress. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+      <td class="notes-cell">Heaviest so far. Record weight for Block 2. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
-      <td class="ex-name">Tricep Pushdown (Rope)<br><a href="https://www.youtube.com/watch?v=vB5OHsJ3EME" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>3</td><td>15</td><td>Natural</td>
-      <td class="suggested-load">32kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Tricep_Pushdown_R" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="ex-name">Seated Row (Machine)</td>
+      <td>3</td><td>10–12</td><td>2-1-1</td>
+      <td class="suggested-load">BW / Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Seated_Row_Machin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 7–8</td>
+      <td>90s</td><td>RPE 8</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Rope reduces wrist stress. Elbows fixed. Superset with bicep curl — alternate with Linda. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+      <td class="notes-cell">Push the weight. Record it. </td>
     </tr>
 <tr>
-      <td class="ex-name">Bicep Curl (Machine or EZ Bar)<br><a href="https://www.youtube.com/watch?v=av7-8igSXTs" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cable Curl</div></td>
+      <td class="ex-name">Bicep Curl (EZ Bar / Machine)</td>
       <td>3</td><td>12</td><td>Natural</td>
-      <td class="suggested-load">28kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Bicep_Curl_Machin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="suggested-load">28.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Bicep_Curl_EZ_Bar" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 7–8</td>
+      <td>60s</td><td>RPE 8</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">EZ bar reduces wrist pronation vs straight bar. Light and controlled. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
+      <td class="notes-cell">Heaviest controlled. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
-      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>3</td><td>15</td><td>2-1-2</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Glute_Bridge" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="ex-name">Leg Press (Machine)</td>
+      <td>3</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">50.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Leg_Press_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>90s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Heaviest — record weight. </td>
+    </tr>
+<tr>
+      <td class="ex-name">Leg Extension (Machine)</td>
+      <td>3</td><td>12</td><td>Natural</td>
+      <td class="suggested-load">30.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Leg_Extension_Mac" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 8</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Note the weight for Block 2.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Hip Abduction Machine <span style="font-size:.6rem;background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3);padding:.1rem .4rem;border-radius:3px;font-weight:700">NEW</span></td>
+      <td>3</td><td>15</td><td>Controlled</td>
+      <td class="suggested-load">Light — form focus</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Hip_Abduction_Mach" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Drive hips up, squeeze at top, hold 2s. Rehab for both — glute activation + lower back support.</td>
+      <td class="notes-cell">Sit upright, push knees out against resistance. Directly targets hip abductors. NEW exercise — important for glute health.</td>
     </tr>
 <tr>
-      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>3</td><td>20–30s</td><td>N/A</td>
+      <td class="ex-name">Plank Hold</td>
+      <td>3</td><td>40–50s</td><td>N/A</td>
       <td class="suggested-load">BW</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Plank_Hold" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Neutral spine. Core foundation for both clients.</td>
-    </tr>    <tr>
-      <td class="ex-name">Crunch</td>
-      <td>3</td><td>15–20</td><td>Controlled</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Crunch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hands on temples, curl upper back off floor. Lower slowly. Don't pull neck.</td>
-    </tr>
-    <tr>
-      <td class="ex-name">Ab Crunch Machine</td>
-      <td>3</td><td>12–15</td><td>2-1-1</td>
-      <td class="suggested-load">Heaviest controlled</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D1_Ab_Crunch_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 7</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Squeeze at bottom, slow return. ⚠️ Tennis elbow — light grip on machine handle.</td>
-    </tr>
-</tbody>
+      <td class="notes-cell">Longest hold of the block. Record time. </td>
+    </tr></tbody>
       </table>
     </div>
   </div>
 </div>
 <div class="session" id="sess-W4D2">
   <div class="session-card">
-    <div class="session-header">
-      <div class="session-title">W4D2 — Cardio + Weights A</div>
+    <div class="session-header" style="">
+      <div class="session-title">W4D2 — Independent — Cardio + Push</div>
       <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 4 — Peak. Heaviest weights. Record everything for Block 2.</div>
     </div>
     <div style="overflow-x:auto">
@@ -1321,95 +942,73 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Treadmill Incline Walk<br><a href="https://www.youtube.com/watch?v=p5pFBRiINg4" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D2_Treadmill_Incline_" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="suggested-load">Level 8 / 6km/h 10% incline</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D2_Cross_Trainer__Tr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>—</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Steady state. Conversational pace. Fat burning zone. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+      <td class="notes-cell">Hardest cardio of the block. Record how you feel. ⚠️ Asthma — steady rest, inhaler accessible.</td>
     </tr>
 <tr>
-      <td class="ex-name">Leg Press (Machine)<br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>15</td><td>3-1-1</td>
-      <td class="suggested-load">50kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D2_Leg_Press_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="ex-name">Chest Press (Machine)</td>
+      <td>2</td><td>10–12</td><td>3-1-1</td>
+      <td class="suggested-load">44.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D2_Chest_Press_Machi" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 6</td>
+      <td>90s</td><td>RPE 7</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">2 sets only — keep it light after cardio. Form focus. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Hip weakness — focus on control, not weight.</td>
+      <td class="notes-cell">Record weight for Block 2. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
 <tr>
-      <td class="ex-name">Glute Bridge<br><a href="https://www.youtube.com/watch?v=OUgsJ8-Vi0E" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
+      <td class="ex-name">Tricep Pushdown (Rope)</td>
+      <td>2</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">32.0kg</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D2_Tricep_Pushdown_R" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Record weight. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Hip Thrust</td>
       <td>2</td><td>15</td><td>2-1-2</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D2_Glute_Bridge" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="suggested-load">Moderate DB / BW</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D2_Hip_Thrust" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Heavy squeeze at top. </td>
+    </tr>
+<tr>
+      <td class="ex-name">Hip Abduction Machine</td>
+      <td>2</td><td>15</td><td>Controlled</td>
+      <td class="suggested-load">Light</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D2_Hip_Abduction_Mach" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Glute activation — rehab for both. ⚠️ Hip weakness — focus on control, not weight.</td>
+      <td class="notes-cell">Practise from PT session. Controlled throughout. </td>
     </tr>
 <tr>
-      <td class="ex-name">Seated Row (Machine)<br><a href="https://www.youtube.com/watch?v=GZbfZ033f74" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cable Row</div></td>
-      <td>2</td><td>15</td><td>2-1-1</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D2_Seated_Row_Machin" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Back activation. Posture support. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Plank Hold<br><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>20–30s</td><td>N/A</td>
+      <td class="ex-name">Plank Hold</td>
+      <td>2</td><td>40–50s</td><td>N/A</td>
       <td class="suggested-load">BW</td>
       <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D2_Plank_Hold" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Core foundation. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Child's Pose Stretch<br><a href="https://www.youtube.com/watch?v=qn5GKVQ7FDI" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>1</td><td>60s</td><td>N/A</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D2_Child's_Pose_Stret" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>—</td><td>—</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Lower back mobility — hold for 60 seconds, breathe steadily. Daily if possible. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>    <tr>
-      <td class="ex-name">Crunch</td>
-      <td>3</td><td>15–20</td><td>Controlled</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D2_Crunch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hands on temples, curl upper back off floor. Lower slowly. Don't pull neck.</td>
-    </tr>
-    <tr>
-      <td class="ex-name">Ab Crunch Machine</td>
-      <td>3</td><td>12–15</td><td>2-1-1</td>
-      <td class="suggested-load">Heaviest controlled</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D2_Ab_Crunch_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 7</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Squeeze at bottom, slow return. ⚠️ Tennis elbow — light grip on machine handle.</td>
-    </tr>
-</tbody>
+      <td class="notes-cell">Core benchmark. </td>
+    </tr></tbody>
       </table>
     </div>
   </div>
 </div>
 <div class="session" id="sess-W4D3">
   <div class="session-card">
-    <div class="session-header">
-      <div class="session-title">W4D3 — Cardio + Weights B</div>
+    <div class="session-header" style="">
+      <div class="session-title">W4D3 — Independent — Cardio + Full Rehab</div>
       <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Week 4 — Peak. Heaviest weights. Record everything for Block 2.</div>
     </div>
     <div style="overflow-x:auto">
@@ -1420,87 +1019,65 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
         <tbody><tr>
-      <td class="ex-name">Stationary Bike<br><a href="https://www.youtube.com/watch?v=5MwOkEHiXpg" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Cross-Trainer</div></td>
+      <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D3_Stationary_Bike" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="suggested-load">Level 8 / 6km/h 10% incline</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D3_Cross_Trainer__Tr" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
-      <td>—</td><td>RPE 6–7–8</td>
+      <td>—</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Steady state. Seated — zero spinal load. Good for lower back. ⚠️ Asthma — moderate pace. Inhaler accessible.</td>
+      <td class="notes-cell">Final cardio session of Block 1. ⚠️ Asthma — steady rest, inhaler accessible.</td>
     </tr>
 <tr>
-      <td class="ex-name">Shoulder Press (Machine)<br><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>15</td><td>3-1-1</td>
-      <td class="suggested-load">23kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D3_Shoulder_Press_Ma" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>90s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Upper body — light post-cardio. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Lat Pulldown (Wide Grip)<br><a href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a>
-<div class="variation-note">↔ ↔ Assisted Pull-Up</div></td>
-      <td>2</td><td>15</td><td>3-1-1</td>
-      <td class="suggested-load">37kg</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D3_Lat_Pulldown_Wide" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Controlled pull. ⚠️ Tennis elbow — wrist neutral, light grip. Stop if pain.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Hip Thrust (Bodyweight)<br><a href="https://www.youtube.com/watch?v=xDmFkJxPzeM" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>15</td><td>2-1-2</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D3_Hip_Thrust_Bodywe" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Best glute exercise. Upper back on bench. Drive and squeeze. ⚠️ Hip weakness — focus on control, not weight.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Dead Bug<br><a href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>2</td><td>8 each side</td><td>Slow</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D3_Dead_Bug" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Core stability — lower back pressed to floor. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>
-<tr>
-      <td class="ex-name">Cat-Cow Stretch<br><a href="https://www.youtube.com/watch?v=kqnua4rHVVA" target="_blank" rel="noopener" class="yt-link">Watch Tutorial</a></td>
-      <td>1</td><td>10 reps</td><td>Slow</td>
-      <td class="suggested-load">—</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D3_Cat-Cow_Stretch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>—</td><td>—</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Spinal mobility. Arch and round slowly. Do this daily for lower back. ⚠️ Lower back — controlled movement, no pain. Stop if discomfort.</td>
-    </tr>    <tr>
-      <td class="ex-name">Crunch</td>
-      <td>3</td><td>15–20</td><td>Controlled</td>
-      <td class="suggested-load">BW</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D3_Crunch" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
-      <td class="prev-cell">—</td>
-      <td>60s</td><td>RPE 6</td>
-      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Hands on temples, curl upper back off floor. Lower slowly. Don't pull neck.</td>
-    </tr>
-    <tr>
-      <td class="ex-name">Ab Crunch Machine</td>
-      <td>3</td><td>12–15</td><td>2-1-1</td>
-      <td class="suggested-load">Heaviest controlled</td>
-      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D3_Ab_Crunch_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="ex-name">Cable Lateral Raise</td>
+      <td>2</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D3_Cable_Lateral_Rais" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
       <td class="prev-cell">—</td>
       <td>60s</td><td>RPE 7</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
-      <td class="notes-cell">Squeeze at bottom, slow return. ⚠️ Tennis elbow — light grip on machine handle.</td>
+      <td class="notes-cell">Best weight you can control. Record for Block 2. ⚠️ Tennis elbow — wrist neutral, light grip.</td>
     </tr>
-</tbody>
+<tr>
+      <td class="ex-name">Face Pulls (Cable)</td>
+      <td>2</td><td>15</td><td>Natural</td>
+      <td class="suggested-load">Moderate</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D3_Face_Pulls_Cable" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Shoulder health — don't skip. Elbows high.</td>
+    </tr>
+<tr>
+      <td class="ex-name">Hip Abduction Machine</td>
+      <td>2</td><td>15</td><td>Controlled</td>
+      <td class="suggested-load">Light+</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D3_Hip_Abduction_Mach" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Note weight for Block 2. </td>
+    </tr>
+<tr>
+      <td class="ex-name">Glute Bridge</td>
+      <td>3</td><td>15</td><td>2-1-2</td>
+      <td class="suggested-load">BW</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D3_Glute_Bridge" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 5</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Rehab finisher. </td>
+    </tr>
+<tr>
+      <td class="ex-name">Plank Hold</td>
+      <td>2</td><td>40–50s</td><td>N/A</td>
+      <td class="suggested-load">BW</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="sangkar_W4D3_Plank_Hold" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 5</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Final plank benchmark.</td>
+    </tr></tbody>
       </table>
     </div>
   </div>
