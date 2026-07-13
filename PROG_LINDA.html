@@ -65,6 +65,19 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
 .yt-link{display:inline-flex;align-items:center;gap:.3rem;margin-top:.3rem;font-size:.68rem;color:#ff4444;text-decoration:none;font-weight:600;opacity:.85}
 .yt-link:hover{opacity:1}
 .yt-link::before{content:'▶';font-size:.6rem}
+
+.cable-series-item{background:var(--bg);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.cable-series-header{display:flex;align-items:center;gap:.8rem;padding:.6rem .8rem;cursor:pointer;user-select:none}
+.cable-series-header:hover{background:rgba(124,58,237,.08)}
+.cable-series-name{font-size:.82rem;font-weight:600;flex:1}
+.cable-series-load{font-size:.72rem;color:var(--purple-lt);font-weight:600}
+.cable-series-toggle{font-size:.6rem;color:var(--muted);transition:transform .2s}
+.cable-series-toggle.open{transform:rotate(180deg)}
+.cable-series-body{padding:.6rem .8rem .8rem;border-top:1px solid var(--border)}
+.cable-set-box{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:.5rem .7rem;min-width:90px}
+.cable-set-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:.4rem}
+.cable-set-input{width:100%;padding:.3rem .4rem;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--white);font-size:.8rem;outline:none;text-align:center;margin-top:.3rem}
+.cable-set-input:focus{border-color:var(--purple-lt)}
 </style>
 </head>
 <body>
@@ -162,9 +175,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <div class="wu-item"><div class="wu-ex">Clamshell (Light Band)</div><div class="wu-sets">2 × 15 each side</div><div class="wu-note">Side lying, feet together, open top knee. Hip abductor activation — directly addresses hip weakness. Do this daily.</div></div>
       <div class="wu-item"><div class="wu-ex">Cat-Cow</div><div class="wu-sets">2 × 10</div><div class="wu-note">On all fours, arch and round spine slowly. Lower back mobility. Do this every morning.</div></div>
     </div>
-    <div class="wu-block">
-      <h3>3. Daily Rehab (do every day, not just training days)</h3>
-      <div class="wu-item"><div class="wu-ex">Child's Pose</div><div class="wu-sets">1 × 60s</div><div class="wu-note">Kneel, sit back, reach arms forward. Decompresses the spine.</div></div>
+    
     </div>
   </div>
 </div>
@@ -181,7 +192,104 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Suggested (kg)</th><th>Actual (kg)</th><th>Last Session</th>
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
-        <tbody><tr>
+        <tbody>
+    <tr>
+      <td colspan="11" style="padding:0;background:var(--bg3)">
+        <div style="padding:.8rem 1rem;border-bottom:1px solid var(--border)">
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.6rem">Cable Shoulder Rehab Series — Complete before upper body work</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+
+            <!-- Exercise 1: Internal Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable Internal Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm inward across body. Slow and controlled. Strengthens subscapularis — internal rotator cuff.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 2: External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable External Rotation</span>
+                <span class="cable-series-load">One plate up from 4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm outward away from body. Same position as internal rotation, opposite movement. Strengthens infraspinatus and teres minor.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 3: 90/90 External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable 90/90 External Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Raise arm out to the side to 90° (like a goalpost). Elbow bent at 90°, forearm pointing forward. Rotate forearm upward toward ceiling. Trains the rotator cuff in the overhead position — most important for shoulder stability and injury prevention.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </tr><tr>
       <td class="ex-name">Chest Press (Machine)</td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
       <td class="suggested-load">11.0kg</td>
@@ -268,7 +376,104 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Suggested (kg)</th><th>Actual (kg)</th><th>Last Session</th>
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
-        <tbody><tr>
+        <tbody>
+    <tr>
+      <td colspan="11" style="padding:0;background:var(--bg3)">
+        <div style="padding:.8rem 1rem;border-bottom:1px solid var(--border)">
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.6rem">Cable Shoulder Rehab Series — Complete before upper body work</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+
+            <!-- Exercise 1: Internal Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable Internal Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm inward across body. Slow and controlled. Strengthens subscapularis — internal rotator cuff.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 2: External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable External Rotation</span>
+                <span class="cable-series-load">One plate up from 4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm outward away from body. Same position as internal rotation, opposite movement. Strengthens infraspinatus and teres minor.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 3: 90/90 External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable 90/90 External Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Raise arm out to the side to 90° (like a goalpost). Elbow bent at 90°, forearm pointing forward. Rotate forearm upward toward ceiling. Trains the rotator cuff in the overhead position — most important for shoulder stability and injury prevention.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </tr><tr>
       <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
       <td class="suggested-load">Level 5 / 5km/h 8% incline</td>
@@ -317,7 +522,17 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td>60s</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
       <td class="notes-cell">Lower back pressed to floor throughout. ⚠️ Lower back — controlled movement, no pain.</td>
-    </tr></tbody>
+    </tr>    <tr>
+      <td class="ex-name">Back Extension Machine</td>
+      <td>2</td><td>12–15</td><td>Controlled</td>
+      <td class="suggested-load">Light — form focus</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D2_Back_Extension_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled extension only — do not hyperextend. Strengthens erector spinae which directly supports lower back. Stop if pain increases. ⚠️ Lower back — light weight, full control.</td>
+    </tr>
+</tbody>
       </table>
     </div>
   </div>
@@ -335,7 +550,104 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Suggested (kg)</th><th>Actual (kg)</th><th>Last Session</th>
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
-        <tbody><tr>
+        <tbody>
+    <tr>
+      <td colspan="11" style="padding:0;background:var(--bg3)">
+        <div style="padding:.8rem 1rem;border-bottom:1px solid var(--border)">
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.6rem">Cable Shoulder Rehab Series — Complete before upper body work</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+
+            <!-- Exercise 1: Internal Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable Internal Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm inward across body. Slow and controlled. Strengthens subscapularis — internal rotator cuff.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 2: External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable External Rotation</span>
+                <span class="cable-series-load">One plate up from 4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm outward away from body. Same position as internal rotation, opposite movement. Strengthens infraspinatus and teres minor.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 3: 90/90 External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable 90/90 External Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Raise arm out to the side to 90° (like a goalpost). Elbow bent at 90°, forearm pointing forward. Rotate forearm upward toward ceiling. Trains the rotator cuff in the overhead position — most important for shoulder stability and injury prevention.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </tr><tr>
       <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
       <td class="suggested-load">Level 5 / 5km/h 8% incline</td>
@@ -384,7 +696,17 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td>45s</td><td>RPE 4</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
       <td class="notes-cell">Side lying, open top knee. Hip abductor activation. ⚠️ Hip weakness — focus on control, squeeze at top.</td>
-    </tr></tbody>
+    </tr>    <tr>
+      <td class="ex-name">Back Extension Machine</td>
+      <td>2</td><td>12–15</td><td>Controlled</td>
+      <td class="suggested-load">Light — form focus</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W1D3_Back_Extension_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled extension only — do not hyperextend. Strengthens erector spinae which directly supports lower back. Stop if pain increases. ⚠️ Lower back — light weight, full control.</td>
+    </tr>
+</tbody>
       </table>
     </div>
   </div>
@@ -402,7 +724,104 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Suggested (kg)</th><th>Actual (kg)</th><th>Last Session</th>
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
-        <tbody><tr>
+        <tbody>
+    <tr>
+      <td colspan="11" style="padding:0;background:var(--bg3)">
+        <div style="padding:.8rem 1rem;border-bottom:1px solid var(--border)">
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.6rem">Cable Shoulder Rehab Series — Complete before upper body work</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+
+            <!-- Exercise 1: Internal Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable Internal Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm inward across body. Slow and controlled. Strengthens subscapularis — internal rotator cuff.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 2: External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable External Rotation</span>
+                <span class="cable-series-load">One plate up from 4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm outward away from body. Same position as internal rotation, opposite movement. Strengthens infraspinatus and teres minor.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 3: 90/90 External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable 90/90 External Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Raise arm out to the side to 90° (like a goalpost). Elbow bent at 90°, forearm pointing forward. Rotate forearm upward toward ceiling. Trains the rotator cuff in the overhead position — most important for shoulder stability and injury prevention.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </tr><tr>
       <td class="ex-name">Lat Pulldown (Wide Grip)</td>
       <td>3</td><td>12–15</td><td>3-1-1</td>
       <td class="suggested-load">14.0kg</td>
@@ -489,7 +908,104 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Suggested (kg)</th><th>Actual (kg)</th><th>Last Session</th>
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
-        <tbody><tr>
+        <tbody>
+    <tr>
+      <td colspan="11" style="padding:0;background:var(--bg3)">
+        <div style="padding:.8rem 1rem;border-bottom:1px solid var(--border)">
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.6rem">Cable Shoulder Rehab Series — Complete before upper body work</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+
+            <!-- Exercise 1: Internal Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable Internal Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm inward across body. Slow and controlled. Strengthens subscapularis — internal rotator cuff.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 2: External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable External Rotation</span>
+                <span class="cable-series-load">One plate up from 4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm outward away from body. Same position as internal rotation, opposite movement. Strengthens infraspinatus and teres minor.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 3: 90/90 External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable 90/90 External Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Raise arm out to the side to 90° (like a goalpost). Elbow bent at 90°, forearm pointing forward. Rotate forearm upward toward ceiling. Trains the rotator cuff in the overhead position — most important for shoulder stability and injury prevention.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </tr><tr>
       <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
       <td class="suggested-load">Level 6 / 5.5km/h 8% incline</td>
@@ -538,7 +1054,17 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td>60s</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
       <td class="notes-cell">Rehab. ⚠️ Hip weakness — focus on control, squeeze at top.</td>
-    </tr></tbody>
+    </tr>    <tr>
+      <td class="ex-name">Back Extension Machine</td>
+      <td>2</td><td>12–15</td><td>Controlled</td>
+      <td class="suggested-load">Light — form focus</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D2_Back_Extension_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled extension only — do not hyperextend. Strengthens erector spinae which directly supports lower back. Stop if pain increases. ⚠️ Lower back — light weight, full control.</td>
+    </tr>
+</tbody>
       </table>
     </div>
   </div>
@@ -556,7 +1082,104 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Suggested (kg)</th><th>Actual (kg)</th><th>Last Session</th>
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
-        <tbody><tr>
+        <tbody>
+    <tr>
+      <td colspan="11" style="padding:0;background:var(--bg3)">
+        <div style="padding:.8rem 1rem;border-bottom:1px solid var(--border)">
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.6rem">Cable Shoulder Rehab Series — Complete before upper body work</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+
+            <!-- Exercise 1: Internal Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable Internal Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm inward across body. Slow and controlled. Strengthens subscapularis — internal rotator cuff.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 2: External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable External Rotation</span>
+                <span class="cable-series-load">One plate up from 4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm outward away from body. Same position as internal rotation, opposite movement. Strengthens infraspinatus and teres minor.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 3: 90/90 External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable 90/90 External Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Raise arm out to the side to 90° (like a goalpost). Elbow bent at 90°, forearm pointing forward. Rotate forearm upward toward ceiling. Trains the rotator cuff in the overhead position — most important for shoulder stability and injury prevention.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </tr><tr>
       <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
       <td class="suggested-load">Level 6 / 5.5km/h 8% incline</td>
@@ -605,7 +1228,17 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td>60s</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
       <td class="notes-cell">⚠️ Lower back — controlled movement, no pain.</td>
-    </tr></tbody>
+    </tr>    <tr>
+      <td class="ex-name">Back Extension Machine</td>
+      <td>2</td><td>12–15</td><td>Controlled</td>
+      <td class="suggested-load">Light — form focus</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W2D3_Back_Extension_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled extension only — do not hyperextend. Strengthens erector spinae which directly supports lower back. Stop if pain increases. ⚠️ Lower back — light weight, full control.</td>
+    </tr>
+</tbody>
       </table>
     </div>
   </div>
@@ -623,7 +1256,104 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Suggested (kg)</th><th>Actual (kg)</th><th>Last Session</th>
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
-        <tbody><tr>
+        <tbody>
+    <tr>
+      <td colspan="11" style="padding:0;background:var(--bg3)">
+        <div style="padding:.8rem 1rem;border-bottom:1px solid var(--border)">
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.6rem">Cable Shoulder Rehab Series — Complete before upper body work</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+
+            <!-- Exercise 1: Internal Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable Internal Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm inward across body. Slow and controlled. Strengthens subscapularis — internal rotator cuff.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 2: External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable External Rotation</span>
+                <span class="cable-series-load">One plate up from 4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm outward away from body. Same position as internal rotation, opposite movement. Strengthens infraspinatus and teres minor.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 3: 90/90 External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable 90/90 External Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Raise arm out to the side to 90° (like a goalpost). Elbow bent at 90°, forearm pointing forward. Rotate forearm upward toward ceiling. Trains the rotator cuff in the overhead position — most important for shoulder stability and injury prevention.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </tr><tr>
       <td class="ex-name">Chest Press (Machine)</td>
       <td>3</td><td>10–12</td><td>3-1-1</td>
       <td class="suggested-load">13.5kg</td>
@@ -710,7 +1440,104 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Suggested (kg)</th><th>Actual (kg)</th><th>Last Session</th>
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
-        <tbody><tr>
+        <tbody>
+    <tr>
+      <td colspan="11" style="padding:0;background:var(--bg3)">
+        <div style="padding:.8rem 1rem;border-bottom:1px solid var(--border)">
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.6rem">Cable Shoulder Rehab Series — Complete before upper body work</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+
+            <!-- Exercise 1: Internal Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable Internal Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm inward across body. Slow and controlled. Strengthens subscapularis — internal rotator cuff.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 2: External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable External Rotation</span>
+                <span class="cable-series-load">One plate up from 4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm outward away from body. Same position as internal rotation, opposite movement. Strengthens infraspinatus and teres minor.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 3: 90/90 External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable 90/90 External Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Raise arm out to the side to 90° (like a goalpost). Elbow bent at 90°, forearm pointing forward. Rotate forearm upward toward ceiling. Trains the rotator cuff in the overhead position — most important for shoulder stability and injury prevention.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </tr><tr>
       <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
       <td class="suggested-load">Level 7 / 6km/h 10% incline</td>
@@ -769,7 +1596,17 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td>60s</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
       <td class="notes-cell">⚠️ Lower back — controlled movement, no pain.</td>
-    </tr></tbody>
+    </tr>    <tr>
+      <td class="ex-name">Back Extension Machine</td>
+      <td>2</td><td>12–15</td><td>Controlled</td>
+      <td class="suggested-load">Light — form focus</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D2_Back_Extension_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled extension only — do not hyperextend. Strengthens erector spinae which directly supports lower back. Stop if pain increases. ⚠️ Lower back — light weight, full control.</td>
+    </tr>
+</tbody>
       </table>
     </div>
   </div>
@@ -787,7 +1624,104 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Suggested (kg)</th><th>Actual (kg)</th><th>Last Session</th>
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
-        <tbody><tr>
+        <tbody>
+    <tr>
+      <td colspan="11" style="padding:0;background:var(--bg3)">
+        <div style="padding:.8rem 1rem;border-bottom:1px solid var(--border)">
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.6rem">Cable Shoulder Rehab Series — Complete before upper body work</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+
+            <!-- Exercise 1: Internal Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable Internal Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm inward across body. Slow and controlled. Strengthens subscapularis — internal rotator cuff.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 2: External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable External Rotation</span>
+                <span class="cable-series-load">One plate up from 4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm outward away from body. Same position as internal rotation, opposite movement. Strengthens infraspinatus and teres minor.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 3: 90/90 External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable 90/90 External Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Raise arm out to the side to 90° (like a goalpost). Elbow bent at 90°, forearm pointing forward. Rotate forearm upward toward ceiling. Trains the rotator cuff in the overhead position — most important for shoulder stability and injury prevention.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </tr><tr>
       <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
       <td class="suggested-load">Level 7 / 6km/h 10% incline</td>
@@ -836,7 +1770,17 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td>45s</td><td>RPE 4</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
       <td class="notes-cell">⚠️ Hip weakness — focus on control, squeeze at top. Hip abductor rehab.</td>
-    </tr></tbody>
+    </tr>    <tr>
+      <td class="ex-name">Back Extension Machine</td>
+      <td>2</td><td>12–15</td><td>Controlled</td>
+      <td class="suggested-load">Light — form focus</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W3D3_Back_Extension_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled extension only — do not hyperextend. Strengthens erector spinae which directly supports lower back. Stop if pain increases. ⚠️ Lower back — light weight, full control.</td>
+    </tr>
+</tbody>
       </table>
     </div>
   </div>
@@ -854,7 +1798,104 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Suggested (kg)</th><th>Actual (kg)</th><th>Last Session</th>
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
-        <tbody><tr>
+        <tbody>
+    <tr>
+      <td colspan="11" style="padding:0;background:var(--bg3)">
+        <div style="padding:.8rem 1rem;border-bottom:1px solid var(--border)">
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.6rem">Cable Shoulder Rehab Series — Complete before upper body work</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+
+            <!-- Exercise 1: Internal Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable Internal Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm inward across body. Slow and controlled. Strengthens subscapularis — internal rotator cuff.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 2: External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable External Rotation</span>
+                <span class="cable-series-load">One plate up from 4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm outward away from body. Same position as internal rotation, opposite movement. Strengthens infraspinatus and teres minor.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 3: 90/90 External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable 90/90 External Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Raise arm out to the side to 90° (like a goalpost). Elbow bent at 90°, forearm pointing forward. Rotate forearm upward toward ceiling. Trains the rotator cuff in the overhead position — most important for shoulder stability and injury prevention.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </tr><tr>
       <td class="ex-name">Lat Pulldown (Wide Grip)</td>
       <td>3</td><td>10–12</td><td>3-1-1</td>
       <td class="suggested-load">19.0kg</td>
@@ -941,7 +1982,104 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Suggested (kg)</th><th>Actual (kg)</th><th>Last Session</th>
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
-        <tbody><tr>
+        <tbody>
+    <tr>
+      <td colspan="11" style="padding:0;background:var(--bg3)">
+        <div style="padding:.8rem 1rem;border-bottom:1px solid var(--border)">
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.6rem">Cable Shoulder Rehab Series — Complete before upper body work</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+
+            <!-- Exercise 1: Internal Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable Internal Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm inward across body. Slow and controlled. Strengthens subscapularis — internal rotator cuff.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 2: External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable External Rotation</span>
+                <span class="cable-series-load">One plate up from 4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm outward away from body. Same position as internal rotation, opposite movement. Strengthens infraspinatus and teres minor.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 3: 90/90 External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable 90/90 External Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Raise arm out to the side to 90° (like a goalpost). Elbow bent at 90°, forearm pointing forward. Rotate forearm upward toward ceiling. Trains the rotator cuff in the overhead position — most important for shoulder stability and injury prevention.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </tr><tr>
       <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
       <td class="suggested-load">Level 8 / 6km/h 10% incline</td>
@@ -1000,7 +2138,17 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td>60s</td><td>RPE 6</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
       <td class="notes-cell">Core benchmark. ⚠️ Lower back — controlled movement, no pain.</td>
-    </tr></tbody>
+    </tr>    <tr>
+      <td class="ex-name">Back Extension Machine</td>
+      <td>2</td><td>12–15</td><td>Controlled</td>
+      <td class="suggested-load">Light — form focus</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D2_Back_Extension_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled extension only — do not hyperextend. Strengthens erector spinae which directly supports lower back. Stop if pain increases. ⚠️ Lower back — light weight, full control.</td>
+    </tr>
+</tbody>
       </table>
     </div>
   </div>
@@ -1018,7 +2166,104 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
           <th>Suggested (kg)</th><th>Actual (kg)</th><th>Last Session</th>
           <th>Rest</th><th>Target RPE</th><th>Actual RPE</th><th>Notes</th>
         </tr></thead>
-        <tbody><tr>
+        <tbody>
+    <tr>
+      <td colspan="11" style="padding:0;background:var(--bg3)">
+        <div style="padding:.8rem 1rem;border-bottom:1px solid var(--border)">
+          <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.6rem">Cable Shoulder Rehab Series — Complete before upper body work</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+
+            <!-- Exercise 1: Internal Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable Internal Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm inward across body. Slow and controlled. Strengthens subscapularis — internal rotator cuff.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 2: External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable External Rotation</span>
+                <span class="cable-series-load">One plate up from 4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Cable at waist height, elbow tucked at side at 90°, rotate forearm outward away from body. Same position as internal rotation, opposite movement. Strengthens infraspinatus and teres minor.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Exercise 3: 90/90 External Rotation -->
+            <div class="cable-series-item">
+              <div class="cable-series-header" onclick="toggleCableSeries(this)">
+                <span class="cable-series-name">Cable 90/90 External Rotation</span>
+                <span class="cable-series-load">4.5kg</span>
+                <span class="cable-series-toggle">▼</span>
+              </div>
+              <div class="cable-series-body" style="display:none">
+                <div style="font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5">Raise arm out to the side to 90° (like a goalpost). Elbow bent at 90°, forearm pointing forward. Rotate forearm upward toward ceiling. Trains the rotator cuff in the overhead position — most important for shoulder stability and injury prevention.</div>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 1</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 2</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                  <div class="cable-set-box">
+                    <div class="cable-set-label">Set 3</div>
+                    <input type="number" placeholder="Reps" class="cable-set-input" step="1"/>
+                    <input type="number" placeholder="kg" class="cable-set-input" step="0.5"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </tr><tr>
       <td class="ex-name">Cross Trainer / Treadmill Incline Walk</td>
       <td>1</td><td>30 min</td><td>N/A</td>
       <td class="suggested-load">Level 8 / 6km/h 10% incline</td>
@@ -1077,7 +2322,17 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td>60s</td><td>RPE 5</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
       <td class="notes-cell">⚠️ Lower back — controlled movement, no pain. Core rehab benchmark.</td>
-    </tr></tbody>
+    </tr>    <tr>
+      <td class="ex-name">Back Extension Machine</td>
+      <td>2</td><td>12–15</td><td>Controlled</td>
+      <td class="suggested-load">Light — form focus</td>
+      <td><input type="number" step="0.5" class="actual-input" onblur="saveWeight(this)" data-memkey="linda_W4D3_Back_Extension_Machine" placeholder="kg" style="background:rgba(124,58,237,.08);border-color:var(--purple)"/></td>
+      <td class="prev-cell">—</td>
+      <td>60s</td><td>RPE 6</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Controlled extension only — do not hyperextend. Strengthens erector spinae which directly supports lower back. Stop if pain increases. ⚠️ Lower back — light weight, full control.</td>
+    </tr>
+</tbody>
       </table>
     </div>
   </div>
@@ -1165,6 +2420,14 @@ function loadStatsFromStorage() {
     if(s.goalAdj!==undefined){statsGoalAdj=parseInt(s.goalAdj)||-500;document.querySelectorAll('#st_goalGrid .goal-opt').forEach(el=>{el.classList.toggle('selected',parseInt(el.dataset.adj)===statsGoalAdj);});}
     calcStatsAll();
   }catch(e){}
+}
+
+function toggleCableSeries(header) {
+  var body = header.nextElementSibling;
+  var toggle = header.querySelector('.cable-series-toggle');
+  var isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  toggle.classList.toggle('open', !isOpen);
 }
 </script>
 </body>
