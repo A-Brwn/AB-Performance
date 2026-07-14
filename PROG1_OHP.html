@@ -2094,6 +2094,28 @@ function loadStatsTab() {
   } catch(e) { console.log('Stats load error:', e); }
 }
 // ── END STATS TAB ─────────────────────────────────────────────────────────────
+
+// ── PURCHASE GUARD ────────────────────────────────────────────────────────────
+async function checkAccess() {
+  const user = window.currentUser;
+  // PT always has access
+  if (user && user.email === 'alexbrown399@gmail.com') return;
+  // Check purchase
+  if (user) {
+    try {
+      const { data } = await window.supabaseClient
+        .from('purchases').select('id')
+        .eq('user_id', user.id)
+        .eq('programme', 'PROG1_OHP.html')
+        .limit(1);
+      if (data && data.length > 0) return; // paid — let them in
+    } catch(e) {}
+  }
+  // No purchase found — redirect to homepage with message
+  const base = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+  window.location.href = base + 'index.html?access=denied';
+}
+// ── END PURCHASE GUARD ────────────────────────────────────────────────────────
 </script>
 </body>
 </html>

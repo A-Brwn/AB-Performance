@@ -833,22 +833,17 @@
     document.getElementById('authError').style.display = 'none';
     document.querySelectorAll('.lift-opt').forEach(o => o.classList.remove('selected'));
 
-    const isRM  = name.includes('1RM');
-    const isHyp = name.includes('Hypertrophy');
+    const isRM = name.includes('1RM');
     document.getElementById('liftSelector').style.display = isRM ? 'block' : 'none';
-    document.getElementById('specificField').style.display = (isRM || isHyp) ? 'none' : 'block';
-    if (!isRM && !isHyp) {
-      document.getElementById('specificLabel').textContent = 'Your Sport (e.g. Football, Boxing, Rugby)';
-      document.getElementById('buyerSpecific').placeholder = 'e.g. Football, Boxing, Rugby, Basketball';
-    }
 
     document.getElementById('modalOverlay').classList.add('active');
     document.body.style.overflow = 'hidden';
-    // Check login state now and store it — used by handlePurchase
+
+    // Check login state — used by handlePurchase
     getCurrentUser().then(user => {
       window._modalUserLoggedIn = !!user;
       document.getElementById('nextStepBtn').textContent = user
-        ? 'Go to Programme →'
+        ? 'Continue →'
         : 'Next: Create Account →';
     });
   }

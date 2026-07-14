@@ -9532,7 +9532,7 @@ function loadStatsTab() {
   } catch(e) {}
 }
 
-window.addEventListener('load', () => { initSupabase(); loadIntakeSummary(); setupSplit(); });
+window.addEventListener('load', () => { initSupabase((user) => { checkAccess(); }); loadIntakeSummary(); setupSplit(); });
 
 async function handleSignOut() { await signOut(); }
 
@@ -9562,6 +9562,28 @@ function applyTDEpley(lift) {
   if (ok) { ok.style.display = 'inline'; setTimeout(function(){ ok.style.display='none'; }, 2500); }
 }
 // ── END TEST DAY EPLEY ────────────────────────────────────────────────────────
+
+// ── PURCHASE GUARD ────────────────────────────────────────────────────────────
+async function checkAccess() {
+  const user = window.currentUser;
+  // PT always has access
+  if (user && user.email === 'alexbrown399@gmail.com') return;
+  // Check purchase
+  if (user) {
+    try {
+      const { data } = await window.supabaseClient
+        .from('purchases').select('id')
+        .eq('user_id', user.id)
+        .eq('programme', 'PROG2_HYPERTROPHY.html')
+        .limit(1);
+      if (data && data.length > 0) return; // paid — let them in
+    } catch(e) {}
+  }
+  // No purchase found — redirect to homepage with message
+  const base = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+  window.location.href = base + 'index.html?access=denied';
+}
+// ── END PURCHASE GUARD ────────────────────────────────────────────────────────
 </script>
 </body>
 </html>

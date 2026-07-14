@@ -51,7 +51,7 @@ a{color:var(--purple-lt);text-decoration:none}
     <!-- LOGIN PANEL -->
     <div class="panel active" id="panel-login">
       <div class="field"><label>Email</label><input type="email" id="loginEmail" placeholder="you@email.com" oninput="checkPTEmail()"/></div>
-      <div class="field"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••"/></div>
+      <div class="field" id="passwordField"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••"/></div>
       <!-- PT bypass field — only shows for PT email -->
       <div class="field" id="bypassField" style="display:none">
         <label style="color:var(--amber)">🔑 PT Bypass Code</label>
@@ -79,10 +79,10 @@ let redirectTo = window.location.origin + window.location.pathname.replace('LOGI
 function checkPTEmail() {
   const email = document.getElementById('loginEmail').value.trim();
   const bypassField = document.getElementById('bypassField');
-  const passwordField = bypassField.previousElementSibling;
+  const passwordField = document.getElementById('passwordField');
   if (email === 'alexbrown399@gmail.com') {
     bypassField.style.display = 'block';
-    passwordField.style.display = 'none'; // hide standard password field
+    passwordField.style.display = 'none';
   } else {
     bypassField.style.display = 'none';
     passwordField.style.display = 'block';
@@ -106,13 +106,17 @@ function showMsg(text, type) {
 async function handleLogin() {
   const email = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value;
-  if (!email || !password) { showMsg('Please enter your email and password.', 'error'); return; }
+  const isPT = email === 'alexbrown399@gmail.com';
+
+  if (!email) { showMsg('Please enter your email.', 'error'); return; }
+  if (!isPT && !password) { showMsg('Please enter your password.', 'error'); return; }
+  if (!window.supabaseClient) { showMsg('Still loading — please try again in a moment.', 'error'); return; }
 
   const btn = document.getElementById('loginBtn');
   btn.disabled = true; btn.textContent = 'Logging in...';
 
   // PT admin shortcut
-  if (email === 'alexbrown399@gmail.com') {
+  if (isPT) {
     let { data, error } = await signIn(email, 'ABPERF2026');
     if (error) {
       const { data: su, error: sue } = await signUp(email, 'ABPERF2026', 'Alex (PT Admin)');
