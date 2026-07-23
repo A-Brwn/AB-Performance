@@ -934,6 +934,14 @@
 
     // If logged in — check if they've already purchased
     if (window._modalUserLoggedIn || window.currentUser) {
+      // PT bypass — go straight to programme (lift already selected above)
+      if (window.currentUser && window.currentUser.email === 'alexbrown399@gmail.com') {
+        document.getElementById('modalContent').style.display = 'none';
+        document.getElementById('successMsg').innerHTML = `<h3>PT Access 🔑</h3><p style="color:var(--muted);font-size:.85rem;margin-top:.4rem">Taking you to programme...</p>`;
+        document.getElementById('successMsg').style.display = 'block';
+        setTimeout(() => { window.location.href = './' + dest; }, 700);
+        return;
+      }
       const paid = await hasPurchased(dest);
       if (paid) {
         // Already paid — go straight to programme
