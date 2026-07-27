@@ -55,7 +55,8 @@ a{color:var(--purple-lt);text-decoration:none}
       <!-- PT bypass field — only shows for PT email -->
       <div class="field" id="bypassField" style="display:none">
         <label style="color:var(--amber)">🔑 PT Bypass Code</label>
-        <input type="text" id="bypassCodeLogin" placeholder="Enter bypass code" style="border-color:rgba(245,158,11,.4);text-transform:uppercase;letter-spacing:.1em" oninput="if(this.value.toUpperCase()==='ABTEST'){document.getElementById('loginPassword').value='ABPERF2026'}"/>
+        <label id="bypassLabel" style="display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600;margin-bottom:.35rem">Access Code</label>
+        <input type="text" id="bypassCodeLogin" placeholder="Enter access code" style="border-color:rgba(245,158,11,.4);text-transform:uppercase;letter-spacing:.1em"/>
         <p style="font-size:.7rem;color:var(--muted);margin-top:.3rem">Creates your real PT account — stay logged in on any device.</p>
       </div>
       <button class="btn" id="loginBtn" onclick="handleLogin()">Log In</button>
@@ -77,10 +78,16 @@ a{color:var(--purple-lt);text-decoration:none}
 let redirectTo = window.location.origin + window.location.pathname.replace('LOGIN.html', '') + 'index.html';
 
 function checkPTEmail() {
-  const email = document.getElementById('loginEmail').value.trim();
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
   const bypassField = document.getElementById('bypassField');
   const passwordField = document.getElementById('passwordField');
+  const bypassLabel = document.getElementById('bypassLabel');
   if (email === 'alexbrown399@gmail.com') {
+    bypassLabel.textContent = 'PT Access Code';
+    bypassField.style.display = 'block';
+    passwordField.style.display = 'none';
+  } else if (email === 'dantearle28@gmail.com') {
+    bypassLabel.textContent = 'Special Access Code';
     bypassField.style.display = 'block';
     passwordField.style.display = 'none';
   } else {
@@ -106,7 +113,7 @@ function showMsg(text, type) {
 async function handleLogin() {
   const email = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value;
-  const isPT = email === 'alexbrown399@gmail.com';
+  const isPT = email.toLowerCase() === 'alexbrown399@gmail.com';
 
   if (!email) { showMsg('Please enter your email.', 'error'); return; }
   if (!isPT && !password) { showMsg('Please enter your password.', 'error'); return; }
@@ -117,6 +124,8 @@ async function handleLogin() {
 
   // PT admin shortcut
   if (isPT) {
+    const code = document.getElementById('bypassCodeLogin').value.trim().toUpperCase();
+    if (code !== 'ABPERF2026') { showMsg('Incorrect access code.', 'error'); btn.disabled = false; btn.textContent = 'Log In'; return; }
     let { data, error } = await signIn(email, 'ABPERF2026');
     if (error) {
       const { data: su, error: sue } = await signUp(email, 'ABPERF2026', 'Alex (PT Admin)');
@@ -124,6 +133,23 @@ async function handleLogin() {
     }
     btn.disabled = false; btn.textContent = 'Log In';
     showMsg('Welcome back Alex 💪 Redirecting...', 'success');
+    setTimeout(() => { window.location.href = redirectTo; }, 800);
+    return;
+  }
+
+  // Dante special access
+  const isDante = email === 'dantearle28@gmail.com';
+  if (isDante) {
+    const code = document.getElementById('bypassCodeLogin').value.trim().toUpperCase();
+    if (code !== 'ABTEST1') { showMsg('Incorrect access code.', 'error'); btn.disabled = false; btn.textContent = 'Log In'; return; }
+    let { data, error } = await signIn(email, 'ABTEST1_secure');
+    if (error) {
+      const { data: su, error: sue } = await signUp(email, 'ABTEST1_secure', 'Dan');
+      if (sue) { btn.disabled = false; btn.textContent = 'Log In'; showMsg('Error: ' + sue.message, 'error'); return; }
+      await signIn(email, 'ABTEST1_secure');
+    }
+    btn.disabled = false; btn.textContent = 'Log In';
+    showMsg('Welcome Dan! Redirecting...', 'success');
     setTimeout(() => { window.location.href = redirectTo; }, 800);
     return;
   }
