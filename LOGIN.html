@@ -143,13 +143,13 @@ async function handleLogin() {
     const code = document.getElementById('bypassCodeLogin').value.trim().toUpperCase();
     if (code !== 'ABTEST1') { showMsg('Incorrect access code.', 'error'); btn.disabled = false; btn.textContent = 'Log In'; return; }
     // Try sign in first
-    let { data: signInData, error: signInErr } = await window.supabaseClient.auth.signInWithPassword({ email, password: 'ABTEST1_secure' });
+    let { data: signInData, error: signInErr } = await window.supabaseClient.auth.signInWithPassword({ email, password: 'DanAB2026!x' });
     if (signInErr) {
       // Account doesn't exist yet — create it
-      const { error: signUpErr } = await window.supabaseClient.auth.signUp({ email, password: 'ABTEST1_secure', options: { data: { full_name: 'Dan' }, emailRedirectTo: null } });
+      const { error: signUpErr } = await window.supabaseClient.auth.signUp({ email, password: 'DanAB2026!x', options: { data: { full_name: 'Dan' }, emailRedirectTo: null } });
       if (signUpErr) { btn.disabled = false; btn.textContent = 'Log In'; showMsg('Error: ' + signUpErr.message, 'error'); return; }
       // Sign in immediately after signup
-      const { error: signInErr2 } = await window.supabaseClient.auth.signInWithPassword({ email, password: 'ABTEST1_secure' });
+      const { error: signInErr2 } = await window.supabaseClient.auth.signInWithPassword({ email, password: 'DanAB2026!x' });
       if (signInErr2) { btn.disabled = false; btn.textContent = 'Log In'; showMsg('Error signing in after signup: ' + signInErr2.message, 'error'); return; }
     }
     btn.disabled = false; btn.textContent = 'Log In';
