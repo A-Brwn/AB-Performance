@@ -142,15 +142,19 @@ async function handleLogin() {
   if (isDan) {
     const code = document.getElementById('bypassCodeLogin').value.trim().toUpperCase();
     if (code !== 'ABTEST1') { showMsg('Incorrect access code.', 'error'); btn.disabled = false; btn.textContent = 'Log In'; return; }
-    let { data, error } = await signIn(email, 'ABTEST1_secure');
-    if (error) {
-      const { data: su, error: sue } = await signUp(email, 'ABTEST1_secure', 'Dan');
-      if (sue) { btn.disabled = false; btn.textContent = 'Log In'; showMsg('Error: ' + sue.message, 'error'); return; }
-      await signIn(email, 'ABTEST1_secure');
+    // Try sign in first
+    let { data: signInData, error: signInErr } = await window.supabaseClient.auth.signInWithPassword({ email, password: 'ABTEST1_secure' });
+    if (signInErr) {
+      // Account doesn't exist yet — create it
+      const { error: signUpErr } = await window.supabaseClient.auth.signUp({ email, password: 'ABTEST1_secure', options: { data: { full_name: 'Dan' }, emailRedirectTo: null } });
+      if (signUpErr) { btn.disabled = false; btn.textContent = 'Log In'; showMsg('Error: ' + signUpErr.message, 'error'); return; }
+      // Sign in immediately after signup
+      const { error: signInErr2 } = await window.supabaseClient.auth.signInWithPassword({ email, password: 'ABTEST1_secure' });
+      if (signInErr2) { btn.disabled = false; btn.textContent = 'Log In'; showMsg('Error signing in after signup: ' + signInErr2.message, 'error'); return; }
     }
     btn.disabled = false; btn.textContent = 'Log In';
     showMsg('Welcome Dan! Redirecting...', 'success');
-    setTimeout(() => { window.location.href = redirectTo; }, 800);
+    setTimeout(() => { window.location.href = redirectTo; }, 1000);
     return;
   }
 
