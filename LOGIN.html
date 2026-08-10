@@ -86,10 +86,6 @@ function checkPTEmail() {
     bypassLabel.textContent = 'PT Access Code';
     bypassField.style.display = 'block';
     passwordField.style.display = 'none';
-  } else if (email === 'dantearle28@gmail.com') {
-    bypassLabel.textContent = 'Special Access Code';
-    bypassField.style.display = 'block';
-    passwordField.style.display = 'none';
   } else {
     bypassField.style.display = 'none';
     passwordField.style.display = 'block';
@@ -114,10 +110,9 @@ async function handleLogin() {
   const email = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value;
   const isPT = email.toLowerCase() === 'alexbrown399@gmail.com';
-  const isDan = email.toLowerCase() === 'dantearle28@gmail.com';
 
   if (!email) { showMsg('Please enter your email.', 'error'); return; }
-  if (!isPT && !isDan && !password) { showMsg('Please enter your password.', 'error'); return; }
+  if (!isPT && !password) { showMsg('Please enter your password.', 'error'); return; }
   if (!window.supabaseClient) { showMsg('Still loading — please try again in a moment.', 'error'); return; }
 
   const btn = document.getElementById('loginBtn');
@@ -135,26 +130,6 @@ async function handleLogin() {
     btn.disabled = false; btn.textContent = 'Log In';
     showMsg('Welcome back Alex 💪 Redirecting...', 'success');
     setTimeout(() => { window.location.href = redirectTo; }, 800);
-    return;
-  }
-
-  // Dan special access
-  if (isDan) {
-    const code = document.getElementById('bypassCodeLogin').value.trim().toUpperCase();
-    if (code !== 'ABTEST1') { showMsg('Incorrect access code.', 'error'); btn.disabled = false; btn.textContent = 'Log In'; return; }
-    // Try sign in first
-    let { data: signInData, error: signInErr } = await window.supabaseClient.auth.signInWithPassword({ email, password: 'DanAB2026!x' });
-    if (signInErr) {
-      // Account doesn't exist yet — create it
-      const { error: signUpErr } = await window.supabaseClient.auth.signUp({ email, password: 'DanAB2026!x', options: { data: { full_name: 'Dan' }, emailRedirectTo: null } });
-      if (signUpErr) { btn.disabled = false; btn.textContent = 'Log In'; showMsg('Error: ' + signUpErr.message, 'error'); return; }
-      // Sign in immediately after signup
-      const { error: signInErr2 } = await window.supabaseClient.auth.signInWithPassword({ email, password: 'DanAB2026!x' });
-      if (signInErr2) { btn.disabled = false; btn.textContent = 'Log In'; showMsg('Error signing in after signup: ' + signInErr2.message, 'error'); return; }
-    }
-    btn.disabled = false; btn.textContent = 'Log In';
-    showMsg('Welcome Dan! Redirecting...', 'success');
-    setTimeout(() => { window.location.href = redirectTo; }, 1000);
     return;
   }
 

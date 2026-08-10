@@ -2,7 +2,7 @@
 const SUPABASE_URL = 'https://yfurwxlchsnhhqwrqzcz.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlmdXJ3eGxjaHNuaGhxd3JxemN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2MDU4MjQsImV4cCI6MjA5NzE4MTgyNH0.tFCsOkaLPNElDoPdsWkbptup_BUisIqSTeYP2UrdOlE';
 const PT_EMAIL = 'alexbrown399@gmail.com';
-const SPECIAL_EMAILS = ['dantearle28@gmail.com'];
+const SPECIAL_EMAILS = [];
 
 window.supabaseClient = null;
 window.currentUser = null;
@@ -42,11 +42,11 @@ function updateNavAuth(user) {
       userLabel.textContent = 'Logged in as ' + name;
       userLabel.style.display = 'inline';
     }
-    if ((user.email === PT_EMAIL || SPECIAL_EMAILS.includes(user.email)) && !document.getElementById('ptBadge')) {
+    if (user.email === PT_EMAIL && !document.getElementById('ptBadge')) {
       const badge = document.createElement('div');
       badge.id = 'ptBadge';
       badge.style.cssText = 'position:fixed;bottom:1rem;right:1rem;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.4);color:#fcd34d;font-size:.7rem;font-weight:700;padding:.4rem .8rem;border-radius:20px;z-index:999;letter-spacing:.06em';
-      badge.textContent = user.email === PT_EMAIL ? '🔑 PT Mode' : '⭐ Special Access';
+      badge.textContent = '🔑 PT Mode';
       document.body.appendChild(badge);
     }
   } else {

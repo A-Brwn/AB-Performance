@@ -197,7 +197,7 @@ window.addEventListener('load', () => {
   initSupabase((user) => {
     if (user) {
       // PT gets straight in
-      if (user.email === 'alexbrown399@gmail.com' || user.email === 'dantearle28@gmail.com') {
+      if (user.email === 'alexbrown399@gmail.com') {
         portalUnlocked = true;
         buildClientGrid();
         showScreen('screen-clients');
