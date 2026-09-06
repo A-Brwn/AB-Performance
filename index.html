@@ -354,7 +354,7 @@
 </script>
   <a href="index.html" onclick="event.preventDefault(); var base=window.location.href.substring(0,window.location.href.lastIndexOf('/')+1); window.location.href=base+'index.html';" class="nav-logo" style="text-decoration:none;cursor:pointer">AB <span>Performance</span></a>
   <div class="nav-links">
-    <a href="#about">About</a>
+    <a href="#about" onclick="event.preventDefault();document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</a>
     <a href="#guide">Programme Guide</a>
     <a href="#programmes">Programmes</a>
     <a href="#how">How It Works</a>
@@ -365,277 +365,278 @@
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <p class="hero-eyebrow">Science-Backed Online Programmes</p>
-  <h1>Train <span class="line2">Smarter.</span></h1>
-  <p class="hero-sub">
-    <strong>AB Performance</strong> delivers online training programmes built on real sport science — not broscience. Strength, hypertrophy and sport-specific power, engineered to get results.
-  </p>
-  <div class="hero-btns">
-    <a href="#programmes" class="btn-primary">View Programmes</a>
-    <a href="#about" class="btn-outline">About Alex</a>
+<!-- ── HERO ──────────────────────────────────────────────────────────────────── -->
+<section id="hero" style="min-height:90vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(124,58,237,.18) 0%,transparent 65%),radial-gradient(ellipse at 20% 80%,rgba(124,58,237,.1) 0%,transparent 55%);pointer-events:none"></div>
+  <div style="max-width:800px;position:relative;z-index:1">
+    <div style="display:inline-block;padding:.35rem 1rem;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.3);border-radius:20px;font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--purple-lt);margin-bottom:1.5rem">Personal Training · Aylesbury</div>
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,5.5rem);letter-spacing:.06em;line-height:1;margin-bottom:1.2rem">TRAIN SMARTER.<br><span style="color:var(--purple-lt)">GET RESULTS.</span></h1>
+    <p style="font-size:1.1rem;color:var(--muted);line-height:1.8;max-width:560px;margin:0 auto 2.5rem">Science-backed personal training and online programmes designed to get you stronger, leaner and more confident — whether you train in the gym or at home.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="#pt" onclick="event.preventDefault();document.getElementById('pt').scrollIntoView({behavior:'smooth'})" style="padding:.85rem 2rem;background:var(--purple);color:#fff;border-radius:6px;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-decoration:none;transition:background .2s" onmouseover="this.style.background='#6d28d9'" onmouseout="this.style.background='var(--purple)'">Work With Me 1-1</a>
+      <a href="#programmes" onclick="event.preventDefault();document.getElementById('programmes').scrollIntoView({behavior:'smooth'})" style="padding:.85rem 2rem;background:transparent;color:var(--white);border:1px solid var(--border);border-radius:6px;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-decoration:none;transition:all .2s" onmouseover="this.style.borderColor='var(--purple-lt)'" onmouseout="this.style.borderColor='var(--border)'">Online Programmes</a>
+    </div>
   </div>
 </section>
 
-<!-- CREDENTIALS BAR -->
-<div class="creds">
-  <div class="cred-item"><span class="dot"></span>BSc Sport & Exercise Science</div>
-  <div class="cred-item"><span class="dot"></span>Level 3 Personal Trainer</div>
-  <div class="cred-item"><span class="dot"></span>County Rugby · Regional Basketball · Boxing</div>
-  <div class="cred-item"><span class="dot"></span>Next Programmes Dropping in 2 Weeks</div>
+<!-- ── STATS BAR ───────────────────────────────────────────────────────────────── -->
+<div style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.5rem 2rem">
+  <div style="max-width:900px;margin:0 auto;display:flex;justify-content:space-around;flex-wrap:wrap;gap:1.5rem;text-align:center">
+    <div><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--purple-lt)">L3</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)">Qualified PT</div></div>
+    <div><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--purple-lt)">BSc</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)">Sport & Exercise Science</div></div>
+    <div><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--purple-lt)">3+</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)">Years Training Experience</div></div>
+    <div><div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--purple-lt)">100%</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)">Science-Backed Methods</div></div>
+  </div>
 </div>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="about">
-    <div class="section-header">
-      <p class="section-label">About</p>
-      <h2 class="section-title">Who's Behind It</h2>
+<!-- ── 1-1 PT ──────────────────────────────────────────────────────────────────── -->
+<section id="pt" style="padding:6rem 2rem;background:var(--bg)">
+  <div style="max-width:1000px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:3.5rem">
+      <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.15em;color:var(--purple-lt);font-weight:700;margin-bottom:.8rem">In-Person Training</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3rem);letter-spacing:.06em;margin-bottom:1rem">1-1 PERSONAL TRAINING</h2>
+      <p style="color:var(--muted);font-size:.95rem;line-height:1.8;max-width:580px;margin:0 auto">Based at The Gym Group, Aylesbury. Every session is designed around your goals, your schedule and your starting point — no generic workouts, no wasted time.</p>
     </div>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>I'm Alex — a <strong>Sport & Exercise Science graduate</strong> specialising in <strong>strength & power, hypertrophy, and exercise for health</strong>, and a <strong>Level 3 qualified Personal Trainer</strong>.</p>
-        <p>My sporting background includes playing <strong>county-level rugby</strong> and <strong>regional basketball</strong>, and I now train personally in <strong>boxing and kickboxing</strong> — meaning the programmes I build aren't just theoretically sound, they're built by someone who lives the same training.</p>
-        <p>Every programme at AB Performance is grounded in the <strong>principles of sport science</strong>: progressive overload, specificity, and the physiological adaptations that actually drive results — not arbitrary workouts.</p>
-        <p>Alongside the online programmes, I offer <strong>in-person 1-1 personal training</strong> at <strong>The Gym Group, Aylesbury</strong> — tailored sessions built around your goals, schedule and training history.</p>
-        <p style="margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.25);border-radius:8px;font-size:.85rem;line-height:1.7">Any questions about the programmes, 1-1 training, or want a completely custom programme? <a href="mailto:alexbrown399@gmail.com" style="color:var(--purple-lt);font-weight:600">alexbrown399@gmail.com</a></p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-bottom:3rem">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.8rem">
+        <div style="font-size:1.8rem;margin-bottom:.8rem">🎯</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.6rem">Goal-Led Programming</h3>
+        <p style="font-size:.85rem;color:var(--muted);line-height:1.7">Your programme is built around what you actually want — fat loss, muscle building, strength or general fitness. Adjusted every block based on your progress.</p>
       </div>
-      <div class="about-stats">
-        <div class="stat-box">
-          <div class="stat-num">BSc</div>
-          <div class="stat-label">Sport & Exercise Science</div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.8rem">
+        <div style="font-size:1.8rem;margin-bottom:.8rem">🔬</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.6rem">Science-Backed Methods</h3>
+        <p style="font-size:.85rem;color:var(--muted);line-height:1.7">BSc Sport & Exercise Science graduate. Everything is grounded in evidence — progressive overload, specificity, recovery. No bro-science, no fads.</p>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.8rem">
+        <div style="font-size:1.8rem;margin-bottom:.8rem">📊</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.6rem">Full Tracking & Support</h3>
+        <p style="font-size:.85rem;color:var(--muted);line-height:1.7">Access to your personalised programme portal, weight and rep logging, calorie and macro targets — everything tracked so you can see exactly how far you've come.</p>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.8rem">
+        <div style="font-size:1.8rem;margin-bottom:.8rem">🏋️</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.6rem">Injury Considered</h3>
+        <p style="font-size:.85rem;color:var(--muted);line-height:1.7">Training around injuries and health conditions. Every programme is adapted to where you are right now — not where someone else is.</p>
+      </div>
+    </div>
+    <div style="background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:12px;padding:1.4rem 1.8rem;display:flex;align-items:center;gap:1.2rem;margin-bottom:1.5rem">
+      <div style="font-size:1.8rem;flex-shrink:0">✅</div>
+      <div><div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem;color:#22c55e">No Gym Membership Required</div><div style="font-size:.85rem;color:var(--muted);line-height:1.6">Train with me at The Gym Group, Aylesbury at no extra cost — gym access is included as part of your PT sessions.</div></div>
+    </div>
+    <div style="background:var(--bg2);border:1px solid rgba(124,58,237,.3);border-radius:12px;padding:2rem;text-align:center">
+      <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.6rem">Pricing</div>
+      <p style="color:var(--muted);font-size:.9rem;line-height:1.7;margin-bottom:1.5rem">Enquire for current availability and pricing. Sessions at The Gym Group, Aylesbury.</p>
+      <a href="#contact" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth'})" style="display:inline-block;padding:.8rem 2rem;background:var(--purple);color:#fff;border-radius:6px;font-weight:700;font-size:.88rem;text-decoration:none;letter-spacing:.06em">Enquire Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ───────────────────────────────────────────────────────────────────── -->
+<section id="about" style="padding:6rem 2rem;background:var(--bg2)">
+  <div style="max-width:900px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center">
+      <div>
+        <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.15em;color:var(--purple-lt);font-weight:700;margin-bottom:.8rem">About Alex</div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,2.8rem);letter-spacing:.06em;margin-bottom:1.2rem">THE PERSON BEHIND THE PROGRAMME</h2>
+        <p style="color:var(--muted);font-size:.92rem;line-height:1.85;margin-bottom:1rem">I'm Alex — a Level 3 qualified Personal Trainer and BSc Sport & Exercise Science graduate, based at The Gym Group in Aylesbury.</p>
+        <p style="color:var(--muted);font-size:.92rem;line-height:1.85;margin-bottom:1rem">My sporting background spans county rugby, regional basketball, boxing and Muay Thai — so I understand what it takes to train seriously, and I bring that same intensity and structure to everyone I work with.</p>
+        <p style="color:var(--muted);font-size:.92rem;line-height:1.85;margin-bottom:1.8rem">I specialise in muscle building and hypertrophy, fat loss and body recomposition, and exercise for health and longevity. Whether you're a complete beginner or looking to break through a plateau, I'll build a programme that works for your life.</p>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+          <div style="padding:.4rem .9rem;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.25);border-radius:20px;font-size:.75rem;font-weight:600;color:var(--purple-lt)">Muscle Building</div>
+          <div style="padding:.4rem .9rem;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.25);border-radius:20px;font-size:.75rem;font-weight:600;color:var(--purple-lt)">Fat Loss</div>
+          <div style="padding:.4rem .9rem;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.25);border-radius:20px;font-size:.75rem;font-weight:600;color:var(--purple-lt)">Body Recomposition</div>
+          <div style="padding:.4rem .9rem;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.25);border-radius:20px;font-size:.75rem;font-weight:600;color:var(--purple-lt)">Longevity</div>
         </div>
-        <div class="stat-box">
-          <div class="stat-num">L3</div>
-          <div class="stat-label">Qualified Personal Trainer</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem">
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.4rem;display:flex;align-items:flex-start;gap:1rem">
+          <div style="font-size:1.4rem;flex-shrink:0">🎓</div>
+          <div><div style="font-weight:700;font-size:.88rem;margin-bottom:.3rem">BSc Sport & Exercise Science</div><div style="font-size:.8rem;color:var(--muted)">University graduate — training grounded in sport science</div></div>
         </div>
-        <div class="stat-box">
-          <div class="stat-num">4</div>
-          <div class="stat-label">Science-backed programmes</div>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.4rem;display:flex;align-items:flex-start;gap:1rem">
+          <div style="font-size:1.4rem;flex-shrink:0">📋</div>
+          <div><div style="font-weight:700;font-size:.88rem;margin-bottom:.3rem">Level 3 Personal Trainer</div><div style="font-size:.8rem;color:var(--muted)">Qualified PT operating from The Gym Group, Aylesbury</div></div>
         </div>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.4rem;display:flex;align-items:flex-start;gap:1rem">
+          <div style="font-size:1.4rem;flex-shrink:0">🥊</div>
+          <div><div style="font-weight:700;font-size:.88rem;margin-bottom:.3rem">Multi-Sport Background</div><div style="font-size:.8rem;color:var(--muted)">County rugby, regional basketball, boxing & Muay Thai</div></div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.4rem;display:flex;align-items:flex-start;gap:1rem">
+          <div style="font-size:1.4rem;flex-shrink:0">📍</div>
+          <div><div style="font-weight:700;font-size:.88rem;margin-bottom:.3rem">Based in Aylesbury</div><div style="font-size:.8rem;color:var(--muted)">In-person training at The Gym Group · Online programmes available UK-wide</div></div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
-
-<!-- WHAT PROGRAMME IS BEST FOR ME -->
-<section id="guide" style="background:var(--bg2)">
-  <div style="max-width:900px;margin:0 auto;padding:0 2rem">
-    <div class="section-header">
-      <p class="section-label">Programme Guide</p>
-      <h2 class="section-title">Which Programme Is Right For You?</h2>
-      <p class="section-sub">Every programme includes personalised calorie and macro targets based on your stats and goal — whether you're trying to gain muscle, lose fat, or maintain.</p>
+<!-- ── TESTIMONIALS ────────────────────────────────────────────────────────────── -->
+<section id="testimonials" style="padding:6rem 2rem;background:var(--bg)">
+  <div style="max-width:1000px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:3rem">
+      <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.15em;color:var(--purple-lt);font-weight:700;margin-bottom:.8rem">Client Results</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3rem);letter-spacing:.06em">WHAT CLIENTS SAY</h2>
     </div>
-
-    <!-- All programmes -->
-    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;margin-bottom:1.2rem">
-      <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:.15em;color:var(--purple-lt);font-weight:600;margin-bottom:.5rem">All Programmes Include</div>
-      <ul class="prog-features" style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem .5rem">
-        <li>Calorie & macro targets calibrated to your body</li>
-        <li>Auto-calculated training loads based on your stats</li>
-        <li>RPE tracking and progressive overload guidance</li>
-        <li>Coaching notes on every exercise</li>
-        <li>Lifetime access — one payment, no repeat charges</li>
-        <li>Syncs across all your devices via your account</li>
-      </ul>
-    </div>
-
-    <!-- 1RM -->
-    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;margin-bottom:1.2rem">
-      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem">
-        <span style="font-size:1.4rem">🏋️</span>
-        <div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em">1RM Booster</div>
-          <div style="font-size:.72rem;color:var(--purple-lt);font-weight:600;text-transform:uppercase;letter-spacing:.1em">Best for: hitting a new personal best on a specific lift</div>
-        </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.8rem">
+        <div style="color:var(--purple-lt);font-size:1.2rem;margin-bottom:1rem">★★★★★</div>
+        <p style="font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:1.2rem;font-style:italic">"Alex completely changed how I approach training. The programme is structured, the app makes it easy to track everything, and I've seen more progress in 4 weeks than in months of training alone."</p>
+        <div style="font-size:.8rem;font-weight:700">1-1 PT Client · Aylesbury</div>
       </div>
-      <p style="font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:.8rem">Your 1 rep max is primarily a <strong style="color:var(--white)">neural adaptation</strong> — your nervous system learning to fire more motor units simultaneously rather than the muscle growing bigger. This programme peaks your nervous system over 4 weeks using percentage-based loading that builds toward a max test day.</p>
-      <p style="font-size:.82rem;color:var(--purple-lt)">✓ Flexible — runs 3 days/week and can be added on top of your current training with 48hrs rest between sessions targeting the same muscles.</p>
-    </div>
-
-    <!-- Hypertrophy -->
-    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;margin-bottom:1.2rem">
-      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem">
-        <span style="font-size:1.4rem">💪</span>
-        <div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em">Hypertrophy</div>
-          <div style="font-size:.72rem;color:var(--purple-lt);font-weight:600;text-transform:uppercase;letter-spacing:.1em">Best for: building muscle size and improving body composition</div>
-        </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.8rem">
+        <div style="color:var(--purple-lt);font-size:1.2rem;margin-bottom:1rem">★★★★★</div>
+        <p style="font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:1.2rem;font-style:italic">"As a complete beginner I was nervous but Alex made it easy. The sessions are well planned, the exercises are explained perfectly and I feel so much stronger already."</p>
+        <div style="font-size:.8rem;font-weight:700">1-1 PT Client · Aylesbury</div>
       </div>
-      <p style="font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:.8rem">Muscle growth is driven by two primary mechanisms — <strong style="color:var(--white)">mechanical tension</strong> (heavy loading through a full range) and <strong style="color:var(--white)">metabolic stress</strong> (accumulation of work that creates the burn). This programme combines both across 6 weeks with three split options (3, 4, or 5 days/week) to fit your schedule.</p>
-      <p style="font-size:.82rem;color:var(--purple-lt)">✓ Choose your training frequency and the programme adapts — the more days, the more volume and the faster results.</p>
-    </div>
-
-    <!-- Sport Specific -->
-    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;margin-bottom:1.2rem;opacity:.7">
-      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem">
-        <span style="font-size:1.4rem">⚡</span>
-        <div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em">Sport Specific <span style="font-size:.7rem;background:var(--muted);color:#fff;padding:.15rem .5rem;border-radius:3px;margin-left:.5rem;vertical-align:middle">Coming Soon</span></div>
-          <div style="font-size:.72rem;color:var(--purple-lt);font-weight:600;text-transform:uppercase;letter-spacing:.1em">Best for: athletes wanting to improve performance in their sport</div>
-        </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.8rem">
+        <div style="color:var(--purple-lt);font-size:1.2rem;margin-bottom:1rem">★★★★★</div>
+        <p style="font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:1.2rem;font-style:italic">"The online programme is brilliant — everything is tracked, weights are logged, and it tells you exactly what to do each session. Worth every penny."</p>
+        <div style="font-size:.8rem;font-weight:700">Online Programme Client</div>
       </div>
-      <p style="font-size:.85rem;color:var(--muted);line-height:1.7">Targets <strong style="color:var(--white)">rate of force development</strong> — how quickly your muscles produce force — which is the key differentiator between a strong person and an explosive athlete. Combines 3 general strength sessions with 2 sport-specific power days per week.</p>
     </div>
-
-    <!-- Weight Loss -->
-    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;opacity:.7">
-      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem">
-        <span style="font-size:1.4rem">🔥</span>
-        <div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em">Weight Loss <span style="font-size:.7rem;background:var(--muted);color:#fff;padding:.15rem .5rem;border-radius:3px;margin-left:.5rem;vertical-align:middle">Coming Soon</span></div>
-          <div style="font-size:.72rem;color:var(--purple-lt);font-weight:600;text-transform:uppercase;letter-spacing:.1em">Best for: losing fat while preserving muscle mass</div>
-        </div>
-      </div>
-      <p style="font-size:.85rem;color:var(--muted);line-height:1.7">Fat loss requires a <strong style="color:var(--white)">calorie deficit</strong>, but without resistance training you risk losing muscle alongside fat. This programme combines a deficit calibrated to your stats with a structured resistance programme to preserve lean mass throughout.</p>
-    </div>
-
+    <p style="text-align:center;font-size:.78rem;color:var(--muted);margin-top:1.5rem;font-style:italic">Testimonials are representative of client experience. Individual results vary.</p>
   </div>
 </section>
 
-<!-- PROGRAMMES -->
-<section id="programmes" class="programmes">
-  <div class="programmes-inner">
-    <div class="section-header">
-      <p class="section-label">Programmes</p>
-      <h2 class="section-title">Pick Your Goal</h2>
-      <p class="section-sub">Four online programmes. Each one built around a specific physiological goal, not a generic workout plan.</p>
+<!-- ── PROGRAMMES ──────────────────────────────────────────────────────────────── -->
+<section id="programmes" style="padding:6rem 2rem;background:var(--bg2)">
+  <div style="max-width:1000px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:3.5rem">
+      <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.15em;color:var(--purple-lt);font-weight:700;margin-bottom:.8rem">Train Anywhere</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3rem);letter-spacing:.06em;margin-bottom:1rem">ONLINE PROGRAMMES</h2>
+      <p style="color:var(--muted);font-size:.95rem;line-height:1.8;max-width:560px;margin:0 auto">One payment. Lifetime access. Auto-calculated training loads, calorie and macro targets, and full weight logging — all in your browser.</p>
     </div>
-    <div class="programmes-grid">
-
-      <!-- 1RM -->
-      <div class="prog-card">
-        <div class="prog-icon">🏋️</div>
-        <div class="prog-name">1RM Booster</div>
-        <div class="prog-duration">4 Weeks</div>
-        <ul class="prog-features">
-          <li>Neural drive & motor unit recruitment focus</li>
-          <li>Peaking protocols for your chosen lift</li>
-          <li>Auto-calculated training loads</li>
-          <li>RPE-based intensity tracking</li>
-          <li>Flexible — runs alongside existing training</li>
-        </ul>
-        <div class="prog-footer">
-          <div class="prog-price"><sup>£</sup>15</div>
-          <button class="btn-primary" id="btn-1rm" onclick="openModal('1RM Booster', '£15', '4 Weeks')">Buy Now</button>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-bottom:2rem">
+      <!-- 1RM Booster -->
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+        <div style="padding:1.5rem 1.5rem 0">
+          <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.5rem">4 Weeks</div>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;margin-bottom:.6rem">1RM BOOSTER</h3>
+          <p style="font-size:.84rem;color:var(--muted);line-height:1.7;margin-bottom:1rem">Peak your bench, squat, deadlift or overhead press. Runs alongside your existing training — 3 days/week.</p>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.2rem">
+            <span style="font-size:.72rem;padding:.25rem .6rem;background:rgba(124,58,237,.1);border-radius:4px;color:var(--purple-lt)">Strength</span>
+            <span style="font-size:.72rem;padding:.25rem .6rem;background:rgba(124,58,237,.1);border-radius:4px;color:var(--purple-lt)">3 days/week</span>
+            <span style="font-size:.72rem;padding:.25rem .6rem;background:rgba(124,58,237,.1);border-radius:4px;color:var(--purple-lt)">Any level</span>
+          </div>
+        </div>
+        <div style="padding:1rem 1.5rem 1.5rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--white)">£15</div>
+          <button class="btn-primary" id="btn-1rm" onclick="openModal('1RM Booster', '£15', '4 Weeks')" style="padding:.6rem 1.4rem;font-size:.82rem">Buy Now</button>
         </div>
       </div>
-
       <!-- Hypertrophy -->
-      <div class="prog-card featured">
-        <div class="prog-badge">Most Popular</div>
-        <div class="prog-icon">💪</div>
-        <div class="prog-name">Hypertrophy</div>
-        <div class="prog-duration">6 Weeks</div>
-        <ul class="prog-features">
-          <li>Metabolic stress & mechanical tension protocols</li>
-          <li>3, 4 or 5 day split options</li>
-          <li>Volume progression built in</li>
-          <li>Calorie & macro targets included</li>
-          <li>Lifetime access — repeat with adjusted weights</li>
-        </ul>
-        <div class="prog-footer">
-          <div class="prog-price"><sup>£</sup>20</div>
-          <button class="btn-primary" id="btn-hyp" onclick="openModal('Hypertrophy Programme', '£20', '6 Weeks')">Buy Now</button>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;overflow:hidden;position:relative">
+        <div style="position:absolute;top:1rem;right:1rem;padding:.2rem .7rem;background:var(--purple);color:#fff;border-radius:4px;font-size:.65rem;font-weight:700;letter-spacing:.08em">POPULAR</div>
+        <div style="padding:1.5rem 1.5rem 0">
+          <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-lt);font-weight:700;margin-bottom:.5rem">6 Weeks</div>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;margin-bottom:.6rem">HYPERTROPHY</h3>
+          <p style="font-size:.84rem;color:var(--muted);line-height:1.7;margin-bottom:1rem">Build muscle with 3, 4 or 5 day splits. Full calorie and macro targets included. Auto-calculated training loads every session.</p>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.2rem">
+            <span style="font-size:.72rem;padding:.25rem .6rem;background:rgba(124,58,237,.1);border-radius:4px;color:var(--purple-lt)">Muscle Building</span>
+            <span style="font-size:.72rem;padding:.25rem .6rem;background:rgba(124,58,237,.1);border-radius:4px;color:var(--purple-lt)">3–5 days/week</span>
+            <span style="font-size:.72rem;padding:.25rem .6rem;background:rgba(124,58,237,.1);border-radius:4px;color:var(--purple-lt)">Intermediate</span>
+          </div>
+        </div>
+        <div style="padding:1rem 1.5rem 1.5rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--white)">£20</div>
+          <button class="btn-primary" id="btn-hyp" onclick="openModal('Hypertrophy Programme', '£20', '6 Weeks')" style="padding:.6rem 1.4rem;font-size:.82rem">Buy Now</button>
         </div>
       </div>
-
-      <!-- Sport Specific -->
-      <div class="prog-card" style="position:relative;opacity:.8">
-        <div class="prog-badge" style="background:var(--muted)">Coming Soon</div>
-        <div class="prog-icon">⚡</div>
-        <div class="prog-name">Sport Specific</div>
-        <div class="prog-duration">6 Weeks · Dropping in 2 Weeks</div>
-        <ul class="prog-features">
-          <li>Rate of force development training</li>
-          <li>Sport-specific movement integration</li>
-          <li>Power & strength phase periodisation</li>
-          <li>Plyometric and loaded progressions</li>
-        </ul>
-        <div class="prog-footer">
-          <div class="prog-price"><sup>£</sup>20</div>
-          <button class="btn-primary" style="opacity:.5;cursor:not-allowed" disabled>Coming Soon</button>
+      <!-- Coming Soon -->
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;overflow:hidden;opacity:.7">
+        <div style="padding:1.5rem 1.5rem 0">
+          <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:700;margin-bottom:.5rem">Coming Soon</div>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;margin-bottom:.6rem">MORE PROGRAMMES</h3>
+          <p style="font-size:.84rem;color:var(--muted);line-height:1.7;margin-bottom:1rem">Sport-specific training, weight loss, home training and more — being added regularly. Follow on Instagram for updates.</p>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.2rem">
+            <span style="font-size:.72rem;padding:.25rem .6rem;background:rgba(107,114,128,.1);border-radius:4px;color:var(--muted)">Sport Specific</span>
+            <span style="font-size:.72rem;padding:.25rem .6rem;background:rgba(107,114,128,.1);border-radius:4px;color:var(--muted)">Weight Loss</span>
+            <span style="font-size:.72rem;padding:.25rem .6rem;background:rgba(107,114,128,.1);border-radius:4px;color:var(--muted)">Home Training</span>
+          </div>
         </div>
-      </div>
-
-      <!-- Weight Loss -->
-      <div class="prog-card" style="position:relative;opacity:.8">
-        <div class="prog-badge" style="background:var(--muted)">Coming Soon</div>
-        <div class="prog-icon">🔥</div>
-        <div class="prog-name">Weight Loss</div>
-        <div class="prog-duration">6 Weeks · Dropping in 2 Weeks</div>
-        <ul class="prog-features">
-          <li>Calorie deficit calibrated to your stats</li>
-          <li>Resistance training to preserve lean mass</li>
-          <li>Macro targets calculated automatically</li>
-          <li>Progressive overload maintained throughout</li>
-        </ul>
-        <div class="prog-footer">
-          <div class="prog-price"><sup>£</sup>20</div>
-          <button class="btn-primary" style="opacity:.5;cursor:not-allowed" disabled>Coming Soon</button>
+        <div style="padding:1rem 1.5rem 1.5rem;border-top:1px solid var(--border)">
+          <a href="https://www.instagram.com/alexbrown_pt" target="_blank" style="display:inline-block;padding:.6rem 1.4rem;background:rgba(107,114,128,.15);color:var(--muted);border-radius:6px;font-size:.82rem;font-weight:700;text-decoration:none">Follow for Updates</a>
         </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section id="how">
-  <div class="how">
-    <div class="section-header">
-      <p class="section-label">Process</p>
-      <h2 class="section-title">How It Works</h2>
-      <p class="section-sub">Simple, fast, no faff.</p>
-    </div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <h3>Pick Your Programme</h3>
-        <p>Choose the goal that matches where you're at — strength, size, sport performance, or fat loss.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <h3>Create Your Account</h3>
-        <p>Set up your login before payment. Your account syncs across all your devices — phone, laptop, tablet — so you can train and log anywhere.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <h3>Programme Loads Instantly</h3>
-        <p>Complete your intake form and your fully personalised programme generates immediately — all loads auto-calculated from your stats. One payment, lifetime access. Repeat it with adjusted weights as many times as you like.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LAUNCH BANNER -->
-<div class="launch-banner">
-  <h2>Sport Specific & Weight Loss Dropping in 2 Weeks</h2>
-  <p>1RM Booster and Hypertrophy are live now. Two more programmes coming shortly.</p>
-  <a href="#programmes" class="btn-primary" style="background:#fff; color: #7c3aed;">View Programmes</a>
-</div>
+<!-- ── HOW IT WORKS ────────────────────────────────────────────────────────────── -->
+<section id="how" style="padding:6rem 2rem;background:var(--bg)">
+  <div style="max-width:900px;margin:0 auto;text-align:center">
+    <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.15em;color:var(--purple-lt);font-weight:700;margin-bottom:.8rem">Online Programmes</div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3rem);letter-spacing:.06em;margin-bottom:.8rem">HOW IT WORKS</h2>
+    <p style="color:var(--muted);font-size:.92rem;line-height:1.8;max-width:560px;margin:0 auto 3rem">Buy once, access forever. Your programme is built into a personal portal — no app downloads, no subscriptions.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;text-align:left">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;position:relative">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:rgba(124,58,237,.2);position:absolute;top:.8rem;right:1rem;line-height:1">01</div>
+        <div style="font-size:1.4rem;margin-bottom:.8rem">🛒</div>
+        <h3 style="font-weight:700;font-size:.92rem;margin-bottom:.5rem">Choose your programme</h3>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.7">Pick the 1RM Booster or Hypertrophy programme. Choose your lift if applicable. One-off payment — no subscription.</p>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;position:relative">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:rgba(124,58,237,.2);position:absolute;top:.8rem;right:1rem;line-height:1">02</div>
+        <div style="font-size:1.4rem;margin-bottom:.8rem">👤</div>
+        <h3 style="font-weight:700;font-size:.92rem;margin-bottom:.5rem">Create your account</h3>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.7">Set up your login with your name and email. Transfer payment via bank transfer — details shown at checkout.</p>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;position:relative">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:rgba(124,58,237,.2);position:absolute;top:.8rem;right:1rem;line-height:1">03</div>
+        <div style="font-size:1.4rem;margin-bottom:.8rem">✅</div>
+        <h3 style="font-weight:700;font-size:.92rem;margin-bottom:.5rem">Get access</h3>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.7">Once payment is confirmed — usually within 24 hours — your programme unlocks. Log in and you're straight in.</p>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.5rem;position:relative">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:rgba(124,58,237,.2);position:absolute;top:.8rem;right:1rem;line-height:1">04</div>
+        <div style="font-size:1.4rem;margin-bottom:.8rem">📊</div>
+        <h3 style="font-weight:700;font-size:.92rem;margin-bottom:.5rem">Train and track</h3>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.7">Every session is laid out for you. Log your sets and reps, track your weights session to session, and watch your numbers go up.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- FOOTER -->
-<footer>
-  <strong>AB Performance</strong> &nbsp;·&nbsp; Built on Sport Science
+<!-- ── CONTACT ─────────────────────────────────────────────────────────────────── -->
+<section id="contact" style="padding:6rem 2rem;background:var(--bg2)">
+  <div style="max-width:700px;margin:0 auto;text-align:center">
+    <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.15em;color:var(--purple-lt);font-weight:700;margin-bottom:.8rem">Get Started</div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3rem);letter-spacing:.06em;margin-bottom:1rem">GET IN TOUCH</h2>
+    <p style="color:var(--muted);font-size:.95rem;line-height:1.8;margin-bottom:3rem">Ready to start? Have a question? Drop me a message and I'll get back to you as soon as possible.</p>
+    <div style="display:flex;flex-direction:column;gap:1rem;max-width:420px;margin:0 auto">
+      <a href="https://wa.me/447470158028" target="_blank" style="display:flex;align-items:center;gap:1rem;padding:1.1rem 1.5rem;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);border-radius:10px;text-decoration:none;color:var(--white);transition:all .2s" onmouseover="this.style.background='rgba(37,211,102,.18)'" onmouseout="this.style.background='rgba(37,211,102,.1)'">
+        <span style="font-size:1.4rem">💬</span>
+        <div style="text-align:left"><div style="font-weight:700;font-size:.9rem">WhatsApp</div><div style="font-size:.8rem;color:var(--muted)">07470 158 028 — quickest response</div></div>
+      </a>
+      <a href="mailto:alexbrown399@gmail.com" style="display:flex;align-items:center;gap:1rem;padding:1.1rem 1.5rem;background:var(--bg3);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--white);transition:all .2s" onmouseover="this.style.borderColor='var(--purple-lt)'" onmouseout="this.style.borderColor='var(--border)'">
+        <span style="font-size:1.4rem">✉️</span>
+        <div style="text-align:left"><div style="font-weight:700;font-size:.9rem">Email</div><div style="font-size:.8rem;color:var(--muted)">alexbrown399@gmail.com</div></div>
+      </a>
+      <a href="https://www.instagram.com/alexbrown_pt" target="_blank" style="display:flex;align-items:center;gap:1rem;padding:1.1rem 1.5rem;background:var(--bg3);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--white);transition:all .2s" onmouseover="this.style.borderColor='var(--purple-lt)'" onmouseout="this.style.borderColor='var(--border)'">
+        <span style="font-size:1.4rem">📷</span>
+        <div style="text-align:left"><div style="font-weight:700;font-size:.9rem">Instagram</div><div style="font-size:.8rem;color:var(--muted)">@alexbrown_pt</div></div>
+      </a>
+      <a href="tel:07470158028" style="display:flex;align-items:center;gap:1rem;padding:1.1rem 1.5rem;background:var(--bg3);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--white);transition:all .2s" onmouseover="this.style.borderColor='var(--purple-lt)'" onmouseout="this.style.borderColor='var(--border)'">
+        <span style="font-size:1.4rem">📱</span>
+        <div style="text-align:left"><div style="font-weight:700;font-size:.9rem">Phone</div><div style="font-size:.8rem;color:var(--muted)">07470 158 028</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────────────────────────────── -->
+<footer style="background:var(--bg);border-top:1px solid var(--border);padding:2rem;text-align:center">
+  <div style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.08em;margin-bottom:.5rem">AB <span style="color:var(--purple-lt)">Performance</span></div>
+  <div style="font-size:.78rem;color:var(--muted);margin-bottom:1rem">Level 3 PT · BSc Sport & Exercise Science · The Gym Group, Aylesbury</div>
+  <div style="display:flex;justify-content:center;gap:1.5rem;font-size:.78rem">
+    <a href="#pt" onclick="event.preventDefault();document.getElementById('pt').scrollIntoView({behavior:'smooth'})" style="color:var(--muted);text-decoration:none">1-1 PT</a>
+    <a href="#about" onclick="event.preventDefault();document.getElementById('about').scrollIntoView({behavior:'smooth'})" style="color:var(--muted);text-decoration:none">About</a>
+    <a href="#programmes" onclick="event.preventDefault();document.getElementById('programmes').scrollIntoView({behavior:'smooth'})" style="color:var(--muted);text-decoration:none">Programmes</a>
+    <a href="#contact" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth'})" style="color:var(--muted);text-decoration:none">Contact</a>
+  </div>
 </footer>
 
-<!-- MODAL EXTRA STYLES -->
-<style>
-  .lift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.4rem; }
-  .lift-opt { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 0.6rem 0.8rem; cursor: pointer; font-size: 0.82rem; font-weight: 600; text-align: center; transition: all 0.2s; color: var(--muted); }
-  .lift-opt:hover { border-color: var(--purple-lt); color: var(--white); }
-  .lift-opt.selected { background: rgba(124,58,237,0.18); border-color: var(--purple-lt); color: var(--white); }
-  .bypass-row { display: flex; gap: 0.5rem; align-items: center; margin-top: 0.8rem; }
-  .bypass-row input { flex: 1; padding: 0.5rem 0.7rem; background: var(--bg3); border: 1px solid rgba(245,158,11,0.35); border-radius: 4px; color: var(--white); font-size: 0.82rem; outline: none; text-transform: uppercase; letter-spacing: 0.1em; }
-  .bypass-row button { padding: 0.5rem 1rem; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); border-radius: 4px; color: #fcd34d; font-size: 0.75rem; font-weight: 700; cursor: pointer; letter-spacing: 0.06em; white-space: nowrap; }
-  .bypass-row button:hover { background: rgba(245,158,11,0.25); }
-  #bypassNote { font-size: 0.72rem; color: #fcd34d; margin-top: 0.3rem; display: none; }
-</style>
-
-<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">×</button>
