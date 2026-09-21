@@ -635,6 +635,50 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
       <td class="notes-cell">Hinge at hips. Drive elbows toward knees. Hold contraction 1 second.</td>
     </tr>
+        <tr data-basekey="dipanjan_Leg_Press_D1" data-exname="Leg Press" data-sets="3">
+      <td class="ex-name">
+        <div class="ex-name-wrap">
+          <button class="ex-name-btn" onclick="openVariation(this)">Leg Press</button>
+          <div class="variation-dropdown">            <div class="variation-opt active" onclick="selectVariation(this,'Leg Press')">✓ Leg Press</div>
+            <div class="variation-opt" onclick="selectVariation(this,'Hack Squat')">Hack Squat</div>
+            <div class="variation-opt" onclick="selectVariation(this,'Smith Machine Squat')">Smith Machine Squat</div>
+            <div class="variation-opt variation-add" onclick="showCustomInput(this)">+ Add custom...</div>
+            <div class="variation-custom-input"><input type="text" placeholder="Exercise name — press Enter" onkeydown="addCustomVariation(this)"/></div></div>
+        </div><br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">▶ Watch Tutorial</a>
+        <button class="ex-expand-btn" onclick="toggleSets(this)">▶ Sets</button>
+        <div class="sets-grid"><div class="set-box"><div class="set-box-label">Set 1</div><div class="set-box-inputs"><input type="number" step="0.5" placeholder="kg" class="set-w" data-set="1" oninput="onSetInput(this)"/><span>×</span><input type="number" step="1" placeholder="reps" class="set-r" data-set="1" oninput="onSetInput(this)"/></div></div><div class="set-box"><div class="set-box-label">Set 2</div><div class="set-box-inputs"><input type="number" step="0.5" placeholder="kg" class="set-w" data-set="2" oninput="onSetInput(this)"/><span>×</span><input type="number" step="1" placeholder="reps" class="set-r" data-set="2" oninput="onSetInput(this)"/></div></div><div class="set-box"><div class="set-box-label">Set 3</div><div class="set-box-inputs"><input type="number" step="0.5" placeholder="kg" class="set-w" data-set="3" oninput="onSetInput(this)"/><span>×</span><input type="number" step="1" placeholder="reps" class="set-r" data-set="3" oninput="onSetInput(this)"/></div></div></div>
+        <div class="sets-summary"></div>
+      </td>
+      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">50kg</td>
+      <td class="prev-cell">—</td>
+      <td style="white-space:nowrap">90s</td>
+      <td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Plate loaded. Full range. Drive through heels. Legs accessory on push day.</td>
+    </tr>
+<tr data-basekey="dipanjan_Smith_Machine_Calf_RaiseD1" data-exname="Smith Machine Calf Raise" data-sets="3">
+      <td class="ex-name">
+        <div class="ex-name-wrap">
+          <button class="ex-name-btn" onclick="openVariation(this)">Smith Machine Calf Raise</button>
+          <div class="variation-dropdown">            <div class="variation-opt active" onclick="selectVariation(this,'Smith Machine Calf Raise')">✓ Smith Machine Calf Raise</div>
+            <div class="variation-opt" onclick="selectVariation(this,'Standing Calf Raise')">Standing Calf Raise</div>
+            <div class="variation-opt" onclick="selectVariation(this,'Leg Press Calf Extension')">Leg Press Calf Extension</div>
+            <div class="variation-opt variation-add" onclick="showCustomInput(this)">+ Add custom...</div>
+            <div class="variation-custom-input"><input type="text" placeholder="Exercise name — press Enter" onkeydown="addCustomVariation(this)"/></div></div>
+        </div><br><a href="https://www.youtube.com/watch?v=gwLzBJYoWlI" target="_blank" rel="noopener" class="yt-link">▶ Watch Tutorial</a>
+        <button class="ex-expand-btn" onclick="toggleSets(this)">▶ Sets</button>
+        <div class="sets-grid"><div class="set-box"><div class="set-box-label">Set 1</div><div class="set-box-inputs"><input type="number" step="0.5" placeholder="kg" class="set-w" data-set="1" oninput="onSetInput(this)"/><span>×</span><input type="number" step="1" placeholder="reps" class="set-r" data-set="1" oninput="onSetInput(this)"/></div></div><div class="set-box"><div class="set-box-label">Set 2</div><div class="set-box-inputs"><input type="number" step="0.5" placeholder="kg" class="set-w" data-set="2" oninput="onSetInput(this)"/><span>×</span><input type="number" step="1" placeholder="reps" class="set-r" data-set="2" oninput="onSetInput(this)"/></div></div><div class="set-box"><div class="set-box-label">Set 3</div><div class="set-box-inputs"><input type="number" step="0.5" placeholder="kg" class="set-w" data-set="3" oninput="onSetInput(this)"/><span>×</span><input type="number" step="1" placeholder="reps" class="set-r" data-set="3" oninput="onSetInput(this)"/></div></div></div>
+        <div class="sets-summary"></div>
+      </td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">50kg</td>
+      <td class="prev-cell">—</td>
+      <td style="white-space:nowrap">60s</td>
+      <td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range — all the way up and down. Slow eccentric on the way down.</td>
+    </tr>
         </tbody>
       </table>
     </div>
@@ -1940,6 +1984,50 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
       <td>RPE 7</td>
       <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
       <td class="notes-cell">Hinge at hips. Drive elbows toward knees. Hold contraction 1 second.</td>
+    </tr>
+        <tr data-basekey="dipanjan_Leg_Press_D1" data-exname="Leg Press" data-sets="3">
+      <td class="ex-name">
+        <div class="ex-name-wrap">
+          <button class="ex-name-btn" onclick="openVariation(this)">Leg Press</button>
+          <div class="variation-dropdown">            <div class="variation-opt active" onclick="selectVariation(this,'Leg Press')">✓ Leg Press</div>
+            <div class="variation-opt" onclick="selectVariation(this,'Hack Squat')">Hack Squat</div>
+            <div class="variation-opt" onclick="selectVariation(this,'Smith Machine Squat')">Smith Machine Squat</div>
+            <div class="variation-opt variation-add" onclick="showCustomInput(this)">+ Add custom...</div>
+            <div class="variation-custom-input"><input type="text" placeholder="Exercise name — press Enter" onkeydown="addCustomVariation(this)"/></div></div>
+        </div><br><a href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank" rel="noopener" class="yt-link">▶ Watch Tutorial</a>
+        <button class="ex-expand-btn" onclick="toggleSets(this)">▶ Sets</button>
+        <div class="sets-grid"><div class="set-box"><div class="set-box-label">Set 1</div><div class="set-box-inputs"><input type="number" step="0.5" placeholder="kg" class="set-w" data-set="1" oninput="onSetInput(this)"/><span>×</span><input type="number" step="1" placeholder="reps" class="set-r" data-set="1" oninput="onSetInput(this)"/></div></div><div class="set-box"><div class="set-box-label">Set 2</div><div class="set-box-inputs"><input type="number" step="0.5" placeholder="kg" class="set-w" data-set="2" oninput="onSetInput(this)"/><span>×</span><input type="number" step="1" placeholder="reps" class="set-r" data-set="2" oninput="onSetInput(this)"/></div></div><div class="set-box"><div class="set-box-label">Set 3</div><div class="set-box-inputs"><input type="number" step="0.5" placeholder="kg" class="set-w" data-set="3" oninput="onSetInput(this)"/><span>×</span><input type="number" step="1" placeholder="reps" class="set-r" data-set="3" oninput="onSetInput(this)"/></div></div></div>
+        <div class="sets-summary"></div>
+      </td>
+      <td>3</td><td>12</td><td>3-1-1</td>
+      <td class="suggested-load">52.5kg</td>
+      <td class="prev-cell">—</td>
+      <td style="white-space:nowrap">90s</td>
+      <td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Plate loaded. Full range. Drive through heels. Legs accessory on push day.</td>
+    </tr>
+<tr data-basekey="dipanjan_Smith_Machine_Calf_RaiseD1" data-exname="Smith Machine Calf Raise" data-sets="3">
+      <td class="ex-name">
+        <div class="ex-name-wrap">
+          <button class="ex-name-btn" onclick="openVariation(this)">Smith Machine Calf Raise</button>
+          <div class="variation-dropdown">            <div class="variation-opt active" onclick="selectVariation(this,'Smith Machine Calf Raise')">✓ Smith Machine Calf Raise</div>
+            <div class="variation-opt" onclick="selectVariation(this,'Standing Calf Raise')">Standing Calf Raise</div>
+            <div class="variation-opt" onclick="selectVariation(this,'Leg Press Calf Extension')">Leg Press Calf Extension</div>
+            <div class="variation-opt variation-add" onclick="showCustomInput(this)">+ Add custom...</div>
+            <div class="variation-custom-input"><input type="text" placeholder="Exercise name — press Enter" onkeydown="addCustomVariation(this)"/></div></div>
+        </div><br><a href="https://www.youtube.com/watch?v=gwLzBJYoWlI" target="_blank" rel="noopener" class="yt-link">▶ Watch Tutorial</a>
+        <button class="ex-expand-btn" onclick="toggleSets(this)">▶ Sets</button>
+        <div class="sets-grid"><div class="set-box"><div class="set-box-label">Set 1</div><div class="set-box-inputs"><input type="number" step="0.5" placeholder="kg" class="set-w" data-set="1" oninput="onSetInput(this)"/><span>×</span><input type="number" step="1" placeholder="reps" class="set-r" data-set="1" oninput="onSetInput(this)"/></div></div><div class="set-box"><div class="set-box-label">Set 2</div><div class="set-box-inputs"><input type="number" step="0.5" placeholder="kg" class="set-w" data-set="2" oninput="onSetInput(this)"/><span>×</span><input type="number" step="1" placeholder="reps" class="set-r" data-set="2" oninput="onSetInput(this)"/></div></div><div class="set-box"><div class="set-box-label">Set 3</div><div class="set-box-inputs"><input type="number" step="0.5" placeholder="kg" class="set-w" data-set="3" oninput="onSetInput(this)"/><span>×</span><input type="number" step="1" placeholder="reps" class="set-r" data-set="3" oninput="onSetInput(this)"/></div></div></div>
+        <div class="sets-summary"></div>
+      </td>
+      <td>3</td><td>12–15</td><td>Natural</td>
+      <td class="suggested-load">52.5kg</td>
+      <td class="prev-cell">—</td>
+      <td style="white-space:nowrap">60s</td>
+      <td>RPE 7</td>
+      <td><input type="number" step="0.5" min="1" max="10" class="rpe-input" placeholder="—"/></td>
+      <td class="notes-cell">Full range — all the way up and down. Slow eccentric on the way down.</td>
     </tr>
         </tbody>
       </table>

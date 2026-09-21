@@ -354,11 +354,12 @@
 </script>
   <a href="index.html" onclick="event.preventDefault(); var base=window.location.href.substring(0,window.location.href.lastIndexOf('/')+1); window.location.href=base+'index.html';" class="nav-logo" style="text-decoration:none;cursor:pointer">AB <span>Performance</span></a>
   <div class="nav-links">
+    <a href="#pt" onclick="event.preventDefault();document.getElementById('pt').scrollIntoView({behavior:'smooth'})">1-1 PT</a>
     <a href="#about" onclick="event.preventDefault();document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</a>
-    <a href="#guide">Programme Guide</a>
-    <a href="#programmes">Programmes</a>
-    <a href="#how">How It Works</a>
-    <a href="./CLIENTS.html" style="color:var(--purple-lt);font-weight:600">1-1 Clients</a>
+    <a href="#testimonials" onclick="event.preventDefault();document.getElementById('testimonials').scrollIntoView({behavior:'smooth'})">Testimonials</a>
+    <a href="#programmes" onclick="event.preventDefault();document.getElementById('programmes').scrollIntoView({behavior:'smooth'})">Programmes</a>
+    <a href="#how" onclick="event.preventDefault();document.getElementById('how').scrollIntoView({behavior:'smooth'})">How It Works</a>
+    <a href="#contact" onclick="event.preventDefault();document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</a>
     <a href="./LOGIN.html" id="navLoginBtn" style="background:var(--purple);color:#fff;padding:.4rem 1rem;border-radius:4px;font-weight:700;letter-spacing:.05em">Log In</a>
     <span id="navUserLabel" style="display:none;font-size:.82rem;color:var(--purple-lt);font-weight:600;letter-spacing:.05em"></span>
     <a href="./CLIENTS.html" id="navPortalBtn" style="display:none;background:var(--purple);color:#fff;padding:.4rem 1rem;border-radius:4px;font-weight:700;font-size:.82rem;letter-spacing:.05em;text-decoration:none">My Programme</a>
