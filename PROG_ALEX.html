@@ -68,29 +68,6 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
 .saved-msg{display:none;color:var(--green);font-size:.82rem;font-weight:600;margin-left:1rem}
 
 
-/* ── MOBILE NAV ─────────────────────────────────────────────────────────── */
-.prog-nav {
-  display: flex;
-  flex-wrap: nowrap !important;
-  overflow-x: auto !important;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x mandatory;
-  gap: .35rem;
-  padding: .6rem .8rem;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.prog-nav::-webkit-scrollbar { display: none; }
-.nav-btn {
-  flex-shrink: 0;
-  scroll-snap-align: start;
-  min-width: 52px;
-  padding: .5rem .6rem;
-  font-size: .62rem;
-  touch-action: manipulation;
-}
-.nav-btn span { font-size: .52rem; }
-
 /* ── TABLE FIXES ─────────────────────────────────────────────────────────── */
 .session-table th, .session-table td {
   white-space: nowrap;
@@ -191,6 +168,51 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
   background: rgba(124,58,237,.1);
 }
 
+
+/* ── SWIPEABLE PROG NAV ──────────────────────────────────────────────── */
+.prog-nav {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: scroll !important;
+  -webkit-overflow-scrolling: touch !important;
+  scroll-snap-type: x proximity;
+  gap: .35rem;
+  padding: .6rem .8rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 57px;
+  z-index: 99;
+}
+.prog-nav::-webkit-scrollbar { display: none; }
+.nav-btn {
+  flex-shrink: 0 !important;
+  scroll-snap-align: start;
+  touch-action: manipulation;
+  min-width: 52px;
+  padding: .5rem .6rem;
+  font-size: .62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  cursor: pointer;
+  color: var(--muted);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .1rem;
+  transition: all .2s;
+}
+.nav-btn span { font-size: .52rem; color: var(--muted); font-weight: 400; }
+.nav-btn:hover, .nav-btn.active { background: var(--purple); border-color: var(--purple); color: #fff; }
+.nav-btn.active span { color: rgba(255,255,255,.7); }
+.nav-btn.pt-session { border-color: rgba(124,58,237,.4); }
+
 </style>
 </head>
 <body>
@@ -198,7 +220,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
   <a href="index.html" onclick="event.preventDefault();var b=window.location.href.substring(0,window.location.href.lastIndexOf('/')+1);window.location.href=b+'index.html';" class="logo" style="cursor:pointer">AB <span style="color:var(--purple-lt)">Performance</span></a>
   <div class="nav-right"><span id="navUserLabel"></span><a href="./LOGIN.html" id="navLoginBtn">Log In</a><a href="#" id="navLogoutBtn" onclick="handleSignOut()" style="display:none;font-size:.75rem;color:var(--muted);cursor:pointer;font-weight:600">Sign Out</a></div>
 </nav>
-<div class="prog-nav" style="overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none"><button class="nav-btn active" onclick="showSess('STATS')" id="nav-STATS">STATS<span>Stats</span></button>
+<div class="prog-nav"><button class="nav-btn active" onclick="showSess('STATS')" id="nav-STATS">STATS<span>Stats</span></button>
 <button class="nav-btn" onclick="showSess('WARMUP')" id="nav-WARMUP">WARM<span>Warm-Up</span></button>
 <div style="width:1px;background:var(--border);flex-shrink:0;margin:0 .2rem"></div>
 <span style="font-size:.52rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;flex-shrink:0;align-self:center">PREV</span>
