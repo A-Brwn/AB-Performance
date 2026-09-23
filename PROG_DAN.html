@@ -4,8 +4,8 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Dan — AB Performance</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="./auth.js"></script>
+
+
 <style>
 :root{--bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--white:#f0f0f5;--muted:#6b6b80;--border:#2a2a38;--purple:#7c3aed;--purple-lt:#a78bfa;--green:#22c55e}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -899,11 +899,64 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.9rem 2r
 </div>
 
 </div>
+
 <script>
 let statsGoalAdj = 250;
 window._clientId = "alex";
 window.addEventListener('load', () => { initSupabase(); loadStatsFromStorage(); loadPreviousWeights(); });
-async function handleSignOut() { await signOut(); }
+  const el=document.getElementById('sess-'+key);
+  const btn=document.getElementById('nav-'+key);
+  const key=input.dataset.memkey;
+  const stored=JSON.parse(localStorage.getItem('dan_weights')||'{}');
+  const row=input.closest('tr');
+  const age=parseFloat(document.getElementById('st_age').value)||0;
+  const h=parseFloat(document.getElementById('st_height').value)||0;
+  const w=parseFloat(document.getElementById('st_weight').value)||0;
+  const sex=document.getElementById('st_sex').value;
+  const act=parseFloat(document.getElementById('st_activity').value)||1.725;
+    const bmr=Math.round(sex==='male'?10*w+6.25*h-5*age+5:10*w+6.25*h-5*age-161);
+    const tdee=Math.round(bmr*act);
+    const target=tdee+statsGoalAdj;
+    const prot=Math.round(2.2*w);
+    const fat=Math.round(1.0*w);
+    const carbs=Math.max(0,Math.round((target-prot*4-fat*9)/4));
+  const g=id=>{const el=document.getElementById(id);return el?(el.value||el.textContent||''):''};
+  const data={name:g('st_name'),age:g('st_age'),weight:g('st_weight'),height:g('st_height'),sex:g('st_sex'),bmr:g('st_bmr'),tdee:g('st_tdee'),cals:g('st_cals'),protein:g('st_protein'),fat:g('st_fat'),carbs:g('st_carbs'),goalAdj:statsGoalAdj};
+  const saved=document.getElementById('statsSaved');
+  const raw=localStorage.getItem('dan_stats');
+    const s=JSON.parse(raw);
+    const set=(id,val)=>{const el=document.getElementById(id);if(el&&val)el.value=val};
+  const history = getStore(key) || [];
+  const valid = sets.filter(s => s.w || s.r);
+  const exName = row.dataset.exname;
+  const numSets = parseInt(row.dataset.sets) || 3;
+  const sets = [];
+    const r = row.querySelector('.set-r[data-set="' + i + '"]');
+  const ss = row.querySelector('.sets-summary');
+  const last = getLastLog(exName);
+  const str = last ? formatSets(last.sets) : null;
+  const sg = row.querySelector('.sets-grid');
+  const open = sg.classList.contains('open');
+    const lbl = row.querySelector('.set-box:nth-child(' + (i+1) + ') .set-box-label');
+    const prev = getPrevLog(exName);
+      const ps = prev.sets[i];
+  const newName = input.value.trim();
+  const dd = input.closest('.variation-dropdown');
+  const baseExName = row ? row.dataset.exname : '';
+  const lib = getCustomLibrary();
+  const libKey = baseExName.toLowerCase().replace(/[^a-z0-9]/g, '_');
+  const addEl = dd.querySelector('.variation-add');
+  const newOpt = document.createElement('div');
+    const customs = lib[libKey] || [];
+      const existing = Array.from(dd.querySelectorAll('.variation-opt')).find(o => o.textContent.trim() === name);
+      const opt = document.createElement('div');
+  const v = getSavedVariations();
+  const wrap = optEl.closest('.ex-name-wrap');
+  const oldName = row.dataset.exname;
+    const baseKey = row.dataset.basekey;
+    const savedName = saved[baseKey];
+
+function handleSignOut() { await signOut(); }
 function showSess(key) {
   document.querySelectorAll('.session').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
@@ -983,26 +1036,16 @@ function loadStatsFromStorage() {
     calcStatsAll();
   }catch(e){}
 }
-
-
-// ── EXERCISE LIBRARY + SET TRACKING ──────────────────────────────────────────
-
 function clientId() { return window._clientId || 'client'; }
-
-// Storage
 function getStore(key) {
   try { return JSON.parse(localStorage.getItem(clientId() + '_' + key) || 'null'); } catch(e) { return null; }
 }
 function setStore(key, val) {
   try { localStorage.setItem(clientId() + '_' + key, JSON.stringify(val)); } catch(e) {}
 }
-
-// ── SET LOGGING ───────────────────────────────────────────────────────────────
-// Key: exerciseName only (not session-specific) so last session always transfers
 function getExKey(exName) {
   return 'ex_' + exName.toLowerCase().replace(/[^a-z0-9]/g, '_');
 }
-
 function saveSetLog(exName, sets) {
   const key = getExKey(exName);
   const history = getStore(key) || [];
@@ -1013,26 +1056,22 @@ function saveSetLog(exName, sets) {
   if (history.length > 10) history.pop();
   setStore(key, history);
 }
-
 function getLastLog(exName) {
   const key = getExKey(exName);
   const history = getStore(key) || [];
   return history.length > 0 ? history[0] : null;
 }
-
 function getPrevLog(exName) {
   const key = getExKey(exName);
   const history = getStore(key) || [];
   return history.length > 1 ? history[1] : null;
 }
-
 function formatSets(sets) {
   if (!sets) return null;
   return sets.filter(s => s && (s.w || s.r))
     .map(s => (s.w ? s.w + 'kg' : '') + (s.w && s.r ? '×' : '') + (s.r ? s.r + ' reps' : ''))
     .filter(Boolean).join(' / ');
 }
-
 function onSetInput(input) {
   const row = input.closest('tr[data-exname]');
   if (!row) return;
@@ -1047,7 +1086,6 @@ function onSetInput(input) {
   saveSetLog(exName, sets);
   updateSummary(row, exName);
 }
-
 function updateSummary(row, exName) {
   const ss = row.querySelector('.sets-summary');
   if (!ss) return;
@@ -1055,7 +1093,6 @@ function updateSummary(row, exName) {
   const str = last ? formatSets(last.sets) : null;
   ss.innerHTML = str ? 'Last: <span>' + str + '</span>' : '';
 }
-
 function toggleSets(btn) {
   const row = btn.closest('tr');
   const sg = row.querySelector('.sets-grid');
@@ -1066,7 +1103,6 @@ function toggleSets(btn) {
   btn.textContent = open ? '▶ Sets' : '▼ Sets';
   if (!open) loadSetValues(row);
 }
-
 function loadSetValues(row) {
   const exName = row.dataset.exname;
   const last = getLastLog(exName);
@@ -1087,21 +1123,17 @@ function loadSetValues(row) {
     }
   }
 }
-
 function initAllSummaries() {
   document.querySelectorAll('tr[data-exname]').forEach(row => {
     updateSummary(row, row.dataset.exname);
   });
 }
-
-// ── CUSTOM EXERCISE LIBRARY ───────────────────────────────────────────────────
 function getCustomLibrary() {
   return getStore('custom_exercises') || {};
 }
 function saveCustomLibrary(lib) {
   setStore('custom_exercises', lib);
 }
-
 function addCustomVariation(input) {
   if (!input.value.trim() || event.key !== 'Enter') return;
   const newName = input.value.trim();
@@ -1130,7 +1162,6 @@ function addCustomVariation(input) {
   input.value = '';
   input.closest('.variation-custom-input').style.display = 'none';
 }
-
 function injectCustomExercises() {
   const lib = getCustomLibrary();
   document.querySelectorAll('tr[data-exname]').forEach(row => {
@@ -1153,15 +1184,12 @@ function injectCustomExercises() {
     });
   });
 }
-
-// ── SAVED VARIATION RESTORE ───────────────────────────────────────────────────
 function getSavedVariations() { return getStore('variations') || {}; }
 function saveSavedVariation(baseKey, name) {
   const v = getSavedVariations();
   v[baseKey] = name;
   setStore('variations', v);
 }
-
 function selectVariation(optEl, newName) {
   const dd = optEl.closest('.variation-dropdown');
   const wrap = optEl.closest('.ex-name-wrap');
@@ -1182,7 +1210,6 @@ function selectVariation(optEl, newName) {
   loadSetValues(row);
   updateSummary(row, newName);
 }
-
 function openVariation(btn) {
   document.querySelectorAll('.variation-dropdown.open').forEach(d => d.classList.remove('open'));
   const wrap = btn.closest('.ex-name-wrap');
@@ -1196,12 +1223,13 @@ function openVariation(btn) {
     }, 10);
   }
 }
-
+function closeDD(e) {
+        if (!wrap.contains(e.target)) { dd.classList.remove('open'); document.removeEventListener('click', closeDD); }
+      }
 function showCustomInput(el) {
   const wrap = el.closest('.variation-dropdown').querySelector('.variation-custom-input');
   if (wrap) { wrap.style.display = 'block'; wrap.querySelector('input').focus(); }
 }
-
 function restoreVariations() {
   const saved = getSavedVariations();
   document.querySelectorAll('tr[data-exname]').forEach(row => {
@@ -1215,14 +1243,6 @@ function restoreVariations() {
     updateSummary(row, row.dataset.exname);
   });
 }
-
-// ── INIT ──────────────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', function() {
-  injectCustomExercises();
-  restoreVariations();
-  initAllSummaries();
-});
-
 </script>
 </body>
 </html>
@@ -6529,330 +6549,6 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 </div>
 </div>
-<script>
-statsGoalAdj = 250;
-window._clientId = "alex";
-window.addEventListener('load', () => { initSupabase(); loadStatsFromStorage(); loadPreviousWeights(); });
-async function handleSignOut() { await signOut(); }
-function showSess(key) {
-  document.querySelectorAll('.session').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  const el=document.getElementById('sess-'+key);
-  const btn=document.getElementById('nav-'+key);
-  if(el) el.classList.add('active');
-  if(btn) btn.classList.add('active');
-  if(key!=='STATS'&&key!=='WARMUP') loadPreviousWeights();
-  window.scrollTo({top:0,behavior:'smooth'});
-  localStorage.setItem('dan_last_sess',key);
-}
-function saveWeight(input) {
-  const key=input.dataset.memkey;
-  if(!key||!input.value) return;
-  const stored=JSON.parse(localStorage.getItem('dan_weights')||'{}');
-  if(!stored[key]) stored[key]=[];
-  stored[key].unshift(parseFloat(input.value));
-  if(stored[key].length>5) stored[key].pop();
-  localStorage.setItem('dan_weights',JSON.stringify(stored));
-  const row=input.closest('tr');
-  if(row&&stored[key].length>1){const prev=row.querySelector('.prev-cell');if(prev){prev.textContent=stored[key][1]+'kg';prev.style.color='var(--green)';}}
-}
-function loadPreviousWeights() {
-  const stored=JSON.parse(localStorage.getItem('dan_weights')||'{}');
-  document.querySelectorAll('.actual-input').forEach(input=>{
-    const key=input.dataset.memkey;
-    if(key&&stored[key]&&stored[key].length>0){
-      input.value=stored[key][0];
-      const row=input.closest('tr');
-      if(row&&stored[key].length>1){const prev=row.querySelector('.prev-cell');if(prev){prev.textContent=stored[key][1]+'kg';prev.style.color='var(--green)';}}
-    }
-  });
-}
-function calcStatsAll() {
-  const age=parseFloat(document.getElementById('st_age').value)||0;
-  const h=parseFloat(document.getElementById('st_height').value)||0;
-  const w=parseFloat(document.getElementById('st_weight').value)||0;
-  const sex=document.getElementById('st_sex').value;
-  const act=parseFloat(document.getElementById('st_activity').value)||1.725;
-  if(h&&w) document.getElementById('st_bmi').textContent=(w/((h/100)**2)).toFixed(1)+' kg/m²';
-  if(age&&h&&w){
-    const bmr=Math.round(sex==='male'?10*w+6.25*h-5*age+5:10*w+6.25*h-5*age-161);
-    const tdee=Math.round(bmr*act);
-    const target=tdee+statsGoalAdj;
-    document.getElementById('st_bmr').textContent=bmr+' kcal/day';
-    document.getElementById('st_tdee').textContent=tdee+' kcal/day';
-    document.getElementById('st_cals').textContent=target+' kcal/day';
-    const prot=Math.round(2.2*w);
-    const fat=Math.round(1.0*w);
-    const carbs=Math.max(0,Math.round((target-prot*4-fat*9)/4));
-    document.getElementById('st_protein').textContent=prot+'g';
-    document.getElementById('st_fat').textContent=fat+'g';
-    document.getElementById('st_carbs').textContent=carbs+'g';
-  }
-}
-function selectStatsGoal(el) {
-  document.querySelectorAll('#st_goalGrid .goal-opt').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected');
-  statsGoalAdj=parseInt(el.dataset.adj);
-  calcStatsAll();
-}
-function saveStats() {
-  const g=id=>{const el=document.getElementById(id);return el?(el.value||el.textContent||''):''};
-  const data={name:g('st_name'),age:g('st_age'),weight:g('st_weight'),height:g('st_height'),sex:g('st_sex'),bmr:g('st_bmr'),tdee:g('st_tdee'),cals:g('st_cals'),protein:g('st_protein'),fat:g('st_fat'),carbs:g('st_carbs'),goalAdj:statsGoalAdj};
-  localStorage.setItem('dan_stats',JSON.stringify(data));
-  const saved=document.getElementById('statsSaved');
-  if(saved){saved.style.display='inline';setTimeout(()=>saved.style.display='none',2000)}
-}
-function loadStatsFromStorage() {
-  const raw=localStorage.getItem('dan_stats');
-  if(!raw) return;
-  try{
-    const s=JSON.parse(raw);
-    const set=(id,val)=>{const el=document.getElementById(id);if(el&&val)el.value=val};
-    set('st_name',s.name);set('st_age',s.age);set('st_weight',s.weight);set('st_height',s.height);set('st_sex',s.sex);
-    if(s.goalAdj!==undefined){statsGoalAdj=parseInt(s.goalAdj)||250;document.querySelectorAll('#st_goalGrid .goal-opt').forEach(el=>{el.classList.toggle('selected',parseInt(el.dataset.adj)===statsGoalAdj);});}
-    calcStatsAll();
-  }catch(e){}
-}
 
-
-// ── EXERCISE LIBRARY + SET TRACKING ──────────────────────────────────────────
-
-function clientId() { return window._clientId || 'client'; }
-
-// Storage
-function getStore(key) {
-  try { return JSON.parse(localStorage.getItem(clientId() + '_' + key) || 'null'); } catch(e) { return null; }
-}
-function setStore(key, val) {
-  try { localStorage.setItem(clientId() + '_' + key, JSON.stringify(val)); } catch(e) {}
-}
-
-// ── SET LOGGING ───────────────────────────────────────────────────────────────
-// Key: exerciseName only (not session-specific) so last session always transfers
-function getExKey(exName) {
-  return 'ex_' + exName.toLowerCase().replace(/[^a-z0-9]/g, '_');
-}
-
-function saveSetLog(exName, sets) {
-  const key = getExKey(exName);
-  const history = getStore(key) || [];
-  // sets = [{w, r}, ...]
-  const valid = sets.filter(s => s.w || s.r);
-  if (!valid.length) return;
-  history.unshift({ sets: sets, ts: Date.now() });
-  if (history.length > 10) history.pop();
-  setStore(key, history);
-}
-
-function getLastLog(exName) {
-  const key = getExKey(exName);
-  const history = getStore(key) || [];
-  return history.length > 0 ? history[0] : null;
-}
-
-function getPrevLog(exName) {
-  const key = getExKey(exName);
-  const history = getStore(key) || [];
-  return history.length > 1 ? history[1] : null;
-}
-
-function formatSets(sets) {
-  if (!sets) return null;
-  return sets.filter(s => s && (s.w || s.r))
-    .map(s => (s.w ? s.w + 'kg' : '') + (s.w && s.r ? '×' : '') + (s.r ? s.r + ' reps' : ''))
-    .filter(Boolean).join(' / ');
-}
-
-function onSetInput(input) {
-  const row = input.closest('tr[data-exname]');
-  if (!row) return;
-  const exName = row.dataset.exname;
-  const numSets = parseInt(row.dataset.sets) || 3;
-  const sets = [];
-  for (let i = 1; i <= numSets; i++) {
-    const w = row.querySelector('.set-w[data-set="' + i + '"]');
-    const r = row.querySelector('.set-r[data-set="' + i + '"]');
-    sets.push({ w: w && w.value ? parseFloat(w.value) : null, r: r && r.value ? parseInt(r.value) : null });
-  }
-  saveSetLog(exName, sets);
-  updateSummary(row, exName);
-}
-
-function updateSummary(row, exName) {
-  const ss = row.querySelector('.sets-summary');
-  if (!ss) return;
-  const last = getLastLog(exName);
-  const str = last ? formatSets(last.sets) : null;
-  ss.innerHTML = str ? 'Last: <span>' + str + '</span>' : '';
-}
-
-function toggleSets(btn) {
-  const row = btn.closest('tr');
-  const sg = row.querySelector('.sets-grid');
-  if (!sg) return;
-  const open = sg.classList.contains('open');
-  sg.classList.toggle('open', !open);
-  btn.classList.toggle('open', !open);
-  btn.textContent = open ? '▶ Sets' : '▼ Sets';
-  if (!open) loadSetValues(row);
-}
-
-function loadSetValues(row) {
-  const exName = row.dataset.exname;
-  const last = getLastLog(exName);
-  if (!last || !last.sets) return;
-  const numSets = parseInt(row.dataset.sets) || 3;
-  for (let i = 0; i < numSets; i++) {
-    const s = last.sets[i];
-    if (!s) continue;
-    const w = row.querySelector('.set-w[data-set="' + (i+1) + '"]');
-    const r = row.querySelector('.set-r[data-set="' + (i+1) + '"]');
-    const lbl = row.querySelector('.set-box:nth-child(' + (i+1) + ') .set-box-label');
-    if (w && s.w) w.value = s.w;
-    if (r && s.r) r.value = s.r;
-    const prev = getPrevLog(exName);
-    if (lbl && prev && prev.sets && prev.sets[i]) {
-      const ps = prev.sets[i];
-      lbl.textContent = 'Set ' + (i+1) + (ps.w || ps.r ? ' · prev: ' + (ps.w ? ps.w+'kg' : '') + (ps.r ? '×'+ps.r : '') : '');
-    }
-  }
-}
-
-function initAllSummaries() {
-  document.querySelectorAll('tr[data-exname]').forEach(row => {
-    updateSummary(row, row.dataset.exname);
-  });
-}
-
-// ── CUSTOM EXERCISE LIBRARY ───────────────────────────────────────────────────
-function getCustomLibrary() {
-  return getStore('custom_exercises') || {};
-}
-function saveCustomLibrary(lib) {
-  setStore('custom_exercises', lib);
-}
-
-function addCustomVariation(input) {
-  if (!input.value.trim() || event.key !== 'Enter') return;
-  const newName = input.value.trim();
-  const dd = input.closest('.variation-dropdown');
-  const row = input.closest('tr[data-exname]');
-  const baseExName = row ? row.dataset.exname : '';
-
-  // Save to library under the base exercise key
-  const lib = getCustomLibrary();
-  const libKey = baseExName.toLowerCase().replace(/[^a-z0-9]/g, '_');
-  if (!lib[libKey]) lib[libKey] = [];
-  if (!lib[libKey].includes(newName)) {
-    lib[libKey].push(newName);
-    saveCustomLibrary(lib);
-  }
-
-  // Add to dropdown UI
-  const addEl = dd.querySelector('.variation-add');
-  const newOpt = document.createElement('div');
-  newOpt.className = 'variation-opt';
-  newOpt.textContent = newName;
-  newOpt.onclick = () => selectVariation(newOpt, newName);
-  dd.insertBefore(newOpt, addEl);
-
-  selectVariation(newOpt, newName);
-  input.value = '';
-  input.closest('.variation-custom-input').style.display = 'none';
-}
-
-function injectCustomExercises() {
-  const lib = getCustomLibrary();
-  document.querySelectorAll('tr[data-exname]').forEach(row => {
-    const exName = row.dataset.exname;
-    const libKey = exName.toLowerCase().replace(/[^a-z0-9]/g, '_');
-    const customs = lib[libKey] || [];
-    if (!customs.length) return;
-    const dd = row.querySelector('.variation-dropdown');
-    if (!dd) return;
-    const addEl = dd.querySelector('.variation-add');
-    customs.forEach(name => {
-      // Don't add if already exists
-      const existing = Array.from(dd.querySelectorAll('.variation-opt')).find(o => o.textContent.trim() === name);
-      if (existing) return;
-      const opt = document.createElement('div');
-      opt.className = 'variation-opt';
-      opt.textContent = name;
-      opt.onclick = () => selectVariation(opt, name);
-      dd.insertBefore(opt, addEl);
-    });
-  });
-}
-
-// ── SAVED VARIATION RESTORE ───────────────────────────────────────────────────
-function getSavedVariations() { return getStore('variations') || {}; }
-function saveSavedVariation(baseKey, name) {
-  const v = getSavedVariations();
-  v[baseKey] = name;
-  setStore('variations', v);
-}
-
-function selectVariation(optEl, newName) {
-  const dd = optEl.closest('.variation-dropdown');
-  const wrap = optEl.closest('.ex-name-wrap');
-  const row = optEl.closest('tr[data-exname]');
-  if (!row || !dd || !wrap) return;
-  const btn = wrap.querySelector('.ex-name-btn');
-  if (btn) btn.childNodes[0].textContent = newName;
-  const oldName = row.dataset.exname;
-  row.dataset.exname = newName;
-  dd.querySelectorAll('.variation-opt').forEach(o => {
-    o.classList.remove('active');
-    if (o.textContent.startsWith('✓ ')) o.textContent = o.textContent.slice(2);
-  });
-  optEl.classList.add('active');
-  optEl.textContent = '✓ ' + newName;
-  dd.classList.remove('open');
-  saveSavedVariation(row.dataset.basekey || oldName, newName);
-  loadSetValues(row);
-  updateSummary(row, newName);
-}
-
-function openVariation(btn) {
-  document.querySelectorAll('.variation-dropdown.open').forEach(d => d.classList.remove('open'));
-  const wrap = btn.closest('.ex-name-wrap');
-  const dd = wrap && wrap.querySelector('.variation-dropdown');
-  if (dd) {
-    dd.classList.toggle('open');
-    setTimeout(() => {
-      document.addEventListener('click', function closeDD(e) {
-        if (!wrap.contains(e.target)) { dd.classList.remove('open'); document.removeEventListener('click', closeDD); }
-      });
-    }, 10);
-  }
-}
-
-function showCustomInput(el) {
-  const wrap = el.closest('.variation-dropdown').querySelector('.variation-custom-input');
-  if (wrap) { wrap.style.display = 'block'; wrap.querySelector('input').focus(); }
-}
-
-function restoreVariations() {
-  const saved = getSavedVariations();
-  document.querySelectorAll('tr[data-exname]').forEach(row => {
-    const baseKey = row.dataset.basekey;
-    const savedName = saved[baseKey];
-    if (savedName && savedName !== row.dataset.exname) {
-      const btn = row.querySelector('.ex-name-btn');
-      if (btn) btn.childNodes[0].textContent = savedName;
-      row.dataset.exname = savedName;
-    }
-    updateSummary(row, row.dataset.exname);
-  });
-}
-
-// ── INIT ──────────────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', function() {
-  injectCustomExercises();
-  restoreVariations();
-  initAllSummaries();
-});
-
-</script>
 </body>
 </html>
