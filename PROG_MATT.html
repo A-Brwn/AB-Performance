@@ -41,18 +41,16 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.8rem 2r
 .ss-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.06em;color:var(--white)}
 .ss-toggle{background:none;border:1px solid var(--border);border-radius:3px;color:var(--muted);font-size:.65rem;padding:.2rem .5rem;cursor:pointer;transition:all .15s}
 .ss-toggle.open{border-color:var(--purple-lt);color:var(--purple-lt)}
-.ss-exercises{padding:.8rem 1.2rem;display:flex;gap:1rem}
-.ss-ex{flex:1;min-width:0}
+.ss-exercises{padding:.8rem 1.2rem;display:flex;gap:1rem;flex-wrap:wrap}
+.ss-ex{flex:1;min-width:140px}
 .ss-ex-header{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:.2rem .5rem;border-radius:3px;margin-bottom:.5rem;display:inline-block}
 .ss-col-a .ss-ex-header{background:rgba(124,58,237,.18);color:#a78bfa}
 .ss-col-b .ss-ex-header{background:rgba(6,182,212,.18);color:#67e8f9}
 .ss-col-c .ss-ex-header{background:rgba(34,197,94,.18);color:#86efac}
-.ss-col-d .ss-ex-header{background:rgba(249,115,22,.18);color:#fdba74}
 .ss-ex-name{font-weight:600;font-size:.82rem;margin-bottom:.15rem}
 .ss-ex-load{font-size:.75rem;color:var(--purple-lt);font-weight:600}
 .ss-col-b .ss-ex-load{color:#67e8f9}
 .ss-col-c .ss-ex-load{color:#86efac}
-.ss-col-d .ss-ex-load{color:#fdba74}
 .ss-ex-notes{font-size:.68rem;color:var(--muted);margin-top:.2rem}
 .ss-sets-grid{display:none;padding:.8rem 1.2rem;border-top:1px solid var(--border)}
 .ss-sets-grid.open{display:flex;gap:.8rem;flex-wrap:wrap}
@@ -61,7 +59,6 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.8rem 2r
 .ss-col-wrap.col-a .ss-col-label{background:rgba(124,58,237,.18);color:#a78bfa}
 .ss-col-wrap.col-b .ss-col-label{background:rgba(6,182,212,.18);color:#67e8f9}
 .ss-col-wrap.col-c .ss-col-label{background:rgba(34,197,94,.18);color:#86efac}
-.ss-col-wrap.col-d .ss-col-label{background:rgba(249,115,22,.18);color:#fdba74}
 .ss-set-boxes{display:flex;flex-direction:column;gap:.35rem}
 .ss-set-box{background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:.35rem .5rem}
 .set-label{font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:.25rem}
@@ -99,7 +96,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.8rem 2r
 <strong style="color:var(--white)">Format:</strong> 2 sessions/week · 4-week block<br>
 <strong style="color:var(--white)">Session 1 (PT):</strong> Full body weights — 5 supersets<br>
 <strong style="color:var(--white)">Session 2 (Independent):</strong> 20 min cardio + full body weights — 4 supersets<br>
-<strong style="color:var(--white)">Equipment:</strong> Dumbbells up to 25kg + Barbell<br>
+<strong style="color:var(--white)">Equipment:</strong> Dumbbells + Barbell only<br>
 <strong style="color:var(--white)">Note:</strong> Lower back friendly — no bent over rows, RDL or squats
 </div></div>
 <div class="wu-block">
@@ -107,10 +104,11 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:.8rem 2r
 <div style="font-size:.82rem;line-height:1.9;color:var(--muted)">
 DB Bench Press — <strong style="color:var(--purple-lt)">22.5kg</strong><br>
 Incline DB Press — <strong style="color:var(--purple-lt)">17.5kg</strong><br>
-Lat Pulldown — <strong style="color:var(--purple-lt)">30kg</strong><br>
-Seated Cable Row — <strong style="color:var(--purple-lt)">22.5kg</strong><br>
+DB Row — <strong style="color:var(--purple-lt)">22.5kg</strong><br>
+Lat Pullover (DB) — <strong style="color:var(--purple-lt)">10kg</strong><br>
 Shoulder Press (DB) — <strong style="color:var(--purple-lt)">12.5kg</strong><br>
-Lateral Raise — <strong style="color:var(--purple-lt)">5kg</strong><br>
+Front Raise — <strong style="color:var(--purple-lt)">5kg</strong><br>
+Reverse DB Fly — <strong style="color:var(--purple-lt)">5kg</strong><br>
 Incline Curl — <strong style="color:var(--purple-lt)">7.5kg</strong><br>
 Hammer Curl — <strong style="color:var(--purple-lt)">10kg</strong><br>
 Preacher Curl — <strong style="color:var(--purple-lt)">10kg</strong><br>
@@ -153,17 +151,17 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w1s1_ss1_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Bench Press</div>
-          <div class="ss-ex-load">22.5kg — 4×10–12</div>
+          <div class="ss-ex-load">22.5kg — 3×10–12</div>
           <div class="ss-ex-notes">Control the descent, 2 sec down</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Lat Pulldown</div>
-          <div class="ss-ex-load">30kg — 4×10–12</div>
-          <div class="ss-ex-notes">Full ROM, squeeze at top</div>
+          <div class="ss-ex-name">DB Row</div>
+          <div class="ss-ex-load">22.5kg — 3×10–12</div>
+          <div class="ss-ex-notes">Controlled pull, elbow drives back</div>
         </div>
   </div>
   <div class="ss-sets-grid" id="ss_matt_w1s1_ss1_grid">
@@ -200,16 +198,6 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
                 <input type="number" placeholder="reps"
                   id="ss_matt_w1s1_ss1_a_s3_rp" onchange="onSSInput('ss_matt_w1s1_ss1_a_s3')" value="">
               </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 4</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w1s1_ss1_a_s4_kg" onchange="onSSInput('ss_matt_w1s1_ss1_a_s4')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w1s1_ss1_a_s4_rp" onchange="onSSInput('ss_matt_w1s1_ss1_a_s4')" value="">
-              </div>
             </div></div>
           <div class="ss-summary" id="ss_matt_w1s1_ss1_a_sum"></div>
         </div>
@@ -245,16 +233,6 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
                 <input type="number" placeholder="reps"
                   id="ss_matt_w1s1_ss1_b_s3_rp" onchange="onSSInput('ss_matt_w1s1_ss1_b_s3')" value="">
               </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 4</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w1s1_ss1_b_s4_kg" onchange="onSSInput('ss_matt_w1s1_ss1_b_s4')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w1s1_ss1_b_s4_rp" onchange="onSSInput('ss_matt_w1s1_ss1_b_s4')" value="">
-              </div>
             </div></div>
           <div class="ss-summary" id="ss_matt_w1s1_ss1_b_sum"></div>
         </div>
@@ -266,13 +244,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w1s1_ss2_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Incline DB Press</div>
           <div class="ss-ex-load">17.5kg — 3×10–12</div>
           <div class="ss-ex-notes">30–45° incline</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">DB Chest Fly</div>
           <div class="ss-ex-load">8kg — 3×12–15</div>
@@ -359,26 +337,20 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w1s1_ss3_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Shoulder Press</div>
           <div class="ss-ex-load">12.5kg — 3×10–12</div>
           <div class="ss-ex-notes">Press overhead, don't arch</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Lateral Raise</div>
-          <div class="ss-ex-load">5kg — 3×12–15</div>
-          <div class="ss-ex-notes">Slight forward tilt, lead with elbows</div>
-        </div>
-        <div class="ss-ex ss-col-c col-c">
-          <div class="ss-ex-header">Exercise C</div>
           <div class="ss-ex-name">Front Raise</div>
           <div class="ss-ex-load">5kg — 3×12</div>
           <div class="ss-ex-notes">Alternate arms or together</div>
         </div>
-        <div class="ss-ex ss-col-d col-d">
-          <div class="ss-ex-header">Exercise D</div>
+        <div class="ss-ex ss-col-c">
+          <div class="ss-ex-header">Exercise C</div>
           <div class="ss-ex-name">Reverse DB Fly</div>
           <div class="ss-ex-load">5kg — 3×12–15</div>
           <div class="ss-ex-notes">Slight bend in elbows, rear delts</div>
@@ -491,41 +463,6 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
             </div></div>
           <div class="ss-summary" id="ss_matt_w1s1_ss3_c_sum"></div>
         </div>
-        <div class="ss-col-wrap col-d">
-          <div class="ss-col-label">Exercise D</div>
-          <div class="ss-set-boxes">
-            <div class="ss-set-box">
-              <div class="set-label">Set 1</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w1s1_ss3_d_s1_kg" onchange="onSSInput('ss_matt_w1s1_ss3_d_s1')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w1s1_ss3_d_s1_rp" onchange="onSSInput('ss_matt_w1s1_ss3_d_s1')" value="">
-              </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 2</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w1s1_ss3_d_s2_kg" onchange="onSSInput('ss_matt_w1s1_ss3_d_s2')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w1s1_ss3_d_s2_rp" onchange="onSSInput('ss_matt_w1s1_ss3_d_s2')" value="">
-              </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 3</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w1s1_ss3_d_s3_kg" onchange="onSSInput('ss_matt_w1s1_ss3_d_s3')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w1s1_ss3_d_s3_rp" onchange="onSSInput('ss_matt_w1s1_ss3_d_s3')" value="">
-              </div>
-            </div></div>
-          <div class="ss-summary" id="ss_matt_w1s1_ss3_d_sum"></div>
-        </div>
   </div>
 </div>
 <div class="ss-block" id="ss_matt_w1s1_ss4">
@@ -534,13 +471,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w1s1_ss4_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Preacher Curl (DB)</div>
           <div class="ss-ex-load">10kg — 3×10–12</div>
           <div class="ss-ex-notes">Full extension at bottom</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">Skull Crushers</div>
           <div class="ss-ex-load">12.5kg — 3×10–12</div>
@@ -627,13 +564,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w1s1_ss5_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">FFESS (Front Foot Elevated Split Squat)</div>
           <div class="ss-ex-load">20kg — 3×10 each side</div>
           <div class="ss-ex-notes">Lead knee tracks over toe</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">Seated Leg Curl</div>
           <div class="ss-ex-load">10kg — 3×12–15</div>
@@ -720,17 +657,17 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w1s1_ss6_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Glute Bridge</div>
           <div class="ss-ex-load">22.5kg — 3×15</div>
           <div class="ss-ex-notes">Squeeze at top, 1 sec hold</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">Plank</div>
           <div class="ss-ex-load">Bodyweight — 3×30–45 sec</div>
-          <div class="ss-ex-notes">(Optional — if energy allows)</div>
+          
         </div>
   </div>
   <div class="ss-sets-grid" id="ss_matt_w1s1_ss6_grid">
@@ -840,17 +777,17 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w1s2_ss1_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Bench Press</div>
           <div class="ss-ex-load">22.5kg — 3×10–12</div>
-          <div class="ss-ex-notes">Same focus as PT session</div>
+          
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Seated Cable Row</div>
-          <div class="ss-ex-load">22.5kg — 3×10–12</div>
-          <div class="ss-ex-notes">Full ROM</div>
+          <div class="ss-ex-name">Lat Pullover (DB)</div>
+          <div class="ss-ex-load">10kg — 3×10–12</div>
+          <div class="ss-ex-notes">Slight bend in elbows, arc over chest</div>
         </div>
   </div>
   <div class="ss-sets-grid" id="ss_matt_w1s2_ss1_grid">
@@ -933,14 +870,20 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w1s2_ss2_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Shoulder Press</div>
           <div class="ss-ex-load">12.5kg — 3×10–12</div>
           
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
+          <div class="ss-ex-name">Front Raise</div>
+          <div class="ss-ex-load">5kg — 3×12</div>
+          
+        </div>
+        <div class="ss-ex ss-col-c">
+          <div class="ss-ex-header">Exercise C</div>
           <div class="ss-ex-name">Reverse DB Fly</div>
           <div class="ss-ex-load">5kg — 3×12–15</div>
           
@@ -1018,6 +961,41 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
             </div></div>
           <div class="ss-summary" id="ss_matt_w1s2_ss2_b_sum"></div>
         </div>
+        <div class="ss-col-wrap col-c">
+          <div class="ss-col-label">Exercise C</div>
+          <div class="ss-set-boxes">
+            <div class="ss-set-box">
+              <div class="set-label">Set 1</div>
+              <div class="set-inputs">
+                <input type="number" placeholder="kg" step="0.5"
+                  id="ss_matt_w1s2_ss2_c_s1_kg" onchange="onSSInput('ss_matt_w1s2_ss2_c_s1')" value="">
+                <span>kg ×</span>
+                <input type="number" placeholder="reps"
+                  id="ss_matt_w1s2_ss2_c_s1_rp" onchange="onSSInput('ss_matt_w1s2_ss2_c_s1')" value="">
+              </div>
+            </div>
+            <div class="ss-set-box">
+              <div class="set-label">Set 2</div>
+              <div class="set-inputs">
+                <input type="number" placeholder="kg" step="0.5"
+                  id="ss_matt_w1s2_ss2_c_s2_kg" onchange="onSSInput('ss_matt_w1s2_ss2_c_s2')" value="">
+                <span>kg ×</span>
+                <input type="number" placeholder="reps"
+                  id="ss_matt_w1s2_ss2_c_s2_rp" onchange="onSSInput('ss_matt_w1s2_ss2_c_s2')" value="">
+              </div>
+            </div>
+            <div class="ss-set-box">
+              <div class="set-label">Set 3</div>
+              <div class="set-inputs">
+                <input type="number" placeholder="kg" step="0.5"
+                  id="ss_matt_w1s2_ss2_c_s3_kg" onchange="onSSInput('ss_matt_w1s2_ss2_c_s3')" value="">
+                <span>kg ×</span>
+                <input type="number" placeholder="reps"
+                  id="ss_matt_w1s2_ss2_c_s3_rp" onchange="onSSInput('ss_matt_w1s2_ss2_c_s3')" value="">
+              </div>
+            </div></div>
+          <div class="ss-summary" id="ss_matt_w1s2_ss2_c_sum"></div>
+        </div>
   </div>
 </div>
 <div class="ss-block" id="ss_matt_w1s2_ss3">
@@ -1026,16 +1004,16 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w1s2_ss3_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Incline Curl</div>
           <div class="ss-ex-load">7.5kg — 3×10–12</div>
           <div class="ss-ex-notes">Supinate at top</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Tricep Dips (Machine/Bench)</div>
-          <div class="ss-ex-load">Bodyweight — 3×10–12</div>
+          <div class="ss-ex-name">Skull Crushers</div>
+          <div class="ss-ex-load">12.5kg — 3×10–12</div>
           <div class="ss-ex-notes">Control the negative</div>
         </div>
   </div>
@@ -1119,13 +1097,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w1s2_ss4_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Step Up</div>
           <div class="ss-ex-load">20kg — 3×10 each side</div>
           
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">DB Calf Raise (Standing)</div>
           <div class="ss-ex-load">10kg — 3×15–20</div>
@@ -1231,17 +1209,17 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w2s1_ss1_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Bench Press</div>
-          <div class="ss-ex-load">22.5kg — 4×10–12</div>
+          <div class="ss-ex-load">22.5kg — 3×10–12</div>
           <div class="ss-ex-notes">Control the descent, 2 sec down</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Lat Pulldown</div>
-          <div class="ss-ex-load">30kg — 4×10–12</div>
-          <div class="ss-ex-notes">Full ROM, squeeze at top</div>
+          <div class="ss-ex-name">Lat Pullover (DB)</div>
+          <div class="ss-ex-load">10kg — 3×10–12</div>
+          <div class="ss-ex-notes">Slight bend in elbows, arc over chest</div>
         </div>
   </div>
   <div class="ss-sets-grid" id="ss_matt_w2s1_ss1_grid">
@@ -1278,16 +1256,6 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
                 <input type="number" placeholder="reps"
                   id="ss_matt_w2s1_ss1_a_s3_rp" onchange="onSSInput('ss_matt_w2s1_ss1_a_s3')" value="">
               </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 4</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w2s1_ss1_a_s4_kg" onchange="onSSInput('ss_matt_w2s1_ss1_a_s4')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w2s1_ss1_a_s4_rp" onchange="onSSInput('ss_matt_w2s1_ss1_a_s4')" value="">
-              </div>
             </div></div>
           <div class="ss-summary" id="ss_matt_w2s1_ss1_a_sum"></div>
         </div>
@@ -1323,16 +1291,6 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
                 <input type="number" placeholder="reps"
                   id="ss_matt_w2s1_ss1_b_s3_rp" onchange="onSSInput('ss_matt_w2s1_ss1_b_s3')" value="">
               </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 4</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w2s1_ss1_b_s4_kg" onchange="onSSInput('ss_matt_w2s1_ss1_b_s4')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w2s1_ss1_b_s4_rp" onchange="onSSInput('ss_matt_w2s1_ss1_b_s4')" value="">
-              </div>
             </div></div>
           <div class="ss-summary" id="ss_matt_w2s1_ss1_b_sum"></div>
         </div>
@@ -1344,13 +1302,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w2s1_ss2_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Incline DB Press</div>
           <div class="ss-ex-load">17.5kg — 3×10–12</div>
           <div class="ss-ex-notes">30–45° incline</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">DB Chest Fly</div>
           <div class="ss-ex-load">8kg — 3×12–15</div>
@@ -1437,26 +1395,20 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w2s1_ss3_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Shoulder Press</div>
           <div class="ss-ex-load">12.5kg — 3×10–12</div>
           <div class="ss-ex-notes">Press overhead, don't arch</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Lateral Raise</div>
-          <div class="ss-ex-load">5kg — 3×12–15</div>
-          <div class="ss-ex-notes">Slight forward tilt, lead with elbows</div>
-        </div>
-        <div class="ss-ex ss-col-c col-c">
-          <div class="ss-ex-header">Exercise C</div>
           <div class="ss-ex-name">Front Raise</div>
           <div class="ss-ex-load">5kg — 3×12</div>
           <div class="ss-ex-notes">Alternate arms or together</div>
         </div>
-        <div class="ss-ex ss-col-d col-d">
-          <div class="ss-ex-header">Exercise D</div>
+        <div class="ss-ex ss-col-c">
+          <div class="ss-ex-header">Exercise C</div>
           <div class="ss-ex-name">Reverse DB Fly</div>
           <div class="ss-ex-load">5kg — 3×12–15</div>
           <div class="ss-ex-notes">Slight bend in elbows, rear delts</div>
@@ -1569,41 +1521,6 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
             </div></div>
           <div class="ss-summary" id="ss_matt_w2s1_ss3_c_sum"></div>
         </div>
-        <div class="ss-col-wrap col-d">
-          <div class="ss-col-label">Exercise D</div>
-          <div class="ss-set-boxes">
-            <div class="ss-set-box">
-              <div class="set-label">Set 1</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w2s1_ss3_d_s1_kg" onchange="onSSInput('ss_matt_w2s1_ss3_d_s1')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w2s1_ss3_d_s1_rp" onchange="onSSInput('ss_matt_w2s1_ss3_d_s1')" value="">
-              </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 2</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w2s1_ss3_d_s2_kg" onchange="onSSInput('ss_matt_w2s1_ss3_d_s2')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w2s1_ss3_d_s2_rp" onchange="onSSInput('ss_matt_w2s1_ss3_d_s2')" value="">
-              </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 3</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w2s1_ss3_d_s3_kg" onchange="onSSInput('ss_matt_w2s1_ss3_d_s3')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w2s1_ss3_d_s3_rp" onchange="onSSInput('ss_matt_w2s1_ss3_d_s3')" value="">
-              </div>
-            </div></div>
-          <div class="ss-summary" id="ss_matt_w2s1_ss3_d_sum"></div>
-        </div>
   </div>
 </div>
 <div class="ss-block" id="ss_matt_w2s1_ss4">
@@ -1612,13 +1529,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w2s1_ss4_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Preacher Curl (DB)</div>
           <div class="ss-ex-load">10kg — 3×10–12</div>
           <div class="ss-ex-notes">Full extension at bottom</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">Skull Crushers</div>
           <div class="ss-ex-load">12.5kg — 3×10–12</div>
@@ -1705,13 +1622,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w2s1_ss5_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Step Up</div>
           <div class="ss-ex-load">20kg — 3×10 each side</div>
           <div class="ss-ex-notes">Lead knee tracks over toe</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">Seated Leg Curl</div>
           <div class="ss-ex-load">10kg — 3×12–15</div>
@@ -1798,17 +1715,17 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w2s1_ss6_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Glute Bridge</div>
           <div class="ss-ex-load">22.5kg — 3×15</div>
           <div class="ss-ex-notes">Squeeze at top, 1 sec hold</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">Plank</div>
           <div class="ss-ex-load">Bodyweight — 3×30–45 sec</div>
-          <div class="ss-ex-notes">(Core finisher)</div>
+          
         </div>
   </div>
   <div class="ss-sets-grid" id="ss_matt_w2s1_ss6_grid">
@@ -1918,17 +1835,17 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w2s2_ss1_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Bench Press</div>
           <div class="ss-ex-load">22.5kg — 3×10–12</div>
-          <div class="ss-ex-notes">Same focus as PT session</div>
+          
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Seated Cable Row</div>
+          <div class="ss-ex-name">DB Row</div>
           <div class="ss-ex-load">22.5kg — 3×10–12</div>
-          <div class="ss-ex-notes">Full ROM</div>
+          <div class="ss-ex-notes">Controlled pull, elbow drives back</div>
         </div>
   </div>
   <div class="ss-sets-grid" id="ss_matt_w2s2_ss1_grid">
@@ -2011,15 +1928,21 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w2s2_ss2_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Shoulder Press</div>
           <div class="ss-ex-load">12.5kg — 3×10–12</div>
           
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Lateral Raise</div>
+          <div class="ss-ex-name">Front Raise</div>
+          <div class="ss-ex-load">5kg — 3×12</div>
+          
+        </div>
+        <div class="ss-ex ss-col-c">
+          <div class="ss-ex-header">Exercise C</div>
+          <div class="ss-ex-name">Reverse DB Fly</div>
           <div class="ss-ex-load">5kg — 3×12–15</div>
           
         </div>
@@ -2096,6 +2019,41 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
             </div></div>
           <div class="ss-summary" id="ss_matt_w2s2_ss2_b_sum"></div>
         </div>
+        <div class="ss-col-wrap col-c">
+          <div class="ss-col-label">Exercise C</div>
+          <div class="ss-set-boxes">
+            <div class="ss-set-box">
+              <div class="set-label">Set 1</div>
+              <div class="set-inputs">
+                <input type="number" placeholder="kg" step="0.5"
+                  id="ss_matt_w2s2_ss2_c_s1_kg" onchange="onSSInput('ss_matt_w2s2_ss2_c_s1')" value="">
+                <span>kg ×</span>
+                <input type="number" placeholder="reps"
+                  id="ss_matt_w2s2_ss2_c_s1_rp" onchange="onSSInput('ss_matt_w2s2_ss2_c_s1')" value="">
+              </div>
+            </div>
+            <div class="ss-set-box">
+              <div class="set-label">Set 2</div>
+              <div class="set-inputs">
+                <input type="number" placeholder="kg" step="0.5"
+                  id="ss_matt_w2s2_ss2_c_s2_kg" onchange="onSSInput('ss_matt_w2s2_ss2_c_s2')" value="">
+                <span>kg ×</span>
+                <input type="number" placeholder="reps"
+                  id="ss_matt_w2s2_ss2_c_s2_rp" onchange="onSSInput('ss_matt_w2s2_ss2_c_s2')" value="">
+              </div>
+            </div>
+            <div class="ss-set-box">
+              <div class="set-label">Set 3</div>
+              <div class="set-inputs">
+                <input type="number" placeholder="kg" step="0.5"
+                  id="ss_matt_w2s2_ss2_c_s3_kg" onchange="onSSInput('ss_matt_w2s2_ss2_c_s3')" value="">
+                <span>kg ×</span>
+                <input type="number" placeholder="reps"
+                  id="ss_matt_w2s2_ss2_c_s3_rp" onchange="onSSInput('ss_matt_w2s2_ss2_c_s3')" value="">
+              </div>
+            </div></div>
+          <div class="ss-summary" id="ss_matt_w2s2_ss2_c_sum"></div>
+        </div>
   </div>
 </div>
 <div class="ss-block" id="ss_matt_w2s2_ss3">
@@ -2104,16 +2062,16 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w2s2_ss3_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Hammer Curl</div>
           <div class="ss-ex-load">10kg — 3×10–12</div>
           <div class="ss-ex-notes">Supinate at top</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Tricep Dips (Machine/Bench)</div>
-          <div class="ss-ex-load">Bodyweight — 3×10–12</div>
+          <div class="ss-ex-name">Skull Crushers</div>
+          <div class="ss-ex-load">12.5kg — 3×10–12</div>
           <div class="ss-ex-notes">Control the negative</div>
         </div>
   </div>
@@ -2197,13 +2155,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w2s2_ss4_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">FFESS (Front Foot Elevated Split Squat)</div>
           <div class="ss-ex-load">20kg — 3×10 each side</div>
           
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">DB Calf Raise (Standing)</div>
           <div class="ss-ex-load">10kg — 3×15–20</div>
@@ -2309,17 +2267,17 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w3s1_ss1_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Bench Press</div>
-          <div class="ss-ex-load">22.5kg — 4×10–12</div>
+          <div class="ss-ex-load">22.5kg — 3×10–12</div>
           <div class="ss-ex-notes">Control the descent, 2 sec down</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Seated Cable Row</div>
-          <div class="ss-ex-load">22.5kg — 4×10–12</div>
-          <div class="ss-ex-notes">Full ROM, squeeze at top</div>
+          <div class="ss-ex-name">DB Row</div>
+          <div class="ss-ex-load">22.5kg — 3×10–12</div>
+          <div class="ss-ex-notes">Controlled pull, elbow drives back</div>
         </div>
   </div>
   <div class="ss-sets-grid" id="ss_matt_w3s1_ss1_grid">
@@ -2356,16 +2314,6 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
                 <input type="number" placeholder="reps"
                   id="ss_matt_w3s1_ss1_a_s3_rp" onchange="onSSInput('ss_matt_w3s1_ss1_a_s3')" value="">
               </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 4</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w3s1_ss1_a_s4_kg" onchange="onSSInput('ss_matt_w3s1_ss1_a_s4')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w3s1_ss1_a_s4_rp" onchange="onSSInput('ss_matt_w3s1_ss1_a_s4')" value="">
-              </div>
             </div></div>
           <div class="ss-summary" id="ss_matt_w3s1_ss1_a_sum"></div>
         </div>
@@ -2401,16 +2349,6 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
                 <input type="number" placeholder="reps"
                   id="ss_matt_w3s1_ss1_b_s3_rp" onchange="onSSInput('ss_matt_w3s1_ss1_b_s3')" value="">
               </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 4</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w3s1_ss1_b_s4_kg" onchange="onSSInput('ss_matt_w3s1_ss1_b_s4')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w3s1_ss1_b_s4_rp" onchange="onSSInput('ss_matt_w3s1_ss1_b_s4')" value="">
-              </div>
             </div></div>
           <div class="ss-summary" id="ss_matt_w3s1_ss1_b_sum"></div>
         </div>
@@ -2422,13 +2360,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w3s1_ss2_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Incline DB Press</div>
           <div class="ss-ex-load">17.5kg — 3×10–12</div>
           <div class="ss-ex-notes">30–45° incline</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">DB Chest Fly</div>
           <div class="ss-ex-load">8kg — 3×12–15</div>
@@ -2515,26 +2453,20 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w3s1_ss3_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Shoulder Press</div>
           <div class="ss-ex-load">12.5kg — 3×10–12</div>
           <div class="ss-ex-notes">Press overhead, don't arch</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Lateral Raise</div>
-          <div class="ss-ex-load">5kg — 3×12–15</div>
-          <div class="ss-ex-notes">Slight forward tilt, lead with elbows</div>
-        </div>
-        <div class="ss-ex ss-col-c col-c">
-          <div class="ss-ex-header">Exercise C</div>
           <div class="ss-ex-name">Front Raise</div>
           <div class="ss-ex-load">5kg — 3×12</div>
           <div class="ss-ex-notes">Alternate arms or together</div>
         </div>
-        <div class="ss-ex ss-col-d col-d">
-          <div class="ss-ex-header">Exercise D</div>
+        <div class="ss-ex ss-col-c">
+          <div class="ss-ex-header">Exercise C</div>
           <div class="ss-ex-name">Reverse DB Fly</div>
           <div class="ss-ex-load">5kg — 3×12–15</div>
           <div class="ss-ex-notes">Slight bend in elbows, rear delts</div>
@@ -2647,41 +2579,6 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
             </div></div>
           <div class="ss-summary" id="ss_matt_w3s1_ss3_c_sum"></div>
         </div>
-        <div class="ss-col-wrap col-d">
-          <div class="ss-col-label">Exercise D</div>
-          <div class="ss-set-boxes">
-            <div class="ss-set-box">
-              <div class="set-label">Set 1</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w3s1_ss3_d_s1_kg" onchange="onSSInput('ss_matt_w3s1_ss3_d_s1')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w3s1_ss3_d_s1_rp" onchange="onSSInput('ss_matt_w3s1_ss3_d_s1')" value="">
-              </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 2</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w3s1_ss3_d_s2_kg" onchange="onSSInput('ss_matt_w3s1_ss3_d_s2')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w3s1_ss3_d_s2_rp" onchange="onSSInput('ss_matt_w3s1_ss3_d_s2')" value="">
-              </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 3</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w3s1_ss3_d_s3_kg" onchange="onSSInput('ss_matt_w3s1_ss3_d_s3')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w3s1_ss3_d_s3_rp" onchange="onSSInput('ss_matt_w3s1_ss3_d_s3')" value="">
-              </div>
-            </div></div>
-          <div class="ss-summary" id="ss_matt_w3s1_ss3_d_sum"></div>
-        </div>
   </div>
 </div>
 <div class="ss-block" id="ss_matt_w3s1_ss4">
@@ -2690,16 +2587,16 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w3s1_ss4_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Preacher Curl (DB)</div>
           <div class="ss-ex-load">10kg — 3×10–12</div>
           <div class="ss-ex-notes">Full extension at bottom</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Overhead Tricep Extension</div>
-          <div class="ss-ex-load">10kg — 3×10–12</div>
+          <div class="ss-ex-name">Skull Crushers</div>
+          <div class="ss-ex-load">12.5kg — 3×10–12</div>
           <div class="ss-ex-notes">Elbows tucked in</div>
         </div>
   </div>
@@ -2783,13 +2680,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w3s1_ss5_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">FFESS (Front Foot Elevated Split Squat)</div>
           <div class="ss-ex-load">20kg — 3×10 each side</div>
           <div class="ss-ex-notes">Lead knee tracks over toe</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">Lying Leg Extension</div>
           <div class="ss-ex-load">12.5kg — 3×12–15</div>
@@ -2876,17 +2773,17 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w3s1_ss6_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Glute Bridge</div>
           <div class="ss-ex-load">22.5kg — 3×15</div>
           <div class="ss-ex-notes">Squeeze at top, 1 sec hold</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">Plank</div>
           <div class="ss-ex-load">Bodyweight — 3×30–45 sec</div>
-          <div class="ss-ex-notes">(Core finisher)</div>
+          
         </div>
   </div>
   <div class="ss-sets-grid" id="ss_matt_w3s1_ss6_grid">
@@ -2996,17 +2893,17 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w3s2_ss1_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Bench Press</div>
           <div class="ss-ex-load">22.5kg — 3×10–12</div>
-          <div class="ss-ex-notes">Same focus as PT session</div>
+          
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Lat Pulldown</div>
-          <div class="ss-ex-load">30kg — 3×10–12</div>
-          <div class="ss-ex-notes">Full ROM</div>
+          <div class="ss-ex-name">Lat Pullover (DB)</div>
+          <div class="ss-ex-load">10kg — 3×10–12</div>
+          <div class="ss-ex-notes">Slight bend in elbows, arc over chest</div>
         </div>
   </div>
   <div class="ss-sets-grid" id="ss_matt_w3s2_ss1_grid">
@@ -3089,14 +2986,20 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w3s2_ss2_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Shoulder Press</div>
           <div class="ss-ex-load">12.5kg — 3×10–12</div>
           
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
+          <div class="ss-ex-name">Front Raise</div>
+          <div class="ss-ex-load">5kg — 3×12</div>
+          
+        </div>
+        <div class="ss-ex ss-col-c">
+          <div class="ss-ex-header">Exercise C</div>
           <div class="ss-ex-name">Reverse DB Fly</div>
           <div class="ss-ex-load">5kg — 3×12–15</div>
           
@@ -3174,6 +3077,41 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
             </div></div>
           <div class="ss-summary" id="ss_matt_w3s2_ss2_b_sum"></div>
         </div>
+        <div class="ss-col-wrap col-c">
+          <div class="ss-col-label">Exercise C</div>
+          <div class="ss-set-boxes">
+            <div class="ss-set-box">
+              <div class="set-label">Set 1</div>
+              <div class="set-inputs">
+                <input type="number" placeholder="kg" step="0.5"
+                  id="ss_matt_w3s2_ss2_c_s1_kg" onchange="onSSInput('ss_matt_w3s2_ss2_c_s1')" value="">
+                <span>kg ×</span>
+                <input type="number" placeholder="reps"
+                  id="ss_matt_w3s2_ss2_c_s1_rp" onchange="onSSInput('ss_matt_w3s2_ss2_c_s1')" value="">
+              </div>
+            </div>
+            <div class="ss-set-box">
+              <div class="set-label">Set 2</div>
+              <div class="set-inputs">
+                <input type="number" placeholder="kg" step="0.5"
+                  id="ss_matt_w3s2_ss2_c_s2_kg" onchange="onSSInput('ss_matt_w3s2_ss2_c_s2')" value="">
+                <span>kg ×</span>
+                <input type="number" placeholder="reps"
+                  id="ss_matt_w3s2_ss2_c_s2_rp" onchange="onSSInput('ss_matt_w3s2_ss2_c_s2')" value="">
+              </div>
+            </div>
+            <div class="ss-set-box">
+              <div class="set-label">Set 3</div>
+              <div class="set-inputs">
+                <input type="number" placeholder="kg" step="0.5"
+                  id="ss_matt_w3s2_ss2_c_s3_kg" onchange="onSSInput('ss_matt_w3s2_ss2_c_s3')" value="">
+                <span>kg ×</span>
+                <input type="number" placeholder="reps"
+                  id="ss_matt_w3s2_ss2_c_s3_rp" onchange="onSSInput('ss_matt_w3s2_ss2_c_s3')" value="">
+              </div>
+            </div></div>
+          <div class="ss-summary" id="ss_matt_w3s2_ss2_c_sum"></div>
+        </div>
   </div>
 </div>
 <div class="ss-block" id="ss_matt_w3s2_ss3">
@@ -3182,13 +3120,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w3s2_ss3_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Incline Curl</div>
           <div class="ss-ex-load">7.5kg — 3×10–12</div>
           <div class="ss-ex-notes">Supinate at top</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">Skull Crushers</div>
           <div class="ss-ex-load">12.5kg — 3×10–12</div>
@@ -3275,13 +3213,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w3s2_ss4_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Step Up</div>
           <div class="ss-ex-load">20kg — 3×10 each side</div>
           
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">DB Calf Raise (Standing)</div>
           <div class="ss-ex-load">10kg — 3×15–20</div>
@@ -3387,17 +3325,17 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w4s1_ss1_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Bench Press</div>
-          <div class="ss-ex-load">22.5kg — 4×10–12</div>
+          <div class="ss-ex-load">22.5kg — 3×10–12</div>
           <div class="ss-ex-notes">Control the descent, 2 sec down</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Seated Cable Row</div>
-          <div class="ss-ex-load">22.5kg — 4×10–12</div>
-          <div class="ss-ex-notes">Full ROM, squeeze at top</div>
+          <div class="ss-ex-name">Lat Pullover (DB)</div>
+          <div class="ss-ex-load">10kg — 3×10–12</div>
+          <div class="ss-ex-notes">Slight bend in elbows, arc over chest</div>
         </div>
   </div>
   <div class="ss-sets-grid" id="ss_matt_w4s1_ss1_grid">
@@ -3434,16 +3372,6 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
                 <input type="number" placeholder="reps"
                   id="ss_matt_w4s1_ss1_a_s3_rp" onchange="onSSInput('ss_matt_w4s1_ss1_a_s3')" value="">
               </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 4</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w4s1_ss1_a_s4_kg" onchange="onSSInput('ss_matt_w4s1_ss1_a_s4')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w4s1_ss1_a_s4_rp" onchange="onSSInput('ss_matt_w4s1_ss1_a_s4')" value="">
-              </div>
             </div></div>
           <div class="ss-summary" id="ss_matt_w4s1_ss1_a_sum"></div>
         </div>
@@ -3479,16 +3407,6 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
                 <input type="number" placeholder="reps"
                   id="ss_matt_w4s1_ss1_b_s3_rp" onchange="onSSInput('ss_matt_w4s1_ss1_b_s3')" value="">
               </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 4</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w4s1_ss1_b_s4_kg" onchange="onSSInput('ss_matt_w4s1_ss1_b_s4')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w4s1_ss1_b_s4_rp" onchange="onSSInput('ss_matt_w4s1_ss1_b_s4')" value="">
-              </div>
             </div></div>
           <div class="ss-summary" id="ss_matt_w4s1_ss1_b_sum"></div>
         </div>
@@ -3500,13 +3418,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w4s1_ss2_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Incline DB Press</div>
           <div class="ss-ex-load">17.5kg — 3×10–12</div>
           <div class="ss-ex-notes">30–45° incline</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">DB Chest Fly</div>
           <div class="ss-ex-load">8kg — 3×12–15</div>
@@ -3593,26 +3511,20 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w4s1_ss3_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Shoulder Press</div>
           <div class="ss-ex-load">12.5kg — 3×10–12</div>
           <div class="ss-ex-notes">Press overhead, don't arch</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Lateral Raise</div>
-          <div class="ss-ex-load">5kg — 3×12–15</div>
-          <div class="ss-ex-notes">Slight forward tilt, lead with elbows</div>
-        </div>
-        <div class="ss-ex ss-col-c col-c">
-          <div class="ss-ex-header">Exercise C</div>
           <div class="ss-ex-name">Front Raise</div>
           <div class="ss-ex-load">5kg — 3×12</div>
           <div class="ss-ex-notes">Alternate arms or together</div>
         </div>
-        <div class="ss-ex ss-col-d col-d">
-          <div class="ss-ex-header">Exercise D</div>
+        <div class="ss-ex ss-col-c">
+          <div class="ss-ex-header">Exercise C</div>
           <div class="ss-ex-name">Reverse DB Fly</div>
           <div class="ss-ex-load">5kg — 3×12–15</div>
           <div class="ss-ex-notes">Slight bend in elbows, rear delts</div>
@@ -3725,41 +3637,6 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
             </div></div>
           <div class="ss-summary" id="ss_matt_w4s1_ss3_c_sum"></div>
         </div>
-        <div class="ss-col-wrap col-d">
-          <div class="ss-col-label">Exercise D</div>
-          <div class="ss-set-boxes">
-            <div class="ss-set-box">
-              <div class="set-label">Set 1</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w4s1_ss3_d_s1_kg" onchange="onSSInput('ss_matt_w4s1_ss3_d_s1')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w4s1_ss3_d_s1_rp" onchange="onSSInput('ss_matt_w4s1_ss3_d_s1')" value="">
-              </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 2</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w4s1_ss3_d_s2_kg" onchange="onSSInput('ss_matt_w4s1_ss3_d_s2')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w4s1_ss3_d_s2_rp" onchange="onSSInput('ss_matt_w4s1_ss3_d_s2')" value="">
-              </div>
-            </div>
-            <div class="ss-set-box">
-              <div class="set-label">Set 3</div>
-              <div class="set-inputs">
-                <input type="number" placeholder="kg" step="0.5"
-                  id="ss_matt_w4s1_ss3_d_s3_kg" onchange="onSSInput('ss_matt_w4s1_ss3_d_s3')" value="">
-                <span>kg ×</span>
-                <input type="number" placeholder="reps"
-                  id="ss_matt_w4s1_ss3_d_s3_rp" onchange="onSSInput('ss_matt_w4s1_ss3_d_s3')" value="">
-              </div>
-            </div></div>
-          <div class="ss-summary" id="ss_matt_w4s1_ss3_d_sum"></div>
-        </div>
   </div>
 </div>
 <div class="ss-block" id="ss_matt_w4s1_ss4">
@@ -3768,16 +3645,16 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w4s1_ss4_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Preacher Curl (DB)</div>
           <div class="ss-ex-load">10kg — 3×10–12</div>
           <div class="ss-ex-notes">Full extension at bottom</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Overhead Tricep Extension</div>
-          <div class="ss-ex-load">10kg — 3×10–12</div>
+          <div class="ss-ex-name">Skull Crushers</div>
+          <div class="ss-ex-load">12.5kg — 3×10–12</div>
           <div class="ss-ex-notes">Elbows tucked in</div>
         </div>
   </div>
@@ -3861,13 +3738,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w4s1_ss5_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Step Up</div>
           <div class="ss-ex-load">20kg — 3×10 each side</div>
           <div class="ss-ex-notes">Lead knee tracks over toe</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">Lying Leg Extension</div>
           <div class="ss-ex-load">12.5kg — 3×12–15</div>
@@ -3954,17 +3831,17 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w4s1_ss6_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Glute Bridge</div>
           <div class="ss-ex-load">22.5kg — 3×15</div>
           <div class="ss-ex-notes">Squeeze at top, 1 sec hold</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">Plank</div>
           <div class="ss-ex-load">Bodyweight — 3×30–45 sec</div>
-          <div class="ss-ex-notes">(Core finisher)</div>
+          
         </div>
   </div>
   <div class="ss-sets-grid" id="ss_matt_w4s1_ss6_grid">
@@ -4074,17 +3951,17 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w4s2_ss1_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Bench Press</div>
           <div class="ss-ex-load">22.5kg — 3×10–12</div>
-          <div class="ss-ex-notes">Same focus as PT session</div>
+          
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Lat Pulldown</div>
-          <div class="ss-ex-load">30kg — 3×10–12</div>
-          <div class="ss-ex-notes">Full ROM</div>
+          <div class="ss-ex-name">DB Row</div>
+          <div class="ss-ex-load">22.5kg — 3×10–12</div>
+          <div class="ss-ex-notes">Controlled pull, elbow drives back</div>
         </div>
   </div>
   <div class="ss-sets-grid" id="ss_matt_w4s2_ss1_grid">
@@ -4167,15 +4044,21 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w4s2_ss2_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">DB Shoulder Press</div>
           <div class="ss-ex-load">12.5kg — 3×10–12</div>
           
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
-          <div class="ss-ex-name">Lateral Raise</div>
+          <div class="ss-ex-name">Front Raise</div>
+          <div class="ss-ex-load">5kg — 3×12</div>
+          
+        </div>
+        <div class="ss-ex ss-col-c">
+          <div class="ss-ex-header">Exercise C</div>
+          <div class="ss-ex-name">Reverse DB Fly</div>
           <div class="ss-ex-load">5kg — 3×12–15</div>
           
         </div>
@@ -4252,6 +4135,41 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
             </div></div>
           <div class="ss-summary" id="ss_matt_w4s2_ss2_b_sum"></div>
         </div>
+        <div class="ss-col-wrap col-c">
+          <div class="ss-col-label">Exercise C</div>
+          <div class="ss-set-boxes">
+            <div class="ss-set-box">
+              <div class="set-label">Set 1</div>
+              <div class="set-inputs">
+                <input type="number" placeholder="kg" step="0.5"
+                  id="ss_matt_w4s2_ss2_c_s1_kg" onchange="onSSInput('ss_matt_w4s2_ss2_c_s1')" value="">
+                <span>kg ×</span>
+                <input type="number" placeholder="reps"
+                  id="ss_matt_w4s2_ss2_c_s1_rp" onchange="onSSInput('ss_matt_w4s2_ss2_c_s1')" value="">
+              </div>
+            </div>
+            <div class="ss-set-box">
+              <div class="set-label">Set 2</div>
+              <div class="set-inputs">
+                <input type="number" placeholder="kg" step="0.5"
+                  id="ss_matt_w4s2_ss2_c_s2_kg" onchange="onSSInput('ss_matt_w4s2_ss2_c_s2')" value="">
+                <span>kg ×</span>
+                <input type="number" placeholder="reps"
+                  id="ss_matt_w4s2_ss2_c_s2_rp" onchange="onSSInput('ss_matt_w4s2_ss2_c_s2')" value="">
+              </div>
+            </div>
+            <div class="ss-set-box">
+              <div class="set-label">Set 3</div>
+              <div class="set-inputs">
+                <input type="number" placeholder="kg" step="0.5"
+                  id="ss_matt_w4s2_ss2_c_s3_kg" onchange="onSSInput('ss_matt_w4s2_ss2_c_s3')" value="">
+                <span>kg ×</span>
+                <input type="number" placeholder="reps"
+                  id="ss_matt_w4s2_ss2_c_s3_rp" onchange="onSSInput('ss_matt_w4s2_ss2_c_s3')" value="">
+              </div>
+            </div></div>
+          <div class="ss-summary" id="ss_matt_w4s2_ss2_c_sum"></div>
+        </div>
   </div>
 </div>
 <div class="ss-block" id="ss_matt_w4s2_ss3">
@@ -4260,13 +4178,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w4s2_ss3_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">Hammer Curl</div>
           <div class="ss-ex-load">10kg — 3×10–12</div>
           <div class="ss-ex-notes">Supinate at top</div>
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">Skull Crushers</div>
           <div class="ss-ex-load">12.5kg — 3×10–12</div>
@@ -4353,13 +4271,13 @@ Step Up — <strong style="color:var(--purple-lt)">20kg</strong>
     <button class="ss-toggle" id="ss_matt_w4s2_ss4_btn">Expand Sets ▾</button>
   </div>
   <div class="ss-exercises">
-        <div class="ss-ex ss-col-a col-a">
+        <div class="ss-ex ss-col-a">
           <div class="ss-ex-header">Exercise A</div>
           <div class="ss-ex-name">FFESS (Front Foot Elevated Split Squat)</div>
           <div class="ss-ex-load">20kg — 3×10 each side</div>
           
         </div>
-        <div class="ss-ex ss-col-b col-b">
+        <div class="ss-ex ss-col-b">
           <div class="ss-ex-header">Exercise B</div>
           <div class="ss-ex-name">DB Calf Raise (Standing)</div>
           <div class="ss-ex-load">10kg — 3×15–20</div>
@@ -4485,18 +4403,14 @@ function onSSInput(key){
 }
 
 function updateSSSummary(key){
-  // key format: ss_matt_w1s1_ss1_a_s1
   var parts=key.split('_');
-  // block id = ss_matt_w1s1_ss1, col = a/b/c/d
-  // find col and block
-  var setIdx=parts[parts.length-1]; // s1,s2...
-  var col=parts[parts.length-2];    // a,b,c,d
+  var col=parts[parts.length-2];
   var blockId=parts.slice(0,-2).join('_');
   var sumEl=document.getElementById(blockId+'_'+col+'_sum');
   if(!sumEl)return;
   var data=JSON.parse(localStorage.getItem(clientId+'_ss')||'{}');
   var sets=[];
-  for(var i=1;i<=6;i++){
+  for(var i=1;i<=3;i++){
     var k=blockId+'_'+col+'_s'+i;
     if(data[k]&&data[k].kg&&data[k].rp)sets.push(data[k].kg+'kg × '+data[k].rp);
   }
@@ -4512,7 +4426,7 @@ function loadSSSummaries(blockId){
       var sumEl=document.getElementById(blockId+'_'+col+'_sum');
       if(sumEl){
         var sets=[];
-        for(var i=1;i<=6;i++){
+        for(var i=1;i<=3;i++){
           var k=blockId+'_'+col+'_s'+i;
           if(data[k]&&data[k].kg&&data[k].rp)sets.push(data[k].kg+'kg × '+data[k].rp);
         }
